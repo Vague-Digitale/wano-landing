@@ -48,14 +48,14 @@ export default function Navbar() {
       if (mobileMenuOpen) {
         gsap.to(mobileMenuRef.current, {
           opacity: 1,
-          y: 0,
+          yPercent: 0,
           duration: 0.3,
           ease: "power3.out",
         });
       } else {
         gsap.to(mobileMenuRef.current, {
           opacity: 0,
-          y: -10,
+          yPercent: -5,
           duration: 0.2,
           ease: "power3.in",
         });
@@ -133,10 +133,10 @@ export default function Navbar() {
       {/* Mobile menu dropdown */}
       <div
         ref={mobileMenuRef}
-        className={`fixed top-24 left-1/2 -translate-x-1/2 z-40 w-[90%] max-w-sm bg-white rounded-2xl shadow-xl border border-[#e5e6e6] p-6 md:hidden ${
+        className={`fixed top-24 left-[5%] right-[5%] z-40 max-w-sm mx-auto bg-white rounded-2xl shadow-xl border border-[#e5e6e6] p-6 md:hidden ${
           mobileMenuOpen ? "pointer-events-auto" : "pointer-events-none"
         }`}
-        style={{ opacity: 0, transform: "translateX(-50%) translateY(-10px)" }}
+        style={{ opacity: 0 }}
       >
         <ul className="space-y-2">
           {navLinks.map((link) => (
