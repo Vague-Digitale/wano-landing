@@ -39,9 +39,9 @@ const gtWalsheim = localFont({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://wanoapp.com"),
-  title: "Wano - Gerez votre business en toute simplicite",
+  title: "Wano - Gérez votre business en toute simplicité",
   description:
-    "Wano est la plateforme tout-en-un pour gerer votre commerce. Stock, ventes en ligne et en boutique, facturation, analytics. Commencez gratuitement et evoluez a votre rythme.",
+    "Wano est la plateforme tout-en-un pour gérer votre commerce. Stock, ventes en ligne et en boutique, facturation, analytics. Commencez gratuitement et évoluez à votre rythme.",
   keywords: [
     "gestion de stock",
     "logiciel de caisse",
@@ -50,7 +50,7 @@ export const metadata: Metadata = {
     "POS",
     "facturation",
     "gestion commerciale",
-    "Cote d'Ivoire",
+    "Côte d'Ivoire",
     "Afrique",
     "FCFA",
   ],
@@ -61,9 +61,9 @@ export const metadata: Metadata = {
     locale: "fr_FR",
     url: "https://wanoapp.com",
     siteName: "Wano",
-    title: "Wano - Gerez votre business en toute simplicite",
+    title: "Wano - Gérez votre business en toute simplicité",
     description:
-      "La plateforme tout-en-un pour gerer votre commerce. Commencez gratuitement.",
+      "La plateforme tout-en-un pour gérer votre commerce. Commencez gratuitement.",
     images: [
       {
         url: "/og-image.png",
@@ -75,9 +75,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Wano - Gerez votre business en toute simplicite",
+    title: "Wano - Gérez votre business en toute simplicité",
     description:
-      "La plateforme tout-en-un pour gerer votre commerce. Commencez gratuitement.",
+      "La plateforme tout-en-un pour gérer votre commerce. Commencez gratuitement.",
     images: ["/og-image.png"],
   },
   robots: {
