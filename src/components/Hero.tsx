@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Image from "next/image";
@@ -8,67 +8,14 @@ import Lenis from "lenis";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const heroTexts = [
-  {
-    id: "text-1",
-    content: (
-      <>
-        <span className="word">Gerez</span> <span className="word">votre</span>{" "}
-        <span className="word">business</span>
-        <br />
-        <span className="word">en</span> <span className="word">toute</span>{" "}
-        <span className="word">
-          <span className="highlight">simplicite</span>
-        </span>
-      </>
-    ),
-  },
-  {
-    id: "text-2",
-    content: (
-      <>
-        <span className="word">Commencez</span>{" "}
-        <span className="word">
-          <span className="highlight">gratuitement</span>
-        </span>
-        <br />
-        <span className="word">evoluez</span> <span className="word">a</span>{" "}
-        <span className="word">votre</span>{" "}
-        <span className="word">
-          <span className="highlight">rythme</span>
-        </span>
-      </>
-    ),
-  },
-  {
-    id: "text-3",
-    content: (
-      <>
-        <span className="word">En</span>{" "}
-        <span className="word">
-          <span className="highlight">ligne</span>
-        </span>{" "}
-        <span className="word">et</span>
-        <br />
-        <span className="word">
-          <span className="highlight">en boutique</span>
-        </span>
-      </>
-    ),
-  },
-  {
-    id: "text-4",
-    content: (
-      <>
-        <span className="word">Votre</span> <span className="word">nouvelle</span>
-        <br />
-        <span className="word">
-          <span className="highlight">plateforme</span>
-        </span>
-      </>
-    ),
-  },
-];
+// Pre-split text into characters for animation
+function splitText(text: string, isHighlight = false) {
+  return text.split("").map((char, i) => (
+    <span key={i} className={`char ${isHighlight ? "highlight" : ""}`}>
+      {char === " " ? "\u00A0" : char}
+    </span>
+  ));
+}
 
 const backgroundImages = [
   {
@@ -97,32 +44,21 @@ const backgroundImages = [
   },
 ];
 
-function splitTextIntoChars(element: HTMLElement) {
-  const words = element.querySelectorAll(".word");
-  words.forEach((word) => {
-    const text = word.textContent || "";
-    word.innerHTML = "";
-    text.split("").forEach((char) => {
-      const span = document.createElement("span");
-      span.className = "char";
-      span.textContent = char === " " ? "\u00A0" : char;
-      word.appendChild(span);
-    });
-  });
-}
-
 export default function Hero() {
   const heroRef = useRef<HTMLDivElement>(null);
   const scrollIndicatorRef = useRef<HTMLDivElement>(null);
+  const [mounted, setMounted] = useState(false);
+
+  // Wait for mount to avoid hydration issues
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   useEffect(() => {
+    if (!mounted) return;
+
     const hero = heroRef.current;
     if (!hero) return;
-
-    // Split text into chars
-    hero
-      .querySelectorAll("h1")
-      .forEach((h1) => splitTextIntoChars(h1 as HTMLElement));
 
     // Initial text animation - text-1 chars animate in
     gsap.to(".text-1 .char", {
@@ -369,12 +305,13 @@ export default function Hero() {
 
     return () => {
       ScrollTrigger.getAll().forEach((t) => t.kill());
+      gsap.killTweensOf("*");
       scrollIndicatorRef.current?.removeEventListener(
         "click",
         handleScrollClick
       );
     };
-  }, []);
+  }, [mounted]);
 
   return (
     <section
@@ -388,16 +325,44 @@ export default function Hero() {
 
       {/* Hero content */}
       <div className="hero-content relative z-10 text-center w-full px-[5%]">
-        {heroTexts.map((textGroup, index) => (
-          <h1
-            key={textGroup.id}
-            className={`${textGroup.id} text-[clamp(2.8rem,7vw,7rem)] font-extrabold absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 max-w-[90%] leading-[1.05] tracking-[-0.04em] text-gray-900 pointer-events-none ${
-              index === 0 ? "opacity-100" : "opacity-0"
-            }`}
-          >
-            {textGroup.content}
-          </h1>
-        ))}
+        {/* Text 1: Gerez votre business en toute simplicite */}
+        <h1 className="text-1 text-[clamp(2.8rem,7vw,7rem)] font-extrabold absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 max-w-[90%] leading-[1.05] tracking-[-0.04em] text-gray-900 pointer-events-none opacity-100">
+          <span className="word">{splitText("Gerez")}</span>{" "}
+          <span className="word">{splitText("votre")}</span>{" "}
+          <span className="word">{splitText("business")}</span>
+          <br />
+          <span className="word">{splitText("en")}</span>{" "}
+          <span className="word">{splitText("toute")}</span>{" "}
+          <span className="word">{splitText("simplicite", true)}</span>
+        </h1>
+
+        {/* Text 2: Commencez gratuitement evoluez a votre rythme */}
+        <h1 className="text-2 text-[clamp(2.8rem,7vw,7rem)] font-extrabold absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 max-w-[90%] leading-[1.05] tracking-[-0.04em] text-gray-900 pointer-events-none opacity-0">
+          <span className="word">{splitText("Commencez")}</span>{" "}
+          <span className="word">{splitText("gratuitement", true)}</span>
+          <br />
+          <span className="word">{splitText("evoluez")}</span>{" "}
+          <span className="word">{splitText("a")}</span>{" "}
+          <span className="word">{splitText("votre")}</span>{" "}
+          <span className="word">{splitText("rythme", true)}</span>
+        </h1>
+
+        {/* Text 3: En ligne et en boutique */}
+        <h1 className="text-3 text-[clamp(2.8rem,7vw,7rem)] font-extrabold absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 max-w-[90%] leading-[1.05] tracking-[-0.04em] text-gray-900 pointer-events-none opacity-0">
+          <span className="word">{splitText("En")}</span>{" "}
+          <span className="word">{splitText("ligne", true)}</span>{" "}
+          <span className="word">{splitText("et")}</span>
+          <br />
+          <span className="word">{splitText("en boutique", true)}</span>
+        </h1>
+
+        {/* Text 4: Votre nouvelle plateforme */}
+        <h1 className="text-4 text-[clamp(2.8rem,7vw,7rem)] font-extrabold absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 max-w-[90%] leading-[1.05] tracking-[-0.04em] text-gray-900 pointer-events-none opacity-0">
+          <span className="word">{splitText("Votre")}</span>{" "}
+          <span className="word">{splitText("nouvelle")}</span>
+          <br />
+          <span className="word">{splitText("plateforme", true)}</span>
+        </h1>
       </div>
 
       {/* Scroll indicator */}
