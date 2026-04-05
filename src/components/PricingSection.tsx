@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import {
@@ -11,7 +11,9 @@ import {
   Store04Icon,
 } from "hugeicons-react";
 
-gsap.registerPlugin(ScrollTrigger);
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger);
+}
 
 const includedFeatures = [
   "Gestion de stock illimitee",
@@ -54,8 +56,15 @@ const pricingOptions = [
 
 export default function PricingSection() {
   const sectionRef = useRef<HTMLElement>(null);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (!mounted) return;
+
     const ctx = gsap.context(() => {
       gsap.from(".pricing-header > *", {
         opacity: 0,
@@ -97,7 +106,7 @@ export default function PricingSection() {
     }, sectionRef);
 
     return () => ctx.revert();
-  }, []);
+  }, [mounted]);
 
   return (
     <section

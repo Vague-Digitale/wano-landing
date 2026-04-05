@@ -1,12 +1,14 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Image from "next/image";
 import { ArrowRight02Icon } from "hugeicons-react";
 
-gsap.registerPlugin(ScrollTrigger);
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger);
+}
 
 const features = [
   {
@@ -77,8 +79,15 @@ const features = [
 
 export default function FeaturesSection() {
   const sectionRef = useRef<HTMLDivElement>(null);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (!mounted) return;
+
     const ctx = gsap.context(() => {
       // Animate each feature section
       features.forEach((feature) => {
@@ -150,7 +159,7 @@ export default function FeaturesSection() {
     }, sectionRef);
 
     return () => ctx.revert();
-  }, []);
+  }, [mounted]);
 
   return (
     <div ref={sectionRef} id="features">

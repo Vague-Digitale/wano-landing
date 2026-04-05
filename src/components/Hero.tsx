@@ -6,15 +6,8 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Image from "next/image";
 import Lenis from "lenis";
 
-gsap.registerPlugin(ScrollTrigger);
-
-// Pre-split text into characters for animation
-function splitText(text: string, isHighlight = false) {
-  return text.split("").map((char, i) => (
-    <span key={i} className={`char ${isHighlight ? "highlight" : ""}`}>
-      {char === " " ? "\u00A0" : char}
-    </span>
-  ));
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger);
 }
 
 const backgroundImages = [
@@ -22,25 +15,21 @@ const backgroundImages = [
     src: "https://images.unsplash.com/photo-1556761175-b413da4baf72?w=400&h=500&fit=crop",
     alt: "Business management",
     style: { top: "8%", left: "8%" },
-    speed: 0.8,
   },
   {
     src: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&h=500&fit=crop",
     alt: "Analytics dashboard",
     style: { top: "15%", right: "12%" },
-    speed: 0.6,
   },
   {
     src: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&h=500&fit=crop",
     alt: "Sales tracking",
     style: { bottom: "12%", left: "15%" },
-    speed: 0.9,
   },
   {
     src: "https://images.unsplash.com/photo-1557804506-669a67965ba0?w=400&h=500&fit=crop",
     alt: "Team collaboration",
     style: { bottom: "18%", right: "18%" },
-    speed: 0.7,
   },
 ];
 
@@ -49,7 +38,6 @@ export default function Hero() {
   const scrollIndicatorRef = useRef<HTMLDivElement>(null);
   const [mounted, setMounted] = useState(false);
 
-  // Wait for mount to avoid hydration issues
   useEffect(() => {
     setMounted(true);
   }, []);
@@ -60,240 +48,123 @@ export default function Hero() {
     const hero = heroRef.current;
     if (!hero) return;
 
-    // Initial text animation - text-1 chars animate in
-    gsap.to(".text-1 .char", {
-      y: 0,
-      opacity: 1,
-      duration: 1.2,
-      stagger: 0.03,
-      ease: "power4.out",
-      delay: 0.8,
-    });
+    // Initial animations (on page load)
+    const introTL = gsap.timeline();
 
-    // Scroll indicator animation
-    gsap.from(scrollIndicatorRef.current, {
-      opacity: 0,
-      y: 30,
+    // Fade in hero text
+    introTL.to(".hero-title", {
+      opacity: 1,
+      y: 0,
       duration: 1,
-      delay: 2,
       ease: "power3.out",
     });
 
-    // Main scroll timeline
-    const heroTL = gsap.timeline({
+    introTL.to(".hero-subtitle", {
+      opacity: 1,
+      y: 0,
+      duration: 0.8,
+      ease: "power3.out",
+    }, "-=0.5");
+
+    introTL.to(".hero-cta", {
+      opacity: 1,
+      y: 0,
+      duration: 0.8,
+      ease: "power3.out",
+    }, "-=0.5");
+
+    // Scroll indicator
+    introTL.to(scrollIndicatorRef.current, {
+      opacity: 1,
+      y: 0,
+      duration: 0.6,
+      ease: "power3.out",
+    }, "-=0.3");
+
+    // Main scroll timeline - simplified
+    const scrollTL = gsap.timeline({
       scrollTrigger: {
         trigger: hero,
         start: "top top",
-        end: "+=400%",
-        scrub: 1.5,
+        end: "+=200%",
+        scrub: 1,
         pin: true,
         anticipatePin: 1,
       },
     });
 
-    // Hide scroll indicator at start
-    heroTL.to(
-      scrollIndicatorRef.current,
-      {
-        opacity: 0,
-        y: -30,
-        duration: 0.5,
-      },
-      0
-    );
+    // Hide scroll indicator
+    scrollTL.to(scrollIndicatorRef.current, {
+      opacity: 0,
+      y: -20,
+      duration: 0.3,
+    }, 0);
 
-    // Text 1 chars go out
-    heroTL.to(
-      ".text-1 .char",
-      {
-        y: -80,
-        opacity: 0,
-        stagger: 0.02,
-        duration: 1,
-        ease: "power3.in",
-      },
-      0.8
-    );
+    // Fade out hero text slightly and move up
+    scrollTL.to(".hero-title", {
+      y: -60,
+      opacity: 0.3,
+      scale: 0.95,
+      duration: 1,
+    }, 0);
 
-    // Text 2 appears + background images
-    heroTL
-      .to(".text-2", { opacity: 1, duration: 0.3 }, 1.2)
-      .to(
-        ".text-2 .char",
-        {
-          y: 0,
-          opacity: 1,
-          stagger: 0.02,
-          duration: 1,
-          ease: "power3.out",
-        },
-        1.2
-      )
-      .fromTo(
-        ".bg-image",
-        {
-          opacity: 0,
-          scale: 1.3,
-          filter: "blur(20px)",
-          y: (i: number) => [100, 120, 80, 110][i],
-        },
-        {
-          opacity: 0.5,
-          scale: 1,
-          filter: "blur(0px)",
-          y: 0,
-          stagger: 0.15,
-          duration: 1.5,
-          ease: "power4.out",
-        },
-        1.2
-      );
+    scrollTL.to(".hero-subtitle", {
+      y: -40,
+      opacity: 0,
+      duration: 0.8,
+    }, 0);
 
-    // Text 2 chars go out
-    heroTL.to(
-      ".text-2 .char",
-      {
-        y: -80,
-        opacity: 0,
-        stagger: 0.02,
-        duration: 1,
-        ease: "power3.in",
-      },
-      3
-    );
+    scrollTL.to(".hero-cta", {
+      y: -30,
+      opacity: 0,
+      duration: 0.6,
+    }, 0);
 
-    // Text 3 appears + image movement
-    heroTL
-      .to(".text-3", { opacity: 1, duration: 0.3 }, 3.4)
-      .to(
-        ".text-3 .char",
-        {
-          y: 0,
-          opacity: 1,
-          stagger: 0.02,
-          duration: 1,
-          ease: "power3.out",
-        },
-        3.4
-      )
-      .to(
-        ".bg-image",
-        {
-          x: (i: number) => [60, -70, 50, -60][i],
-          y: (i: number) => [-40, -50, 40, 50][i],
-          rotate: (i: number) => [3, -3, 2, -2][i],
-          stagger: 0.08,
-          duration: 1.5,
-          ease: "power2.out",
-        },
-        3.4
-      );
+    // Background images appear
+    scrollTL.fromTo(".bg-image", {
+      opacity: 0,
+      scale: 1.2,
+      y: 50,
+    }, {
+      opacity: 0.6,
+      scale: 1,
+      y: 0,
+      stagger: 0.1,
+      duration: 1,
+    }, 0.3);
 
-    // Text 3 slides left
-    heroTL.to(
-      ".text-3",
-      {
-        x: -500,
-        opacity: 0,
-        duration: 1.5,
-        ease: "power2.inOut",
-      },
-      4.8
-    );
+    // Main mockup appears
+    scrollTL.fromTo(".main-image", {
+      opacity: 0,
+      scale: 0.8,
+      y: 100,
+    }, {
+      opacity: 1,
+      scale: 1,
+      y: 0,
+      duration: 1.5,
+    }, 0.8);
 
-    // Background images fade
-    heroTL.to(
-      ".bg-image",
-      {
-        opacity: 0.1,
-        scale: 0.9,
-        duration: 1,
-      },
-      6
-    );
+    // Hide title completely
+    scrollTL.to(".hero-title", {
+      opacity: 0,
+      duration: 0.5,
+    }, 1.5);
 
-    // Text 4 appears
-    heroTL
-      .to(".text-4", { opacity: 1, duration: 0.3 }, 6.5)
-      .to(
-        ".text-4 .char",
-        {
-          y: 0,
-          opacity: 1,
-          stagger: 0.02,
-          duration: 1,
-          ease: "power3.out",
-        },
-        6.5
-      );
+    // Background images fade out
+    scrollTL.to(".bg-image", {
+      opacity: 0.1,
+      scale: 0.95,
+      duration: 0.8,
+    }, 1.8);
 
-    // Main image appears
-    heroTL.fromTo(
-      ".main-image",
-      {
-        opacity: 0,
-        scale: 0.6,
-        y: 100,
-      },
-      {
-        opacity: 1,
-        scale: 1,
-        y: 0,
-        duration: 2,
-        ease: "power4.out",
-      },
-      7
-    );
+    // Main image scales up slightly
+    scrollTL.to(".main-image", {
+      scale: 1.05,
+      duration: 1,
+    }, 2);
 
-    // Text 4 chars go out
-    heroTL.to(
-      ".text-4 .char",
-      {
-        y: -50,
-        opacity: 0,
-        stagger: 0.01,
-        duration: 0.8,
-      },
-      8.5
-    );
-
-    // Main image scales up
-    heroTL.to(
-      ".main-image",
-      {
-        scale: 1.15,
-        duration: 1.5,
-        ease: "power2.inOut",
-      },
-      9
-    );
-
-    // Background images container fades
-    heroTL.to(
-      ".background-images",
-      {
-        opacity: 0,
-        duration: 1,
-      },
-      9
-    );
-
-    // Parallax for background images
-    gsap.utils.toArray<HTMLElement>(".bg-image").forEach((img) => {
-      const speed = parseFloat(img.dataset.speed || "0.5");
-      gsap.to(img, {
-        y: () => -100 * speed,
-        ease: "none",
-        scrollTrigger: {
-          trigger: hero,
-          start: "top top",
-          end: "bottom top",
-          scrub: true,
-        },
-      });
-    });
-
-    // Scroll indicator click
+    // Scroll indicator click handler
     const handleScrollClick = () => {
       const lenis = (window as unknown as { lenis?: Lenis }).lenis;
       if (lenis) {
@@ -306,10 +177,7 @@ export default function Hero() {
     return () => {
       ScrollTrigger.getAll().forEach((t) => t.kill());
       gsap.killTweensOf("*");
-      scrollIndicatorRef.current?.removeEventListener(
-        "click",
-        handleScrollClick
-      );
+      scrollIndicatorRef.current?.removeEventListener("click", handleScrollClick);
     };
   }, [mounted]);
 
@@ -317,61 +185,47 @@ export default function Hero() {
     <section
       ref={heroRef}
       id="accueil"
-      className="hero min-h-screen relative flex items-center justify-center pt-24 overflow-hidden bg-[#fbfbfc]"
+      className="hero min-h-screen relative flex items-center justify-center overflow-hidden bg-[#fbfbfc]"
     >
       {/* Auras */}
       <div className="hero-aura-1" />
       <div className="hero-aura-2" />
 
       {/* Hero content */}
-      <div className="hero-content relative z-10 text-center w-full px-[5%]">
-        {/* Text 1: Gerez votre business en toute simplicite */}
-        <h1 className="text-1 text-[clamp(2.8rem,7vw,7rem)] font-extrabold absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 max-w-[90%] leading-[1.05] tracking-[-0.04em] text-gray-900 pointer-events-none opacity-100">
-          <span className="word">{splitText("Gerez")}</span>{" "}
-          <span className="word">{splitText("votre")}</span>{" "}
-          <span className="word">{splitText("business")}</span>
-          <br />
-          <span className="word">{splitText("en")}</span>{" "}
-          <span className="word">{splitText("toute")}</span>{" "}
-          <span className="word">{splitText("simplicite", true)}</span>
+      <div className="hero-content relative z-10 text-center w-full px-[5%] max-w-5xl mx-auto">
+        <h1 className="hero-title text-[clamp(2.5rem,6vw,5rem)] font-extrabold leading-[1.1] tracking-tight text-gray-900 mb-6 opacity-0 translate-y-8">
+          Gerez votre business<br />
+          en toute <span className="highlight">simplicite</span>
         </h1>
 
-        {/* Text 2: Commencez gratuitement evoluez a votre rythme */}
-        <h1 className="text-2 text-[clamp(2.8rem,7vw,7rem)] font-extrabold absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 max-w-[90%] leading-[1.05] tracking-[-0.04em] text-gray-900 pointer-events-none opacity-0">
-          <span className="word">{splitText("Commencez")}</span>{" "}
-          <span className="word">{splitText("gratuitement", true)}</span>
-          <br />
-          <span className="word">{splitText("evoluez")}</span>{" "}
-          <span className="word">{splitText("a")}</span>{" "}
-          <span className="word">{splitText("votre")}</span>{" "}
-          <span className="word">{splitText("rythme", true)}</span>
-        </h1>
+        <p className="hero-subtitle text-lg md:text-xl text-[#6b7271] max-w-2xl mx-auto mb-8 opacity-0 translate-y-8">
+          Stock, ventes en ligne et en boutique, facturation, analytics.
+          Tout au meme endroit, accessible partout.
+        </p>
 
-        {/* Text 3: En ligne et en boutique */}
-        <h1 className="text-3 text-[clamp(2.8rem,7vw,7rem)] font-extrabold absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 max-w-[90%] leading-[1.05] tracking-[-0.04em] text-gray-900 pointer-events-none opacity-0">
-          <span className="word">{splitText("En")}</span>{" "}
-          <span className="word">{splitText("ligne", true)}</span>{" "}
-          <span className="word">{splitText("et")}</span>
-          <br />
-          <span className="word">{splitText("en boutique", true)}</span>
-        </h1>
-
-        {/* Text 4: Votre nouvelle plateforme */}
-        <h1 className="text-4 text-[clamp(2.8rem,7vw,7rem)] font-extrabold absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 max-w-[90%] leading-[1.05] tracking-[-0.04em] text-gray-900 pointer-events-none opacity-0">
-          <span className="word">{splitText("Votre")}</span>{" "}
-          <span className="word">{splitText("nouvelle")}</span>
-          <br />
-          <span className="word">{splitText("plateforme", true)}</span>
-        </h1>
+        <div className="hero-cta flex flex-col sm:flex-row gap-4 justify-center opacity-0 translate-y-8">
+          <a
+            href="https://console.wanoapp.com"
+            className="px-8 py-4 bg-[#028175] hover:bg-[#027469] text-white rounded-full font-bold text-lg hover:-translate-y-1 hover:shadow-xl hover:shadow-[#028175]/30 transition-all"
+          >
+            Commencer gratuitement
+          </a>
+          <a
+            href="#features"
+            className="px-8 py-4 border-2 border-[#028175] text-[#028175] rounded-full font-bold text-lg hover:bg-[#F4FCF3] hover:-translate-y-1 transition-all"
+          >
+            Decouvrir
+          </a>
+        </div>
       </div>
 
       {/* Scroll indicator */}
       <div
         ref={scrollIndicatorRef}
-        className="scroll-indicator absolute bottom-12 left-1/2 -translate-x-1/2 z-20 text-center cursor-pointer"
+        className="scroll-indicator absolute bottom-8 left-1/2 -translate-x-1/2 z-20 text-center cursor-pointer opacity-0 translate-y-4"
       >
-        <p className="text-xs uppercase tracking-[4px] mb-4 text-[#6b7271] font-semibold">
-          Decouvrir
+        <p className="text-xs uppercase tracking-[3px] mb-3 text-[#6b7271] font-semibold">
+          Scroll
         </p>
         <div className="scroll-arrow w-6 h-10 border-2 border-[#028175] rounded-[20px] mx-auto relative hover:border-[#027469] transition-colors" />
       </div>
@@ -381,15 +235,14 @@ export default function Hero() {
         {backgroundImages.map((img, index) => (
           <div
             key={index}
-            className="bg-image absolute w-[200px] h-[280px] sm:w-[240px] sm:h-[320px] md:w-[280px] md:h-[380px] rounded-3xl opacity-0 shadow-[0_25px_60px_rgba(0,0,0,0.1)] will-change-transform overflow-hidden"
+            className="bg-image absolute w-[180px] h-[240px] sm:w-[220px] sm:h-[300px] md:w-[260px] md:h-[350px] rounded-2xl opacity-0 shadow-xl overflow-hidden"
             style={img.style}
-            data-speed={img.speed}
           >
             <Image
               src={img.src}
               alt={img.alt}
               fill
-              sizes="(max-width: 640px) 200px, (max-width: 768px) 240px, 280px"
+              sizes="(max-width: 640px) 180px, (max-width: 768px) 220px, 260px"
               className="object-cover"
             />
           </div>
@@ -398,11 +251,10 @@ export default function Hero() {
 
       {/* Main laptop mockup */}
       <div
-        className="main-image absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-[15] opacity-0 rounded-[20px] bg-white p-3 sm:p-5 pb-10 sm:pb-[60px] will-change-transform"
+        className="main-image absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-[15] opacity-0 rounded-2xl bg-white p-3 sm:p-4 shadow-2xl"
         style={{
-          width: "min(90vw, 900px)",
+          width: "min(85vw, 800px)",
           aspectRatio: "16/10",
-          boxShadow: "0 40px 100px rgba(0, 0, 0, 0.15)",
         }}
       >
         <div className="screen w-full h-full rounded-xl overflow-hidden bg-[#eff0f0] relative">
@@ -410,7 +262,7 @@ export default function Hero() {
             src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&h=800&fit=crop"
             alt="Interface Wano - Tableau de bord de gestion"
             fill
-            sizes="(max-width: 768px) 90vw, 900px"
+            sizes="(max-width: 768px) 85vw, 800px"
             className="object-cover"
             priority
           />

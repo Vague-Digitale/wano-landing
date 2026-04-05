@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Image from "next/image";
@@ -11,7 +11,9 @@ import {
   Globe02Icon,
 } from "hugeicons-react";
 
-gsap.registerPlugin(ScrollTrigger);
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger);
+}
 
 const deviceFeatures = [
   {
@@ -38,8 +40,15 @@ const deviceFeatures = [
 
 export default function MultiDeviceSection() {
   const sectionRef = useRef<HTMLElement>(null);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (!mounted) return;
+
     const ctx = gsap.context(() => {
       // Text animation
       gsap.from(".device-text > *", {
@@ -101,7 +110,7 @@ export default function MultiDeviceSection() {
     }, sectionRef);
 
     return () => ctx.revert();
-  }, []);
+  }, [mounted]);
 
   return (
     <section
