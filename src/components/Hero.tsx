@@ -11,23 +11,23 @@ gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 const backgroundImages = [
   {
-    src: "https://images.unsplash.com/photo-1556761175-b413da4baf72?w=400&h=500&fit=crop",
-    alt: "Business management",
+    src: "/wano-desktop-view.webp",
+    alt: "Tableau de bord Wano",
     style: { top: "8%", left: "8%" },
   },
   {
-    src: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&h=500&fit=crop",
-    alt: "Analytics dashboard",
+    src: "/wano-phoneview.webp",
+    alt: "Wano mobile",
     style: { top: "15%", right: "12%" },
   },
   {
-    src: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&h=500&fit=crop",
-    alt: "Sales tracking",
+    src: "/wano-desktop-view.webp",
+    alt: "Gestion des ventes",
     style: { bottom: "12%", left: "15%" },
   },
   {
-    src: "https://images.unsplash.com/photo-1557804506-669a67965ba0?w=400&h=500&fit=crop",
-    alt: "Team collaboration",
+    src: "/wano-phoneview.webp",
+    alt: "Application Wano",
     style: { bottom: "18%", right: "18%" },
   },
 ];
@@ -163,7 +163,7 @@ export default function Hero() {
       >
         <div className="screen w-full h-full rounded-lg overflow-hidden bg-[#eff0f0] relative">
           <Image
-            src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&h=800&fit=crop"
+            src="/wano-desktop-view.webp"
             alt="Interface Wano"
             fill
             sizes="800px"
