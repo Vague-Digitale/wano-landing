@@ -7,22 +7,22 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Image from "next/image";
 import {
   ArrowRight02Icon,
-  RefreshIcon,
+  ReloadIcon,
   Notification03Icon,
-  TimeScheduleIcon,
+  Clock01Icon,
   Building03Icon,
   Store04Icon,
-  Wallet01Icon,
+  Money01Icon,
   SmartPhone01Icon,
   Invoice01Icon,
   ChartLineData02Icon,
   PieChartIcon,
-  TrendUp01Icon,
+  AnalyticsUpIcon,
   FileExportIcon,
   UserGroupIcon,
   ShoppingBag01Icon,
   Mail01Icon,
-  Gift01Icon,
+  GiftIcon,
 } from "hugeicons-react";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
@@ -34,9 +34,9 @@ const features = [
     highlight: "toujours à jour",
     description: "Inventaire en temps réel, alertes automatiques, mouvements tracés. Zéro surprise.",
     points: [
-      { text: "Sync multi-canaux", icon: RefreshIcon },
+      { text: "Sync multi-canaux", icon: ReloadIcon },
       { text: "Alertes stock bas", icon: Notification03Icon },
-      { text: "Historique complet", icon: TimeScheduleIcon },
+      { text: "Historique complet", icon: Clock01Icon },
       { text: "Multi-entrepôts", icon: Building03Icon },
     ],
     image: "https://images.unsplash.com/photo-1553413077-190dd305871c?w=700&h=500&fit=crop",
@@ -50,7 +50,7 @@ const features = [
     points: [
       { text: "Boutique en ligne", icon: Store04Icon },
       { text: "Caisse tactile POS", icon: SmartPhone01Icon },
-      { text: "Paiements mobiles", icon: Wallet01Icon },
+      { text: "Paiements mobiles", icon: Money01Icon },
       { text: "Factures auto", icon: Invoice01Icon },
     ],
     image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=700&h=500&fit=crop",
@@ -64,7 +64,7 @@ const features = [
     points: [
       { text: "Dashboard temps réel", icon: ChartLineData02Icon },
       { text: "Rentabilité produit", icon: PieChartIcon },
-      { text: "Prévisions ventes", icon: TrendUp01Icon },
+      { text: "Prévisions ventes", icon: AnalyticsUpIcon },
       { text: "Export Excel/PDF", icon: FileExportIcon },
     ],
     image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=700&h=500&fit=crop",
@@ -79,7 +79,7 @@ const features = [
       { text: "Fichier clients", icon: UserGroupIcon },
       { text: "Historique achats", icon: ShoppingBag01Icon },
       { text: "SMS & Email", icon: Mail01Icon },
-      { text: "Programme fidélité", icon: Gift01Icon },
+      { text: "Programme fidélité", icon: GiftIcon },
     ],
     image: "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=700&h=500&fit=crop",
     reverse: true,
