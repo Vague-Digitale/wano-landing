@@ -5,7 +5,25 @@ import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Image from "next/image";
-import { ArrowRight02Icon } from "hugeicons-react";
+import {
+  ArrowRight02Icon,
+  RefreshIcon,
+  Notification03Icon,
+  TimeScheduleIcon,
+  Building03Icon,
+  Store04Icon,
+  Wallet01Icon,
+  SmartPhone01Icon,
+  Invoice01Icon,
+  ChartLineData02Icon,
+  PieChartIcon,
+  TrendUp01Icon,
+  FileExportIcon,
+  UserGroupIcon,
+  ShoppingBag01Icon,
+  Mail01Icon,
+  Gift01Icon,
+} from "hugeicons-react";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
@@ -15,7 +33,12 @@ const features = [
     title: "Stock",
     highlight: "toujours à jour",
     description: "Inventaire en temps réel, alertes automatiques, mouvements tracés. Zéro surprise.",
-    points: ["Sync multi-canaux", "Alertes stock bas", "Historique complet", "Multi-entrepôts"],
+    points: [
+      { text: "Sync multi-canaux", icon: RefreshIcon },
+      { text: "Alertes stock bas", icon: Notification03Icon },
+      { text: "Historique complet", icon: TimeScheduleIcon },
+      { text: "Multi-entrepôts", icon: Building03Icon },
+    ],
     image: "https://images.unsplash.com/photo-1553413077-190dd305871c?w=700&h=500&fit=crop",
     reverse: false,
   },
@@ -24,7 +47,12 @@ const features = [
     title: "Ventes",
     highlight: "en ligne et en boutique",
     description: "Site e-commerce, caisse en magasin, réseaux sociaux. Un seul tableau de bord.",
-    points: ["Boutique en ligne", "Caisse tactile POS", "Paiements mobiles", "Factures auto"],
+    points: [
+      { text: "Boutique en ligne", icon: Store04Icon },
+      { text: "Caisse tactile POS", icon: SmartPhone01Icon },
+      { text: "Paiements mobiles", icon: Wallet01Icon },
+      { text: "Factures auto", icon: Invoice01Icon },
+    ],
     image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=700&h=500&fit=crop",
     reverse: true,
   },
@@ -33,7 +61,12 @@ const features = [
     title: "Décisions",
     highlight: "basées sur les données",
     description: "Tableaux de bord clairs, rapports automatisés, tendances et prévisions.",
-    points: ["Dashboard temps réel", "Rentabilité produit", "Prévisions ventes", "Export Excel/PDF"],
+    points: [
+      { text: "Dashboard temps réel", icon: ChartLineData02Icon },
+      { text: "Rentabilité produit", icon: PieChartIcon },
+      { text: "Prévisions ventes", icon: TrendUp01Icon },
+      { text: "Export Excel/PDF", icon: FileExportIcon },
+    ],
     image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=700&h=500&fit=crop",
     reverse: false,
   },
@@ -42,7 +75,12 @@ const features = [
     title: "Clients",
     highlight: "fidèles",
     description: "Base unifiée, historique d'achats, relances ciblées. Construisez des relations.",
-    points: ["Fichier clients", "Historique achats", "SMS & Email", "Programme fidélité"],
+    points: [
+      { text: "Fichier clients", icon: UserGroupIcon },
+      { text: "Historique achats", icon: ShoppingBag01Icon },
+      { text: "SMS & Email", icon: Mail01Icon },
+      { text: "Programme fidélité", icon: Gift01Icon },
+    ],
     image: "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=700&h=500&fit=crop",
     reverse: true,
   },
@@ -135,17 +173,23 @@ export default function FeaturesSection() {
               <p className="text-base md:text-lg text-[#6b7271] leading-relaxed mb-6">
                 {feature.description}
               </p>
-              <ul className="grid gap-3 mb-6">
-                {feature.points.map((point, i) => (
-                  <li
-                    key={i}
-                    className={`text-sm md:text-base text-[#6b7271] font-medium p-3 rounded-xl ${
-                      index % 2 === 0 ? "bg-[#eff0f0]" : "bg-white"
-                    }`}
-                  >
-                    {point}
-                  </li>
-                ))}
+              <ul className="grid sm:grid-cols-2 gap-3 mb-6">
+                {feature.points.map((point, i) => {
+                  const IconComponent = point.icon;
+                  return (
+                    <li
+                      key={i}
+                      className="flex items-center gap-3 p-3 bg-white rounded-xl shadow-sm"
+                    >
+                      <div className="w-9 h-9 rounded-lg bg-[#028175] flex items-center justify-center flex-shrink-0">
+                        <IconComponent size={18} className="text-white" />
+                      </div>
+                      <span className="text-sm md:text-base text-gray-900 font-medium">
+                        {point.text}
+                      </span>
+                    </li>
+                  );
+                })}
               </ul>
               <a
                 href="https://console.wanoapp.com"

@@ -88,7 +88,7 @@ export default function Navbar() {
                 priority
               />
             </div>
-            <span className="hidden sm:inline text-lg font-extrabold highlight tracking-tight">
+            <span className="text-lg font-extrabold highlight tracking-tight">
               Wano
             </span>
           </Link>
