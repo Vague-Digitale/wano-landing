@@ -1,14 +1,13 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import { gsap } from "gsap";
+import { useRef } from "react";
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Image from "next/image";
 import Lenis from "lenis";
 
-if (typeof window !== "undefined") {
-  gsap.registerPlugin(ScrollTrigger);
-}
+gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 const backgroundImages = [
   {
@@ -34,235 +33,140 @@ const backgroundImages = [
 ];
 
 export default function Hero() {
-  const heroRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLElement>(null);
   const scrollIndicatorRef = useRef<HTMLDivElement>(null);
-  const [mounted, setMounted] = useState(false);
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  useEffect(() => {
-    if (!mounted) return;
-
-    const hero = heroRef.current;
+  useGSAP(() => {
+    const hero = containerRef.current;
     if (!hero) return;
 
-    // Initial animations (on page load)
-    const introTL = gsap.timeline();
+    const title = hero.querySelector(".hero-title");
+    const subtitle = hero.querySelector(".hero-subtitle");
+    const cta = hero.querySelector(".hero-cta");
+    const scrollIndicator = hero.querySelector(".scroll-indicator");
+    const bgImages = hero.querySelectorAll(".bg-image");
+    const mainImage = hero.querySelector(".main-image");
 
-    // Fade in hero text
-    introTL.to(".hero-title", {
-      opacity: 1,
-      y: 0,
-      duration: 1,
-      ease: "power3.out",
-    });
+    // Set initial states - text visible, images hidden
+    gsap.set([title, subtitle, cta, scrollIndicator], { opacity: 1, y: 0 });
+    gsap.set(bgImages, { opacity: 0, scale: 1.2, y: 50 });
+    gsap.set(mainImage, { opacity: 0, scale: 0.8, y: 100 });
 
-    introTL.to(".hero-subtitle", {
-      opacity: 1,
-      y: 0,
-      duration: 0.8,
-      ease: "power3.out",
-    }, "-=0.5");
-
-    introTL.to(".hero-cta", {
-      opacity: 1,
-      y: 0,
-      duration: 0.8,
-      ease: "power3.out",
-    }, "-=0.5");
-
-    // Scroll indicator
-    introTL.to(scrollIndicatorRef.current, {
-      opacity: 1,
-      y: 0,
-      duration: 0.6,
-      ease: "power3.out",
-    }, "-=0.3");
-
-    // Main scroll timeline - simplified
+    // Single scroll timeline with scrub - reverses automatically when scrolling back
     const scrollTL = gsap.timeline({
       scrollTrigger: {
         trigger: hero,
         start: "top top",
-        end: "+=200%",
-        scrub: 1,
+        end: "+=120%",
+        scrub: 0.3,
         pin: true,
         anticipatePin: 1,
       },
     });
 
-    // Hide scroll indicator
-    scrollTL.to(scrollIndicatorRef.current, {
-      opacity: 0,
-      y: -20,
-      duration: 0.3,
-    }, 0);
+    // Phase 1: Fade out text content (faster)
+    scrollTL.to(scrollIndicator, { opacity: 0, y: -15, duration: 0.15 }, 0);
+    scrollTL.to(title, { y: -40, opacity: 0, scale: 0.97, duration: 0.3 }, 0.05);
+    scrollTL.to(subtitle, { y: -25, opacity: 0, duration: 0.25 }, 0.1);
+    scrollTL.to(cta, { y: -15, opacity: 0, duration: 0.2 }, 0.15);
 
-    // Fade out hero text slightly and move up
-    scrollTL.to(".hero-title", {
-      y: -60,
-      opacity: 0.3,
-      scale: 0.95,
-      duration: 1,
-    }, 0);
-
-    scrollTL.to(".hero-subtitle", {
-      y: -40,
-      opacity: 0,
-      duration: 0.8,
-    }, 0);
-
-    scrollTL.to(".hero-cta", {
-      y: -30,
-      opacity: 0,
-      duration: 0.6,
-    }, 0);
-
-    // Background images appear
-    scrollTL.fromTo(".bg-image", {
-      opacity: 0,
-      scale: 1.2,
-      y: 50,
-    }, {
-      opacity: 0.6,
+    // Phase 2: Fade in background images
+    scrollTL.to(bgImages, {
+      opacity: 0.5,
       scale: 1,
       y: 0,
-      stagger: 0.1,
-      duration: 1,
-    }, 0.3);
+      stagger: 0.03,
+      duration: 0.3
+    }, 0.2);
 
-    // Main mockup appears
-    scrollTL.fromTo(".main-image", {
-      opacity: 0,
-      scale: 0.8,
-      y: 100,
-    }, {
+    // Phase 3: Fade in main image
+    scrollTL.to(mainImage, {
       opacity: 1,
       scale: 1,
       y: 0,
-      duration: 1.5,
-    }, 0.8);
+      duration: 0.4
+    }, 0.35);
 
-    // Hide title completely
-    scrollTL.to(".hero-title", {
-      opacity: 0,
-      duration: 0.5,
-    }, 1.5);
+    // Phase 4: Final zoom on main image, fade background
+    scrollTL.to(bgImages, { opacity: 0.15, scale: 0.97, duration: 0.25 }, 0.6);
+    scrollTL.to(mainImage, { scale: 1.02, duration: 0.3 }, 0.7);
 
-    // Background images fade out
-    scrollTL.to(".bg-image", {
-      opacity: 0.1,
-      scale: 0.95,
-      duration: 0.8,
-    }, 1.8);
-
-    // Main image scales up slightly
-    scrollTL.to(".main-image", {
-      scale: 1.05,
-      duration: 1,
-    }, 2);
-
-    // Scroll indicator click handler
-    const handleScrollClick = () => {
+    // Click handler for scroll indicator
+    const handleClick = () => {
       const lenis = (window as unknown as { lenis?: Lenis }).lenis;
-      if (lenis) {
-        lenis.scrollTo("#features", { duration: 2 });
-      }
+      lenis?.scrollTo("#features", { duration: 2 });
     };
 
-    scrollIndicatorRef.current?.addEventListener("click", handleScrollClick);
-
-    return () => {
-      ScrollTrigger.getAll().forEach((t) => t.kill());
-      gsap.killTweensOf("*");
-      scrollIndicatorRef.current?.removeEventListener("click", handleScrollClick);
-    };
-  }, [mounted]);
+    scrollIndicatorRef.current?.addEventListener("click", handleClick);
+    return () => scrollIndicatorRef.current?.removeEventListener("click", handleClick);
+  }, { scope: containerRef });
 
   return (
     <section
-      ref={heroRef}
+      ref={containerRef}
       id="accueil"
       className="hero min-h-screen relative flex items-center justify-center overflow-hidden bg-[#fbfbfc]"
     >
-      {/* Auras */}
       <div className="hero-aura-1" />
       <div className="hero-aura-2" />
 
-      {/* Hero content */}
       <div className="hero-content relative z-10 text-center w-full px-[5%] max-w-5xl mx-auto">
-        <h1 className="hero-title text-[clamp(2.5rem,6vw,5rem)] font-extrabold leading-[1.1] tracking-tight text-gray-900 mb-6 opacity-0 translate-y-8">
-          Gerez votre business<br />
-          en toute <span className="highlight">simplicite</span>
+        <h1 className="hero-title text-[2.5rem] sm:text-[3rem] md:text-[3.5rem] font-extrabold leading-tight tracking-tight text-gray-900 mb-6">
+          Tout votre business<br />
+          <span className="highlight">en une seule app</span>
         </h1>
 
-        <p className="hero-subtitle text-lg md:text-xl text-[#6b7271] max-w-2xl mx-auto mb-8 opacity-0 translate-y-8">
-          Stock, ventes en ligne et en boutique, facturation, analytics.
-          Tout au meme endroit, accessible partout.
+        <p className="hero-subtitle text-base md:text-lg text-[#6b7271] max-w-2xl mx-auto mb-6">
+          Stock, ventes, facturation, clients, analytics — une plateforme unique
+          pour piloter votre activité où que vous soyez.
         </p>
 
-        <div className="hero-cta flex flex-col sm:flex-row gap-4 justify-center opacity-0 translate-y-8">
+        <div className="hero-cta flex flex-col sm:flex-row gap-4 justify-center">
           <a
             href="https://console.wanoapp.com"
-            className="px-8 py-4 bg-[#028175] hover:bg-[#027469] text-white rounded-full font-bold text-lg hover:-translate-y-1 hover:shadow-xl hover:shadow-[#028175]/30 transition-all"
+            className="px-6 py-3.5 bg-[#028175] hover:bg-[#027469] text-white rounded-full font-semibold text-base hover:-translate-y-0.5 hover:shadow-lg hover:shadow-[#028175]/25 transition-all"
           >
             Commencer gratuitement
           </a>
           <a
             href="#features"
-            className="px-8 py-4 border-2 border-[#028175] text-[#028175] rounded-full font-bold text-lg hover:bg-[#F4FCF3] hover:-translate-y-1 transition-all"
+            className="px-6 py-3.5 border-2 border-[#028175] text-[#028175] rounded-full font-semibold text-base hover:bg-[#F4FCF3] hover:-translate-y-0.5 transition-all"
           >
-            Decouvrir
+            Découvrir
           </a>
         </div>
       </div>
 
-      {/* Scroll indicator */}
       <div
         ref={scrollIndicatorRef}
-        className="scroll-indicator absolute bottom-8 left-1/2 -translate-x-1/2 z-20 text-center cursor-pointer opacity-0 translate-y-4"
+        className="scroll-indicator absolute bottom-8 left-1/2 -translate-x-1/2 z-20 text-center cursor-pointer"
       >
-        <p className="text-xs uppercase tracking-[3px] mb-3 text-[#6b7271] font-semibold">
-          Scroll
-        </p>
-        <div className="scroll-arrow w-6 h-10 border-2 border-[#028175] rounded-[20px] mx-auto relative hover:border-[#027469] transition-colors" />
+        <p className="text-xs uppercase tracking-[3px] mb-3 text-[#6b7271] font-semibold">Scroll</p>
+        <div className="scroll-arrow w-6 h-10 border-2 border-[#028175] rounded-[20px] mx-auto relative" />
       </div>
 
-      {/* Background images */}
       <div className="background-images absolute inset-0 z-[1] pointer-events-none overflow-hidden">
         {backgroundImages.map((img, index) => (
           <div
             key={index}
-            className="bg-image absolute w-[180px] h-[240px] sm:w-[220px] sm:h-[300px] md:w-[260px] md:h-[350px] rounded-2xl opacity-0 shadow-xl overflow-hidden"
+            className="bg-image absolute w-[160px] h-[210px] sm:w-[200px] sm:h-[270px] md:w-[240px] md:h-[320px] rounded-xl shadow-lg overflow-hidden"
             style={img.style}
           >
-            <Image
-              src={img.src}
-              alt={img.alt}
-              fill
-              sizes="(max-width: 640px) 180px, (max-width: 768px) 220px, 260px"
-              className="object-cover"
-            />
+            <Image src={img.src} alt={img.alt} fill sizes="260px" className="object-cover" />
           </div>
         ))}
       </div>
 
-      {/* Main laptop mockup */}
       <div
-        className="main-image absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-[15] opacity-0 rounded-2xl bg-white p-3 sm:p-4 shadow-2xl"
-        style={{
-          width: "min(85vw, 800px)",
-          aspectRatio: "16/10",
-        }}
+        className="main-image absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-[15] rounded-xl bg-white p-2 sm:p-3 shadow-xl"
+        style={{ width: "min(85vw, 800px)", aspectRatio: "16/10" }}
       >
-        <div className="screen w-full h-full rounded-xl overflow-hidden bg-[#eff0f0] relative">
+        <div className="screen w-full h-full rounded-lg overflow-hidden bg-[#eff0f0] relative">
           <Image
             src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&h=800&fit=crop"
-            alt="Interface Wano - Tableau de bord de gestion"
+            alt="Interface Wano"
             fill
-            sizes="(max-width: 768px) 85vw, 800px"
+            sizes="800px"
             className="object-cover"
             priority
           />
