@@ -181,8 +181,8 @@ export default function FeaturesSection() {
                       key={i}
                       className="flex items-center gap-3 p-3 bg-white rounded-xl shadow-sm"
                     >
-                      <div className="w-9 h-9 rounded-lg bg-[#028175] flex items-center justify-center flex-shrink-0">
-                        <IconComponent size={18} className="text-white" />
+                      <div className="w-9 h-9 rounded-lg bg-[#eff0f0] flex items-center justify-center flex-shrink-0">
+                        <IconComponent size={18} className="text-[#028175]" />
                       </div>
                       <span className="text-sm md:text-base text-gray-900 font-medium">
                         {point.text}
