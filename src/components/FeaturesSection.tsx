@@ -16,7 +16,7 @@ const features = [
     highlight: "toujours à jour",
     description: "Inventaire en temps réel, alertes automatiques, mouvements tracés. Zéro surprise.",
     points: ["Sync multi-canaux", "Alertes stock bas", "Historique complet", "Multi-entrepôts"],
-    image: "https://images.unsplash.com/photo-1553413077-190dd305871c?w=700&h=500&fit=crop",
+    image: "/wano-desktop-view.webp",
     reverse: false,
   },
   {
@@ -25,7 +25,7 @@ const features = [
     highlight: "en ligne et en boutique",
     description: "Site e-commerce, caisse en magasin, réseaux sociaux. Un seul tableau de bord.",
     points: ["Boutique en ligne", "Caisse tactile POS", "Paiements mobiles", "Factures auto"],
-    image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=700&h=500&fit=crop",
+    image: "/wano-phoneview.webp",
     reverse: true,
   },
   {
@@ -34,7 +34,7 @@ const features = [
     highlight: "basées sur les données",
     description: "Tableaux de bord clairs, rapports automatisés, tendances et prévisions.",
     points: ["Dashboard temps réel", "Rentabilité produit", "Prévisions ventes", "Export Excel/PDF"],
-    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=700&h=500&fit=crop",
+    image: "/wano-desktop-view.webp",
     reverse: false,
   },
   {
@@ -43,7 +43,7 @@ const features = [
     highlight: "fidèles",
     description: "Base unifiée, historique d'achats, relances ciblées. Construisez des relations.",
     points: ["Fichier clients", "Historique achats", "SMS & Email", "Programme fidélité"],
-    image: "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=700&h=500&fit=crop",
+    image: "/wano-phoneview.webp",
     reverse: true,
   },
 ];
