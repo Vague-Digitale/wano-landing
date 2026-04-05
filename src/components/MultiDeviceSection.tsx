@@ -98,7 +98,7 @@ export default function MultiDeviceSection() {
   }, { scope: containerRef });
 
   return (
-    <section ref={containerRef} className="py-20 md:py-28 px-[5%] bg-[#eff0f0] overflow-hidden">
+    <section ref={containerRef} className="py-20 md:py-28 px-[5%] bg-[#eff0f0] bg-grid-pattern overflow-hidden">
       <div className="max-w-7xl mx-auto">
         <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
           <div className="device-text">

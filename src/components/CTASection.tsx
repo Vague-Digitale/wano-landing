@@ -34,7 +34,7 @@ export default function CTASection() {
   }, { scope: containerRef });
 
   return (
-    <section ref={containerRef} className="py-20 md:py-28 px-[5%] bg-[#028175]">
+    <section ref={containerRef} className="py-20 md:py-28 px-[5%] bg-[#028175] bg-dots-light">
       <div className="cta-content max-w-4xl mx-auto text-center text-white">
         <h2 className="text-[1.75rem] sm:text-[2rem] md:text-[2.5rem] font-extrabold mb-5 leading-tight">
           Prêt à tout gérer depuis une seule app ?

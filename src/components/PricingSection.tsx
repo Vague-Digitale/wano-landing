@@ -118,7 +118,7 @@ export default function PricingSection() {
   }, { scope: containerRef });
 
   return (
-    <section ref={containerRef} id="tarifs" className="py-20 md:py-28 px-[5%] bg-[#eff0f0]">
+    <section ref={containerRef} id="tarifs" className="py-20 md:py-28 px-[5%] bg-[#eff0f0] bg-dots-pattern">
       <div className="max-w-6xl mx-auto">
         <div className="pricing-header text-center mb-12">
           <span className="inline-block px-4 py-2 bg-[#F4FCF3] text-[#028175] rounded-full text-sm font-semibold uppercase tracking-wider mb-4">

@@ -105,7 +105,7 @@ export default function Hero() {
     <section
       ref={containerRef}
       id="accueil"
-      className="hero min-h-screen relative flex items-center justify-center overflow-hidden bg-[#fbfbfc]"
+      className="hero min-h-screen relative flex items-center justify-center overflow-hidden bg-[#fbfbfc] bg-dots-pattern-light"
     >
       <div className="hero-aura-1" />
       <div className="hero-aura-2" />
