@@ -138,7 +138,7 @@ export default function MultiDeviceSection() {
               </div>
               <div className="bg-gray-100 rounded-lg overflow-hidden aspect-video relative">
                 <Image
-                  src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=900&h=500&fit=crop"
+                  src="/wano-desktop-view.webp"
                   alt="Wano sur ordinateur"
                   fill
                   sizes="500px"
@@ -151,7 +151,7 @@ export default function MultiDeviceSection() {
               <div className="w-16 h-1 bg-gray-700 rounded-full mx-auto mb-2" />
               <div className="bg-gray-100 rounded-2xl overflow-hidden aspect-[9/19] relative">
                 <Image
-                  src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=400&h=800&fit=crop"
+                  src="/wano-phoneview.webp"
                   alt="Wano sur mobile"
                   fill
                   sizes="180px"
