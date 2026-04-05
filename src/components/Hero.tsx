@@ -105,10 +105,11 @@ export default function Hero() {
     <section
       ref={containerRef}
       id="accueil"
-      className="hero min-h-screen relative flex items-center justify-center overflow-hidden bg-[#fbfbfc] bg-dots-pattern-light"
+      className="hero min-h-screen relative flex items-center justify-center overflow-hidden bg-[#fbfbfc]"
     >
       <div className="hero-aura-1" />
       <div className="hero-aura-2" />
+      <div className="hero-dots-overlay" />
 
       <div className="hero-content relative z-10 text-center w-full px-[5%] max-w-5xl mx-auto">
         <h1 className="hero-title text-[2.5rem] sm:text-[3rem] md:text-[3.5rem] font-extrabold leading-tight tracking-tight text-gray-900 mb-6">
