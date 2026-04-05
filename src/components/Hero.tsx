@@ -163,7 +163,7 @@ export default function Hero() {
       >
         <div className="screen w-full h-full rounded-lg overflow-hidden bg-[#eff0f0] relative">
           <Image
-            src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&h=800&fit=crop"
+            src="/wano-desktop-view.webp"
             alt="Interface Wano"
             fill
             sizes="800px"
