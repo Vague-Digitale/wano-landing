@@ -1,14 +1,17 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { gsap } from "gsap";
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
 import Link from "next/link";
 import Image from "next/image";
 import { Menu01Icon, Cancel01Icon } from "hugeicons-react";
 
+gsap.registerPlugin(useGSAP);
+
 const navLinks = [
   { href: "#accueil", label: "Accueil" },
-  { href: "#features", label: "Fonctionnalites" },
+  { href: "#features", label: "Fonctionnalités" },
   { href: "#tarifs", label: "Tarifs" },
   { href: "#contact", label: "Contact" },
 ];
@@ -19,16 +22,18 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  useEffect(() => {
-    // Animate navbar in
+  // Animate navbar in on mount
+  useGSAP(() => {
     gsap.to(navRef.current, {
       opacity: 1,
-      duration: 1,
-      delay: 0.3,
-      ease: "power3.out",
+      duration: 0.5,
+      delay: 0.2,
+      ease: "power2.out",
     });
+  }, { scope: navRef });
 
-    // Handle scroll effect
+  // Handle scroll effect (not GSAP, stays in useEffect)
+  useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 50);
     };
@@ -38,7 +43,7 @@ export default function Navbar() {
   }, []);
 
   // Animate mobile menu
-  useEffect(() => {
+  useGSAP(() => {
     if (mobileMenuRef.current) {
       if (mobileMenuOpen) {
         gsap.to(mobileMenuRef.current, {
@@ -56,7 +61,7 @@ export default function Navbar() {
         });
       }
     }
-  }, [mobileMenuOpen]);
+  }, { dependencies: [mobileMenuOpen] });
 
   // Close mobile menu when clicking a link
   const handleLinkClick = () => {
