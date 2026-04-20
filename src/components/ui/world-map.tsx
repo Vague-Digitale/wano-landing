@@ -161,7 +161,7 @@ export function WorldMap({
           return (
             <g key={`points-group-${i}`}>
               {/* Start Point */}
-              <g key={`start-${i}`}>
+              <g key={`start-${i}`} className="group cursor-pointer">
                 <circle
                   cx={startPoint.x}
                   cy={startPoint.y}
@@ -195,29 +195,24 @@ export function WorldMap({
                 </circle>
 
                 {showLabels && dot.start.label && (
-                  <motion.g
-                    initial={{ opacity: 0, y: 5 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.5 * i + 0.3, duration: 0.5 }}
+                  <foreignObject
+                    x={startPoint.x - 40}
+                    y={startPoint.y + 12}
+                    width="80"
+                    height="24"
+                    className="opacity-0 group-hover:opacity-100 transition-opacity duration-200"
                   >
-                    <foreignObject
-                      x={startPoint.x - 40}
-                      y={startPoint.y + 6}
-                      width="80"
-                      height="24"
-                    >
-                      <div className="flex items-center justify-center h-full">
-                        <span className="text-[10px] font-medium px-1.5 py-0.5 rounded bg-white/90 text-gray-700 shadow-sm border border-gray-100">
-                          {dot.start.label}
-                        </span>
-                      </div>
-                    </foreignObject>
-                  </motion.g>
+                    <div className="flex items-center justify-center h-full">
+                      <span className="text-[10px] font-medium px-1.5 py-0.5 rounded bg-white/90 text-gray-700 shadow-sm border border-gray-100">
+                        {dot.start.label}
+                      </span>
+                    </div>
+                  </foreignObject>
                 )}
               </g>
 
               {/* End Point */}
-              <g key={`end-${i}`}>
+              <g key={`end-${i}`} className="group cursor-pointer">
                 <circle
                   cx={endPoint.x}
                   cy={endPoint.y}
@@ -251,24 +246,19 @@ export function WorldMap({
                 </circle>
 
                 {showLabels && dot.end.label && (
-                  <motion.g
-                    initial={{ opacity: 0, y: 5 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.5 * i + 0.5, duration: 0.5 }}
+                  <foreignObject
+                    x={endPoint.x - 40}
+                    y={endPoint.y + 12}
+                    width="80"
+                    height="24"
+                    className="opacity-0 group-hover:opacity-100 transition-opacity duration-200"
                   >
-                    <foreignObject
-                      x={endPoint.x - 40}
-                      y={endPoint.y + 6}
-                      width="80"
-                      height="24"
-                    >
-                      <div className="flex items-center justify-center h-full">
-                        <span className="text-[10px] font-medium px-1.5 py-0.5 rounded bg-white/90 text-gray-700 shadow-sm border border-gray-100">
-                          {dot.end.label}
-                        </span>
-                      </div>
-                    </foreignObject>
-                  </motion.g>
+                    <div className="flex items-center justify-center h-full">
+                      <span className="text-[10px] font-medium px-1.5 py-0.5 rounded bg-white/90 text-gray-700 shadow-sm border border-gray-100">
+                        {dot.end.label}
+                      </span>
+                    </div>
+                  </foreignObject>
                 )}
               </g>
             </g>
