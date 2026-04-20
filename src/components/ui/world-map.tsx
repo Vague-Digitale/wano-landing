@@ -14,8 +14,6 @@ interface MapProps {
   showLabels?: boolean;
   animationDuration?: number;
   loop?: boolean;
-  // ViewBox pour zoomer sur une région: "minX minY width height"
-  viewBox?: string;
 }
 
 export function WorldMap({
@@ -23,9 +21,7 @@ export function WorldMap({
   lineColor = "#028175",
   showLabels = true,
   animationDuration = 2,
-  loop = true,
-  // Par défaut, centré sur l'Afrique/Europe (de -30° à 60° longitude, de -10° à 60° latitude)
-  viewBox = "280 80 350 220"
+  loop = true
 }: MapProps) {
   const svgRef = useRef<SVGSVGElement>(null);
 
@@ -55,7 +51,7 @@ export function WorldMap({
     end: { x: number; y: number }
   ) => {
     const midX = (start.x + end.x) / 2;
-    const midY = Math.min(start.y, end.y) - 20;
+    const midY = Math.min(start.y, end.y) - 50;
     return `M ${start.x} ${start.y} Q ${midX} ${midY} ${end.x} ${end.y}`;
   };
 
@@ -65,7 +61,7 @@ export function WorldMap({
   const fullCycleDuration = totalAnimationTime + pauseTime;
 
   return (
-    <div className="w-full aspect-[16/9] rounded-lg relative font-sans overflow-hidden">
+    <div className="w-full aspect-[2/1] rounded-lg relative font-sans overflow-hidden">
       <Image
         src={`data:image/svg+xml;utf8,${encodeURIComponent(svgMap)}`}
         className="h-full w-full [mask-image:linear-gradient(to_bottom,transparent,white_10%,white_90%,transparent)] pointer-events-none select-none object-cover"
@@ -77,7 +73,7 @@ export function WorldMap({
       />
       <svg
         ref={svgRef}
-        viewBox={viewBox}
+        viewBox="0 0 800 400"
         className="w-full h-full absolute inset-0 pointer-events-auto select-none"
         preserveAspectRatio="xMidYMid meet"
       >
@@ -90,8 +86,8 @@ export function WorldMap({
           </linearGradient>
 
           <filter id="glow">
-            <feMorphology operator="dilate" radius="0.2" />
-            <feGaussianBlur stdDeviation="0.4" result="coloredBlur" />
+            <feMorphology operator="dilate" radius="0.5" />
+            <feGaussianBlur stdDeviation="1" result="coloredBlur" />
             <feMerge>
               <feMergeNode in="coloredBlur" />
               <feMergeNode in="SourceGraphic" />
@@ -113,7 +109,7 @@ export function WorldMap({
                 d={createCurvedPath(startPoint, endPoint)}
                 fill="none"
                 stroke="url(#path-gradient)"
-                strokeWidth="0.4"
+                strokeWidth="1"
                 initial={{ pathLength: 0 }}
                 animate={loop ? {
                   pathLength: [0, 0, 1, 1, 0],
@@ -135,7 +131,7 @@ export function WorldMap({
 
               {loop && (
                 <motion.circle
-                  r="1.6"
+                  r="4"
                   fill={lineColor}
                   initial={{ offsetDistance: "0%", opacity: 0 }}
                   animate={{
@@ -169,21 +165,21 @@ export function WorldMap({
                 <circle
                   cx={startPoint.x}
                   cy={startPoint.y}
-                  r="1.2"
+                  r="3"
                   fill={lineColor}
                   filter="url(#glow)"
                 />
                 <circle
                   cx={startPoint.x}
                   cy={startPoint.y}
-                  r="1.2"
+                  r="3"
                   fill={lineColor}
                   opacity="0.5"
                 >
                   <animate
                     attributeName="r"
-                    from="1.2"
-                    to="5"
+                    from="3"
+                    to="12"
                     dur="2s"
                     begin="0s"
                     repeatCount="indefinite"
@@ -200,18 +196,18 @@ export function WorldMap({
 
                 {showLabels && dot.start.label && (
                   <motion.g
-                    initial={{ opacity: 0, y: 2 }}
+                    initial={{ opacity: 0, y: 5 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.5 * i + 0.3, duration: 0.5 }}
                   >
                     <foreignObject
-                      x={startPoint.x - 16}
-                      y={startPoint.y - 12}
-                      width="32"
-                      height="10"
+                      x={startPoint.x - 40}
+                      y={startPoint.y - 28}
+                      width="80"
+                      height="24"
                     >
                       <div className="flex items-center justify-center h-full">
-                        <span className="text-[4px] font-medium px-0.5 py-0 rounded bg-white/90 text-gray-700 shadow-sm border border-gray-100">
+                        <span className="text-[10px] font-medium px-1.5 py-0.5 rounded bg-white/90 text-gray-700 shadow-sm border border-gray-100">
                           {dot.start.label}
                         </span>
                       </div>
@@ -225,21 +221,21 @@ export function WorldMap({
                 <circle
                   cx={endPoint.x}
                   cy={endPoint.y}
-                  r="1.2"
+                  r="3"
                   fill={lineColor}
                   filter="url(#glow)"
                 />
                 <circle
                   cx={endPoint.x}
                   cy={endPoint.y}
-                  r="1.2"
+                  r="3"
                   fill={lineColor}
                   opacity="0.5"
                 >
                   <animate
                     attributeName="r"
-                    from="1.2"
-                    to="5"
+                    from="3"
+                    to="12"
                     dur="2s"
                     begin="0.5s"
                     repeatCount="indefinite"
@@ -256,18 +252,18 @@ export function WorldMap({
 
                 {showLabels && dot.end.label && (
                   <motion.g
-                    initial={{ opacity: 0, y: 2 }}
+                    initial={{ opacity: 0, y: 5 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.5 * i + 0.5, duration: 0.5 }}
                   >
                     <foreignObject
-                      x={endPoint.x - 16}
-                      y={endPoint.y - 12}
-                      width="32"
-                      height="10"
+                      x={endPoint.x - 40}
+                      y={endPoint.y - 28}
+                      width="80"
+                      height="24"
                     >
                       <div className="flex items-center justify-center h-full">
-                        <span className="text-[4px] font-medium px-0.5 py-0 rounded bg-white/90 text-gray-700 shadow-sm border border-gray-100">
+                        <span className="text-[10px] font-medium px-1.5 py-0.5 rounded bg-white/90 text-gray-700 shadow-sm border border-gray-100">
                           {dot.end.label}
                         </span>
                       </div>
