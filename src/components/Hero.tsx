@@ -51,7 +51,7 @@ export default function Hero() {
 
     // Set initial states - text visible, images hidden
     gsap.set([title, subtitle, cta, scrollIndicator], { opacity: 1, y: 0 });
-    gsap.set(globe, { opacity: 0.4 });
+    gsap.set(globe, { opacity: 1, y: 0 });
     gsap.set(bgImages, { opacity: 0, scale: 1.2, y: 50 });
     gsap.set(mainImage, { opacity: 0, scale: 0.8, y: 100 });
 
@@ -69,10 +69,10 @@ export default function Hero() {
 
     // Phase 1: Fade out text content and globe (faster)
     scrollTL.to(scrollIndicator, { opacity: 0, y: -15, duration: 0.15 }, 0);
-    scrollTL.to(globe, { opacity: 0, scale: 0.9, duration: 0.3 }, 0);
     scrollTL.to(title, { y: -40, opacity: 0, scale: 0.97, duration: 0.3 }, 0.05);
     scrollTL.to(subtitle, { y: -25, opacity: 0, duration: 0.25 }, 0.1);
     scrollTL.to(cta, { y: -15, opacity: 0, duration: 0.2 }, 0.15);
+    scrollTL.to(globe, { opacity: 0, y: -30, scale: 0.85, duration: 0.35 }, 0.1);
 
     // Phase 2: Fade in background images
     scrollTL.to(bgImages, {
@@ -115,12 +115,7 @@ export default function Hero() {
       <div className="hero-aura-2" />
       <div className="hero-dots-overlay" />
 
-      {/* Globe en arrière-plan */}
-      <div className="hero-globe absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-[5] w-[600px] h-[600px] sm:w-[700px] sm:h-[700px] md:w-[800px] md:h-[800px] opacity-40 pointer-events-none">
-        <Globe speed={0.001} />
-      </div>
-
-      <div className="hero-content relative z-10 text-center w-full px-[5%] max-w-5xl mx-auto">
+      <div className="hero-content relative z-10 text-center w-full px-[5%] max-w-5xl mx-auto flex flex-col items-center">
         <h1 className="hero-title text-[2.5rem] sm:text-[3rem] md:text-[3.5rem] font-extrabold leading-tight tracking-tight text-gray-900 mb-6">
           Tout votre business<br />
           <span className="highlight">en une seule app</span>
@@ -131,7 +126,7 @@ export default function Hero() {
           pour piloter votre activité où que vous soyez.
         </p>
 
-        <div className="hero-cta flex flex-col sm:flex-row gap-4 justify-center">
+        <div className="hero-cta flex flex-col sm:flex-row gap-4 justify-center mb-4">
           <a
             href="https://console.wanoapp.com"
             className="px-6 py-3.5 bg-[#028175] hover:bg-[#027469] text-white rounded-full font-semibold text-base hover:-translate-y-0.5 hover:shadow-lg hover:shadow-[#028175]/25 transition-all"
@@ -144,6 +139,13 @@ export default function Hero() {
           >
             Découvrir
           </a>
+        </div>
+
+        {/* Globe sous les boutons avec dégradé */}
+        <div className="hero-globe relative w-[320px] h-[320px] sm:w-[400px] sm:h-[400px] md:w-[500px] md:h-[500px] -mt-8">
+          {/* Dégradé en haut pour fondre avec le fond */}
+          <div className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-[#fbfbfc] to-transparent z-10 pointer-events-none" />
+          <Globe speed={0.001} />
         </div>
       </div>
 

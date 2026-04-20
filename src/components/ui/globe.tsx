@@ -8,17 +8,21 @@ interface GlobeProps {
   speed?: number
 }
 
-// Points représentant des villes africaines et mondiales où Wano est utilisé
+// Points représentant des villes africaines où Wano est utilisé
 const markers: { location: [number, number]; size: number }[] = [
-  { location: [5.36, -4.01], size: 0.03 },   // Abidjan
-  { location: [14.69, -17.44], size: 0.03 }, // Dakar
-  { location: [6.52, 3.38], size: 0.03 },    // Lagos
-  { location: [5.56, -0.19], size: 0.03 },   // Accra
-  { location: [12.37, -1.52], size: 0.02 },  // Ouagadougou
-  { location: [12.65, -8.0], size: 0.02 },   // Bamako
-  { location: [4.05, 9.7], size: 0.02 },     // Douala
-  { location: [48.86, 2.35], size: 0.02 },   // Paris
+  { location: [5.36, -4.01], size: 0.08 },   // Abidjan (principal)
+  { location: [14.69, -17.44], size: 0.06 }, // Dakar
+  { location: [6.52, 3.38], size: 0.06 },    // Lagos
+  { location: [5.56, -0.19], size: 0.05 },   // Accra
+  { location: [12.37, -1.52], size: 0.05 },  // Ouagadougou
+  { location: [12.65, -8.0], size: 0.05 },   // Bamako
+  { location: [4.05, 9.7], size: 0.05 },     // Douala
+  { location: [48.86, 2.35], size: 0.04 },   // Paris
 ]
+
+// Position initiale pour montrer l'Afrique de l'Ouest
+const INITIAL_PHI = 0.4 // Rotation horizontale (longitude)
+const INITIAL_THETA = 0.15 // Inclinaison (latitude)
 
 export function Globe({ className = "", speed = 0.002 }: GlobeProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null)
@@ -76,22 +80,22 @@ export function Globe({ className = "", speed = 0.002 }: GlobeProps) {
         devicePixelRatio: Math.min(window.devicePixelRatio || 1, 2),
         width,
         height: width,
-        phi: 0,
-        theta: 0.3,
+        phi: INITIAL_PHI,
+        theta: INITIAL_THETA,
         dark: 0,
         diffuse: 1.2,
         mapSamples: 16000,
-        mapBrightness: 6,
-        baseColor: [0.96, 0.96, 0.96],
+        mapBrightness: 4,
+        baseColor: [0.92, 0.92, 0.92],
         markerColor: [0.01, 0.51, 0.46], // Couleur Wano #028175
-        glowColor: [0.9, 0.9, 0.9],
+        glowColor: [0.85, 0.85, 0.85],
         markers,
         onRender: (state: { phi: number; theta: number }) => {
           if (!isPausedRef.current) {
             phi += speed
           }
-          state.phi = phi + phiOffsetRef.current + dragOffset.current.phi
-          state.theta = 0.3 + thetaOffsetRef.current + dragOffset.current.theta
+          state.phi = INITIAL_PHI + phi + phiOffsetRef.current + dragOffset.current.phi
+          state.theta = INITIAL_THETA + thetaOffsetRef.current + dragOffset.current.theta
         },
       } as Parameters<typeof createGlobe>[1])
 
