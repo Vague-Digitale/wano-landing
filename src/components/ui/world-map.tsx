@@ -90,8 +90,8 @@ export function WorldMap({
           </linearGradient>
 
           <filter id="glow">
-            <feMorphology operator="dilate" radius="0.2" />
-            <feGaussianBlur stdDeviation="0.4" result="coloredBlur" />
+            <feMorphology operator="dilate" radius="0.5" />
+            <feGaussianBlur stdDeviation="1" result="coloredBlur" />
             <feMerge>
               <feMergeNode in="coloredBlur" />
               <feMergeNode in="SourceGraphic" />
@@ -113,7 +113,7 @@ export function WorldMap({
                 d={createCurvedPath(startPoint, endPoint)}
                 fill="none"
                 stroke="url(#path-gradient)"
-                strokeWidth="0.5"
+                strokeWidth="1"
                 initial={{ pathLength: 0 }}
                 animate={loop ? {
                   pathLength: [0, 0, 1, 1, 0],
@@ -135,7 +135,7 @@ export function WorldMap({
 
               {loop && (
                 <motion.circle
-                  r="1.5"
+                  r="4"
                   fill={lineColor}
                   initial={{ offsetDistance: "0%", opacity: 0 }}
                   animate={{
@@ -169,21 +169,21 @@ export function WorldMap({
                 <circle
                   cx={startPoint.x}
                   cy={startPoint.y}
-                  r="1.2"
+                  r="3"
                   fill={lineColor}
                   filter="url(#glow)"
                 />
                 <circle
                   cx={startPoint.x}
                   cy={startPoint.y}
-                  r="1.2"
+                  r="3"
                   fill={lineColor}
                   opacity="0.5"
                 >
                   <animate
                     attributeName="r"
-                    from="1.2"
-                    to="5"
+                    from="3"
+                    to="12"
                     dur="2s"
                     begin="0s"
                     repeatCount="indefinite"
@@ -225,21 +225,21 @@ export function WorldMap({
                 <circle
                   cx={endPoint.x}
                   cy={endPoint.y}
-                  r="1.2"
+                  r="3"
                   fill={lineColor}
                   filter="url(#glow)"
                 />
                 <circle
                   cx={endPoint.x}
                   cy={endPoint.y}
-                  r="1.2"
+                  r="3"
                   fill={lineColor}
                   opacity="0.5"
                 >
                   <animate
                     attributeName="r"
-                    from="1.2"
-                    to="5"
+                    from="3"
+                    to="12"
                     dur="2s"
                     begin="0.5s"
                     repeatCount="indefinite"
