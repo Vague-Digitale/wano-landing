@@ -8,22 +8,16 @@ import Image from "next/image";
 import Lenis from "lenis";
 import { WorldMap } from "@/components/ui/world-map";
 
-// Connexions aléatoires sur la carte
+// Connexions entre points sur terre (bien espacés)
 const mapConnections = [
-  // Afrique de l'Ouest
-  { start: { lat: 5.36, lng: -4.01 }, end: { lat: 14.69, lng: -17.44 } },
-  { start: { lat: 5.36, lng: -4.01 }, end: { lat: 6.52, lng: 3.38 } },
-  { start: { lat: 5.36, lng: -4.01 }, end: { lat: 12.37, lng: -1.52 } },
-  { start: { lat: 6.52, lng: 3.38 }, end: { lat: 5.56, lng: -0.19 } },
-  // Vers Europe
-  { start: { lat: 14.69, lng: -17.44 }, end: { lat: 48.86, lng: 2.35 } },
-  { start: { lat: 33.59, lng: -7.62 }, end: { lat: 40.42, lng: -3.70 } },
-  // Afrique centrale et est
-  { start: { lat: 4.06, lng: 9.71 }, end: { lat: -1.29, lng: 36.82 } },
-  { start: { lat: -4.44, lng: 15.27 }, end: { lat: -6.17, lng: 35.74 } },
-  // Connections supplémentaires
-  { start: { lat: 9.08, lng: 7.40 }, end: { lat: 15.50, lng: 32.56 } },
-  { start: { lat: 36.75, lng: 3.06 }, end: { lat: 30.04, lng: 31.24 } },
+  // Afrique de l'Ouest vers Europe
+  { start: { lat: 14.69, lng: -17.44 }, end: { lat: 48.86, lng: 2.35 } }, // Dakar → Paris
+  // Afrique du Nord vers Afrique de l'Est
+  { start: { lat: 33.59, lng: -7.62 }, end: { lat: 30.04, lng: 31.24 } }, // Casablanca → Le Caire
+  // Afrique de l'Est vers Afrique du Sud
+  { start: { lat: -1.29, lng: 36.82 }, end: { lat: -26.20, lng: 28.04 } }, // Nairobi → Johannesburg
+  // Afrique de l'Ouest interne
+  { start: { lat: 5.36, lng: -4.01 }, end: { lat: 9.03, lng: 38.75 } }, // Abidjan → Addis-Abeba
 ];
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
