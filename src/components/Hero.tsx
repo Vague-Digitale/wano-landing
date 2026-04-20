@@ -8,28 +8,22 @@ import Image from "next/image";
 import Lenis from "lenis";
 import { WorldMap } from "@/components/ui/world-map";
 
-// Connexions entre villes africaines où Wano est utilisé
+// Connexions aléatoires sur la carte
 const mapConnections = [
-  {
-    start: { lat: 5.36, lng: -4.01, label: "Abidjan" },
-    end: { lat: 14.69, lng: -17.44, label: "Dakar" },
-  },
-  {
-    start: { lat: 5.36, lng: -4.01, label: "Abidjan" },
-    end: { lat: 6.52, lng: 3.38, label: "Lagos" },
-  },
-  {
-    start: { lat: 5.36, lng: -4.01, label: "Abidjan" },
-    end: { lat: 12.37, lng: -1.52, label: "Ouaga" },
-  },
-  {
-    start: { lat: 14.69, lng: -17.44, label: "Dakar" },
-    end: { lat: 48.86, lng: 2.35, label: "Paris" },
-  },
-  {
-    start: { lat: 6.52, lng: 3.38, label: "Lagos" },
-    end: { lat: 5.56, lng: -0.19, label: "Accra" },
-  },
+  // Afrique de l'Ouest
+  { start: { lat: 5.36, lng: -4.01 }, end: { lat: 14.69, lng: -17.44 } },
+  { start: { lat: 5.36, lng: -4.01 }, end: { lat: 6.52, lng: 3.38 } },
+  { start: { lat: 5.36, lng: -4.01 }, end: { lat: 12.37, lng: -1.52 } },
+  { start: { lat: 6.52, lng: 3.38 }, end: { lat: 5.56, lng: -0.19 } },
+  // Vers Europe
+  { start: { lat: 14.69, lng: -17.44 }, end: { lat: 48.86, lng: 2.35 } },
+  { start: { lat: 33.59, lng: -7.62 }, end: { lat: 40.42, lng: -3.70 } },
+  // Afrique centrale et est
+  { start: { lat: 4.06, lng: 9.71 }, end: { lat: -1.29, lng: 36.82 } },
+  { start: { lat: -4.44, lng: 15.27 }, end: { lat: -6.17, lng: 35.74 } },
+  // Connections supplémentaires
+  { start: { lat: 9.08, lng: 7.40 }, end: { lat: 15.50, lng: 32.56 } },
+  { start: { lat: 36.75, lng: 3.06 }, end: { lat: 30.04, lng: 31.24 } },
 ];
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
@@ -169,7 +163,7 @@ export default function Hero() {
           <div className="relative">
             {/* Dégradé en haut */}
             <div className="absolute inset-x-0 top-0 h-16 bg-gradient-to-b from-[#fbfbfc] to-transparent z-10 pointer-events-none" />
-            <WorldMap dots={mapConnections} lineColor="#028175" showLabels={true} />
+            <WorldMap dots={mapConnections} lineColor="#028175" showLabels={false} />
             {/* Dégradé en bas */}
             <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-[#fbfbfc] to-transparent z-10 pointer-events-none" />
           </div>
