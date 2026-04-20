@@ -6,6 +6,7 @@ import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Image from "next/image";
 import Lenis from "lenis";
+import { Globe } from "@/components/ui/globe";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
@@ -46,9 +47,11 @@ export default function Hero() {
     const scrollIndicator = hero.querySelector(".scroll-indicator");
     const bgImages = hero.querySelectorAll(".bg-image");
     const mainImage = hero.querySelector(".main-image");
+    const globe = hero.querySelector(".hero-globe");
 
     // Set initial states - text visible, images hidden
     gsap.set([title, subtitle, cta, scrollIndicator], { opacity: 1, y: 0 });
+    gsap.set(globe, { opacity: 0.4 });
     gsap.set(bgImages, { opacity: 0, scale: 1.2, y: 50 });
     gsap.set(mainImage, { opacity: 0, scale: 0.8, y: 100 });
 
@@ -64,8 +67,9 @@ export default function Hero() {
       },
     });
 
-    // Phase 1: Fade out text content (faster)
+    // Phase 1: Fade out text content and globe (faster)
     scrollTL.to(scrollIndicator, { opacity: 0, y: -15, duration: 0.15 }, 0);
+    scrollTL.to(globe, { opacity: 0, scale: 0.9, duration: 0.3 }, 0);
     scrollTL.to(title, { y: -40, opacity: 0, scale: 0.97, duration: 0.3 }, 0.05);
     scrollTL.to(subtitle, { y: -25, opacity: 0, duration: 0.25 }, 0.1);
     scrollTL.to(cta, { y: -15, opacity: 0, duration: 0.2 }, 0.15);
@@ -110,6 +114,11 @@ export default function Hero() {
       <div className="hero-aura-1" />
       <div className="hero-aura-2" />
       <div className="hero-dots-overlay" />
+
+      {/* Globe en arrière-plan */}
+      <div className="hero-globe absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-[5] w-[600px] h-[600px] sm:w-[700px] sm:h-[700px] md:w-[800px] md:h-[800px] opacity-40 pointer-events-none">
+        <Globe speed={0.001} />
+      </div>
 
       <div className="hero-content relative z-10 text-center w-full px-[5%] max-w-5xl mx-auto">
         <h1 className="hero-title text-[2.5rem] sm:text-[3rem] md:text-[3.5rem] font-extrabold leading-tight tracking-tight text-gray-900 mb-6">
