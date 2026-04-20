@@ -159,7 +159,7 @@ export default function Hero() {
       </div>
 
       <div
-        className="main-image absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-[15] rounded-xl bg-white p-2 sm:p-3 shadow-xl"
+        className="main-image absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-[15] rounded-xl bg-white p-2 sm:p-3 shadow-xl pointer-events-none"
         style={{ width: "min(85vw, 800px)", aspectRatio: "16/10" }}
       >
         <div className="screen w-full h-full rounded-lg overflow-hidden bg-[#eff0f0] relative">
