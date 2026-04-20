@@ -6,6 +6,31 @@ import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Image from "next/image";
 import Lenis from "lenis";
+import { WorldMap } from "@/components/ui/world-map";
+
+// Connexions entre villes africaines où Wano est utilisé
+const mapConnections = [
+  {
+    start: { lat: 5.36, lng: -4.01, label: "Abidjan" },
+    end: { lat: 14.69, lng: -17.44, label: "Dakar" },
+  },
+  {
+    start: { lat: 5.36, lng: -4.01, label: "Abidjan" },
+    end: { lat: 6.52, lng: 3.38, label: "Lagos" },
+  },
+  {
+    start: { lat: 5.36, lng: -4.01, label: "Abidjan" },
+    end: { lat: 12.37, lng: -1.52, label: "Ouaga" },
+  },
+  {
+    start: { lat: 14.69, lng: -17.44, label: "Dakar" },
+    end: { lat: 48.86, lng: 2.35, label: "Paris" },
+  },
+  {
+    start: { lat: 6.52, lng: 3.38, label: "Lagos" },
+    end: { lat: 5.56, lng: -0.19, label: "Accra" },
+  },
+];
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
@@ -43,12 +68,13 @@ export default function Hero() {
     const title = hero.querySelector(".hero-title");
     const subtitle = hero.querySelector(".hero-subtitle");
     const cta = hero.querySelector(".hero-cta");
+    const heroMap = hero.querySelector(".hero-map");
     const scrollIndicator = hero.querySelector(".scroll-indicator");
     const bgImages = hero.querySelectorAll(".bg-image");
     const mainImage = hero.querySelector(".main-image");
 
     // Set initial states - text visible, images hidden
-    gsap.set([title, subtitle, cta, scrollIndicator], { opacity: 1, y: 0 });
+    gsap.set([title, subtitle, cta, heroMap, scrollIndicator], { opacity: 1, y: 0 });
     gsap.set(bgImages, { opacity: 0, scale: 1.2, y: 50 });
     gsap.set(mainImage, { opacity: 0, scale: 0.8, y: 100 });
 
@@ -64,11 +90,12 @@ export default function Hero() {
       },
     });
 
-    // Phase 1: Fade out text content (faster)
+    // Phase 1: Fade out text content and map (faster)
     scrollTL.to(scrollIndicator, { opacity: 0, y: -15, duration: 0.15 }, 0);
     scrollTL.to(title, { y: -40, opacity: 0, scale: 0.97, duration: 0.3 }, 0.05);
     scrollTL.to(subtitle, { y: -25, opacity: 0, duration: 0.25 }, 0.1);
     scrollTL.to(cta, { y: -15, opacity: 0, duration: 0.2 }, 0.15);
+    scrollTL.to(heroMap, { y: -20, opacity: 0, scale: 0.95, duration: 0.3 }, 0.1);
 
     // Phase 2: Fade in background images
     scrollTL.to(bgImages, {
@@ -111,7 +138,7 @@ export default function Hero() {
       <div className="hero-aura-2" />
       <div className="hero-dots-overlay" />
 
-      <div className="hero-content relative z-10 text-center w-full px-[5%] max-w-5xl mx-auto">
+      <div className="hero-content relative z-10 text-center w-full px-[5%] max-w-6xl mx-auto flex flex-col items-center">
         <h1 className="hero-title text-[2.5rem] sm:text-[3rem] md:text-[3.5rem] font-extrabold leading-tight tracking-tight text-gray-900 mb-6">
           Tout votre business<br />
           <span className="highlight">en une seule app</span>
@@ -122,7 +149,7 @@ export default function Hero() {
           pour piloter votre activité où que vous soyez.
         </p>
 
-        <div className="hero-cta flex flex-col sm:flex-row gap-4 justify-center">
+        <div className="hero-cta flex flex-col sm:flex-row gap-4 justify-center mb-6">
           <a
             href="https://console.wanoapp.com"
             className="px-6 py-3.5 bg-[#028175] hover:bg-[#027469] text-white rounded-full font-semibold text-base hover:-translate-y-0.5 hover:shadow-lg hover:shadow-[#028175]/25 transition-all"
@@ -135,6 +162,17 @@ export default function Hero() {
           >
             Découvrir
           </a>
+        </div>
+
+        {/* Map sous les boutons */}
+        <div className="hero-map w-full max-w-4xl -mt-2">
+          <div className="relative">
+            {/* Dégradé en haut */}
+            <div className="absolute inset-x-0 top-0 h-16 bg-gradient-to-b from-[#fbfbfc] to-transparent z-10 pointer-events-none" />
+            <WorldMap dots={mapConnections} lineColor="#028175" showLabels={true} />
+            {/* Dégradé en bas */}
+            <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-[#fbfbfc] to-transparent z-10 pointer-events-none" />
+          </div>
         </div>
       </div>
 
