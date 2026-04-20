@@ -74,7 +74,7 @@ export function WorldMap({
       <svg
         ref={svgRef}
         viewBox="0 0 800 400"
-        className="w-full h-full absolute inset-0 pointer-events-auto select-none"
+        className="w-full h-full absolute inset-0 pointer-events-none select-none"
         preserveAspectRatio="xMidYMid meet"
       >
         <defs>
