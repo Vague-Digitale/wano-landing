@@ -197,7 +197,7 @@ export function WorldMap({
                 {showLabels && dot.start.label && (
                   <foreignObject
                     x={startPoint.x - 40}
-                    y={startPoint.y + 12}
+                    y={startPoint.y + 60}
                     width="80"
                     height="24"
                     className="opacity-0 group-hover:opacity-100 transition-opacity duration-200"
@@ -248,7 +248,7 @@ export function WorldMap({
                 {showLabels && dot.end.label && (
                   <foreignObject
                     x={endPoint.x - 40}
-                    y={endPoint.y + 12}
+                    y={endPoint.y + 60}
                     width="80"
                     height="24"
                     className="opacity-0 group-hover:opacity-100 transition-opacity duration-200"
