@@ -8,16 +8,20 @@ import Image from "next/image";
 import Lenis from "lenis";
 import { WorldMap } from "@/components/ui/world-map";
 
-// Connexions entre points sur terre (bien espacés)
+// Connexions réparties sur toute la carte
 const mapConnections = [
-  // Afrique de l'Ouest vers Europe
-  { start: { lat: 14.69, lng: -17.44 }, end: { lat: 48.86, lng: 2.35 } }, // Dakar → Paris
-  // Afrique du Nord vers Afrique de l'Est
-  { start: { lat: 33.59, lng: -7.62 }, end: { lat: 30.04, lng: 31.24 } }, // Casablanca → Le Caire
-  // Afrique de l'Est vers Afrique du Sud
-  { start: { lat: -1.29, lng: 36.82 }, end: { lat: -26.20, lng: 28.04 } }, // Nairobi → Johannesburg
-  // Afrique de l'Ouest interne
-  { start: { lat: 5.36, lng: -4.01 }, end: { lat: 9.03, lng: 38.75 } }, // Abidjan → Addis-Abeba
+  // Amérique du Nord → Europe
+  { start: { lat: 40.71, lng: -74.01 }, end: { lat: 51.51, lng: -0.13 } }, // New York → Londres
+  // Europe → Asie
+  { start: { lat: 48.86, lng: 2.35 }, end: { lat: 55.75, lng: 37.62 } }, // Paris → Moscou
+  // Afrique → Europe
+  { start: { lat: 14.69, lng: -17.44 }, end: { lat: 40.42, lng: -3.70 } }, // Dakar → Madrid
+  // Asie → Océanie
+  { start: { lat: 35.68, lng: 139.69 }, end: { lat: -33.87, lng: 151.21 } }, // Tokyo → Sydney
+  // Amérique du Sud → Afrique
+  { start: { lat: -23.55, lng: -46.63 }, end: { lat: -26.20, lng: 28.04 } }, // São Paulo → Johannesburg
+  // Moyen-Orient → Asie du Sud
+  { start: { lat: 25.28, lng: 55.30 }, end: { lat: 19.08, lng: 72.88 } }, // Dubai → Mumbai
 ];
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
