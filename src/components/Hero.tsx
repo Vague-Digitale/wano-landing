@@ -8,27 +8,27 @@ import Image from "next/image";
 import Lenis from "lenis";
 import { WorldMap } from "@/components/ui/world-map";
 
-// Connexions entre pays où Wano est utilisé
+// Connexions entre villes africaines où Wano est utilisé
 const mapConnections = [
   {
-    start: { lat: 5.36, lng: -4.01, label: "Côte d'Ivoire" },
-    end: { lat: 14.69, lng: -17.44, label: "Sénégal" },
+    start: { lat: 5.36, lng: -4.01, label: "Abidjan" },
+    end: { lat: 14.69, lng: -17.44, label: "Dakar" },
   },
   {
-    start: { lat: 5.36, lng: -4.01, label: "Côte d'Ivoire" },
-    end: { lat: 6.52, lng: 3.38, label: "Nigeria" },
+    start: { lat: 5.36, lng: -4.01, label: "Abidjan" },
+    end: { lat: 6.52, lng: 3.38, label: "Lagos" },
   },
   {
-    start: { lat: 5.36, lng: -4.01, label: "Côte d'Ivoire" },
-    end: { lat: 12.37, lng: -1.52, label: "Burkina" },
+    start: { lat: 5.36, lng: -4.01, label: "Abidjan" },
+    end: { lat: 12.37, lng: -1.52, label: "Ouaga" },
   },
   {
-    start: { lat: 14.69, lng: -17.44, label: "Sénégal" },
-    end: { lat: 48.86, lng: 2.35, label: "France" },
+    start: { lat: 14.69, lng: -17.44, label: "Dakar" },
+    end: { lat: 48.86, lng: 2.35, label: "Paris" },
   },
   {
-    start: { lat: 6.52, lng: 3.38, label: "Nigeria" },
-    end: { lat: 5.56, lng: -0.19, label: "Ghana" },
+    start: { lat: 6.52, lng: 3.38, label: "Lagos" },
+    end: { lat: 5.56, lng: -0.19, label: "Accra" },
   },
 ];
 
@@ -165,7 +165,7 @@ export default function Hero() {
         </div>
 
         {/* Map sous les boutons */}
-        <div className="hero-map w-full max-w-4xl mt-4">
+        <div className="hero-map w-full max-w-4xl -mt-2">
           <div className="relative">
             {/* Dégradé en haut */}
             <div className="absolute inset-x-0 top-0 h-16 bg-gradient-to-b from-[#fbfbfc] to-transparent z-10 pointer-events-none" />

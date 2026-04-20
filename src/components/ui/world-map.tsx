@@ -40,7 +40,6 @@ export function WorldMap({
     [map]
   );
 
-  // Projection monde entier (800x400)
   const projectPoint = (lat: number, lng: number) => {
     const x = (lng + 180) * (800 / 360);
     const y = (90 - lat) * (400 / 180);
@@ -162,7 +161,7 @@ export function WorldMap({
           return (
             <g key={`points-group-${i}`}>
               {/* Start Point */}
-              <g key={`start-${i}`} className="group cursor-pointer">
+              <g key={`start-${i}`}>
                 <circle
                   cx={startPoint.x}
                   cy={startPoint.y}
@@ -196,24 +195,29 @@ export function WorldMap({
                 </circle>
 
                 {showLabels && dot.start.label && (
-                  <foreignObject
-                    x={startPoint.x - 40}
-                    y={startPoint.y + 8}
-                    width="80"
-                    height="24"
-                    className="opacity-0 group-hover:opacity-100 transition-opacity duration-200"
+                  <motion.g
+                    initial={{ opacity: 0, y: 5 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.5 * i + 0.3, duration: 0.5 }}
                   >
-                    <div className="flex items-center justify-center h-full">
-                      <span className="text-[10px] font-medium px-1.5 py-0.5 rounded bg-white/90 text-gray-700 shadow-sm border border-gray-100">
-                        {dot.start.label}
-                      </span>
-                    </div>
-                  </foreignObject>
+                    <foreignObject
+                      x={startPoint.x - 40}
+                      y={startPoint.y - 28}
+                      width="80"
+                      height="24"
+                    >
+                      <div className="flex items-center justify-center h-full">
+                        <span className="text-[10px] font-medium px-1.5 py-0.5 rounded bg-white/90 text-gray-700 shadow-sm border border-gray-100">
+                          {dot.start.label}
+                        </span>
+                      </div>
+                    </foreignObject>
+                  </motion.g>
                 )}
               </g>
 
               {/* End Point */}
-              <g key={`end-${i}`} className="group cursor-pointer">
+              <g key={`end-${i}`}>
                 <circle
                   cx={endPoint.x}
                   cy={endPoint.y}
@@ -247,19 +251,24 @@ export function WorldMap({
                 </circle>
 
                 {showLabels && dot.end.label && (
-                  <foreignObject
-                    x={endPoint.x - 40}
-                    y={endPoint.y + 8}
-                    width="80"
-                    height="24"
-                    className="opacity-0 group-hover:opacity-100 transition-opacity duration-200"
+                  <motion.g
+                    initial={{ opacity: 0, y: 5 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.5 * i + 0.5, duration: 0.5 }}
                   >
-                    <div className="flex items-center justify-center h-full">
-                      <span className="text-[10px] font-medium px-1.5 py-0.5 rounded bg-white/90 text-gray-700 shadow-sm border border-gray-100">
-                        {dot.end.label}
-                      </span>
-                    </div>
-                  </foreignObject>
+                    <foreignObject
+                      x={endPoint.x - 40}
+                      y={endPoint.y - 28}
+                      width="80"
+                      height="24"
+                    >
+                      <div className="flex items-center justify-center h-full">
+                        <span className="text-[10px] font-medium px-1.5 py-0.5 rounded bg-white/90 text-gray-700 shadow-sm border border-gray-100">
+                          {dot.end.label}
+                        </span>
+                      </div>
+                    </foreignObject>
+                  </motion.g>
                 )}
               </g>
             </g>
