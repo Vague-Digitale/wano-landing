@@ -14,6 +14,8 @@ interface MapProps {
   showLabels?: boolean;
   animationDuration?: number;
   loop?: boolean;
+  // ViewBox pour zoomer sur une région: "minX minY width height"
+  viewBox?: string;
 }
 
 export function WorldMap({
@@ -21,7 +23,9 @@ export function WorldMap({
   lineColor = "#028175",
   showLabels = true,
   animationDuration = 2,
-  loop = true
+  loop = true,
+  // Par défaut, centré sur l'Afrique/Europe (de -30° à 60° longitude, de -10° à 60° latitude)
+  viewBox = "280 80 350 220"
 }: MapProps) {
   const svgRef = useRef<SVGSVGElement>(null);
 
@@ -61,7 +65,7 @@ export function WorldMap({
   const fullCycleDuration = totalAnimationTime + pauseTime;
 
   return (
-    <div className="w-full aspect-[2/1] rounded-lg relative font-sans overflow-hidden">
+    <div className="w-full aspect-[16/9] rounded-lg relative font-sans overflow-hidden">
       <Image
         src={`data:image/svg+xml;utf8,${encodeURIComponent(svgMap)}`}
         className="h-full w-full [mask-image:linear-gradient(to_bottom,transparent,white_10%,white_90%,transparent)] pointer-events-none select-none object-cover"
@@ -73,7 +77,7 @@ export function WorldMap({
       />
       <svg
         ref={svgRef}
-        viewBox="0 0 800 400"
+        viewBox={viewBox}
         className="w-full h-full absolute inset-0 pointer-events-auto select-none"
         preserveAspectRatio="xMidYMid meet"
       >

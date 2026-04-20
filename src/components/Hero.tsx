@@ -164,14 +164,19 @@ export default function Hero() {
           </a>
         </div>
 
-        {/* Map sous les boutons */}
-        <div className="hero-map w-full max-w-4xl -mt-2">
+        {/* Map sous les boutons - centrée sur l'Afrique */}
+        <div className="hero-map w-full max-w-5xl">
           <div className="relative">
             {/* Dégradé en haut */}
-            <div className="absolute inset-x-0 top-0 h-16 bg-gradient-to-b from-[#fbfbfc] to-transparent z-10 pointer-events-none" />
-            <WorldMap dots={mapConnections} lineColor="#028175" showLabels={true} />
+            <div className="absolute inset-x-0 top-0 h-20 bg-gradient-to-b from-[#fbfbfc] via-[#fbfbfc]/80 to-transparent z-10 pointer-events-none" />
+            <WorldMap
+              dots={mapConnections}
+              lineColor="#028175"
+              showLabels={true}
+              viewBox="300 100 320 180"
+            />
             {/* Dégradé en bas */}
-            <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-[#fbfbfc] to-transparent z-10 pointer-events-none" />
+            <div className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-[#fbfbfc] via-[#fbfbfc]/80 to-transparent z-10 pointer-events-none" />
           </div>
         </div>
       </div>
