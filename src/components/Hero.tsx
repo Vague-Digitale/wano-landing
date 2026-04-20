@@ -8,20 +8,16 @@ import Image from "next/image";
 import Lenis from "lenis";
 import { WorldMap } from "@/components/ui/world-map";
 
-// Connexions réparties sur toute la carte
+// Connexions réparties sur toute la carte (avec Abidjan comme point central)
 const mapConnections = [
-  // Amérique du Nord → Europe
+  // Abidjan vers le monde
+  { start: { lat: 5.36, lng: -4.01 }, end: { lat: 48.86, lng: 2.35 } }, // Abidjan → Paris
+  { start: { lat: 5.36, lng: -4.01 }, end: { lat: -23.55, lng: -46.63 } }, // Abidjan → São Paulo
+  // Autres connexions mondiales
   { start: { lat: 40.71, lng: -74.01 }, end: { lat: 51.51, lng: -0.13 } }, // New York → Londres
-  // Europe → Asie
-  { start: { lat: 48.86, lng: 2.35 }, end: { lat: 55.75, lng: 37.62 } }, // Paris → Moscou
-  // Afrique → Europe
-  { start: { lat: 14.69, lng: -17.44 }, end: { lat: 40.42, lng: -3.70 } }, // Dakar → Madrid
-  // Asie → Océanie
   { start: { lat: 35.68, lng: 139.69 }, end: { lat: -33.87, lng: 151.21 } }, // Tokyo → Sydney
-  // Amérique du Sud → Afrique
-  { start: { lat: -23.55, lng: -46.63 }, end: { lat: -26.20, lng: 28.04 } }, // São Paulo → Johannesburg
-  // Moyen-Orient → Asie du Sud
-  { start: { lat: 25.28, lng: 55.30 }, end: { lat: 19.08, lng: 72.88 } }, // Dubai → Mumbai
+  { start: { lat: 25.28, lng: 55.30 }, end: { lat: 1.35, lng: 103.82 } }, // Dubai → Singapour
+  { start: { lat: 55.75, lng: 37.62 }, end: { lat: 39.90, lng: 116.41 } }, // Moscou → Pékin
 ];
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
