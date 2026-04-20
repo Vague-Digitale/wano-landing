@@ -16,16 +16,6 @@ interface MapProps {
   loop?: boolean;
 }
 
-// Région Afrique + Europe (pour inclure France)
-const REGION = {
-  lat: { min: -10, max: 55 },
-  lng: { min: -25, max: 55 }
-};
-
-// Dimensions du SVG basées sur la région
-const MAP_WIDTH = 800;
-const MAP_HEIGHT = 500;
-
 export function WorldMap({
   dots = [],
   lineColor = "#028175",
@@ -36,28 +26,24 @@ export function WorldMap({
   const svgRef = useRef<SVGSVGElement>(null);
 
   const map = useMemo(
-    () => new DottedMap({
-      height: 60,
-      grid: "diagonal",
-      region: REGION
-    }),
+    () => new DottedMap({ height: 100, grid: "diagonal" }),
     []
   );
 
   const svgMap = useMemo(
     () => map.getSVG({
-      radius: 0.3,
-      color: "#00000015",
+      radius: 0.22,
+      color: "#00000020",
       shape: "circle",
       backgroundColor: "transparent",
     }),
     [map]
   );
 
-  // Projection adaptée à la région
+  // Projection monde entier (800x400)
   const projectPoint = (lat: number, lng: number) => {
-    const x = ((lng - REGION.lng.min) / (REGION.lng.max - REGION.lng.min)) * MAP_WIDTH;
-    const y = ((REGION.lat.max - lat) / (REGION.lat.max - REGION.lat.min)) * MAP_HEIGHT;
+    const x = (lng + 180) * (800 / 360);
+    const y = (90 - lat) * (400 / 180);
     return { x, y };
   };
 
@@ -66,7 +52,7 @@ export function WorldMap({
     end: { x: number; y: number }
   ) => {
     const midX = (start.x + end.x) / 2;
-    const midY = Math.min(start.y, end.y) - 30;
+    const midY = Math.min(start.y, end.y) - 50;
     return `M ${start.x} ${start.y} Q ${midX} ${midY} ${end.x} ${end.y}`;
   };
 
@@ -76,19 +62,19 @@ export function WorldMap({
   const fullCycleDuration = totalAnimationTime + pauseTime;
 
   return (
-    <div className="w-full aspect-[16/10] rounded-lg relative font-sans overflow-hidden">
+    <div className="w-full aspect-[2/1] rounded-lg relative font-sans overflow-hidden">
       <Image
         src={`data:image/svg+xml;utf8,${encodeURIComponent(svgMap)}`}
         className="h-full w-full [mask-image:linear-gradient(to_bottom,transparent,white_10%,white_90%,transparent)] pointer-events-none select-none object-cover"
         alt="world map"
-        height="500"
-        width="800"
+        height="495"
+        width="1056"
         draggable={false}
         priority
       />
       <svg
         ref={svgRef}
-        viewBox={`0 0 ${MAP_WIDTH} ${MAP_HEIGHT}`}
+        viewBox="0 0 800 400"
         className="w-full h-full absolute inset-0 pointer-events-auto select-none"
         preserveAspectRatio="xMidYMid meet"
       >
@@ -101,8 +87,8 @@ export function WorldMap({
           </linearGradient>
 
           <filter id="glow">
-            <feMorphology operator="dilate" radius="0.3" />
-            <feGaussianBlur stdDeviation="0.8" result="coloredBlur" />
+            <feMorphology operator="dilate" radius="0.5" />
+            <feGaussianBlur stdDeviation="1" result="coloredBlur" />
             <feMerge>
               <feMergeNode in="coloredBlur" />
               <feMergeNode in="SourceGraphic" />
@@ -124,7 +110,7 @@ export function WorldMap({
                 d={createCurvedPath(startPoint, endPoint)}
                 fill="none"
                 stroke="url(#path-gradient)"
-                strokeWidth="1.5"
+                strokeWidth="1"
                 initial={{ pathLength: 0 }}
                 animate={loop ? {
                   pathLength: [0, 0, 1, 1, 0],
@@ -146,7 +132,7 @@ export function WorldMap({
 
               {loop && (
                 <motion.circle
-                  r="5"
+                  r="4"
                   fill={lineColor}
                   initial={{ offsetDistance: "0%", opacity: 0 }}
                   animate={{
@@ -180,21 +166,21 @@ export function WorldMap({
                 <circle
                   cx={startPoint.x}
                   cy={startPoint.y}
-                  r="4"
+                  r="3"
                   fill={lineColor}
                   filter="url(#glow)"
                 />
                 <circle
                   cx={startPoint.x}
                   cy={startPoint.y}
-                  r="4"
+                  r="3"
                   fill={lineColor}
                   opacity="0.5"
                 >
                   <animate
                     attributeName="r"
-                    from="4"
-                    to="15"
+                    from="3"
+                    to="12"
                     dur="2s"
                     begin="0s"
                     repeatCount="indefinite"
@@ -211,14 +197,14 @@ export function WorldMap({
 
                 {showLabels && dot.start.label && (
                   <foreignObject
-                    x={startPoint.x - 50}
-                    y={startPoint.y + 12}
-                    width="100"
-                    height="28"
+                    x={startPoint.x - 40}
+                    y={startPoint.y + 8}
+                    width="80"
+                    height="24"
                     className="opacity-0 group-hover:opacity-100 transition-opacity duration-200"
                   >
                     <div className="flex items-center justify-center h-full">
-                      <span className="text-xs font-medium px-2 py-1 rounded bg-white/95 text-gray-700 shadow-sm border border-gray-100 whitespace-nowrap">
+                      <span className="text-[10px] font-medium px-1.5 py-0.5 rounded bg-white/90 text-gray-700 shadow-sm border border-gray-100">
                         {dot.start.label}
                       </span>
                     </div>
@@ -231,21 +217,21 @@ export function WorldMap({
                 <circle
                   cx={endPoint.x}
                   cy={endPoint.y}
-                  r="4"
+                  r="3"
                   fill={lineColor}
                   filter="url(#glow)"
                 />
                 <circle
                   cx={endPoint.x}
                   cy={endPoint.y}
-                  r="4"
+                  r="3"
                   fill={lineColor}
                   opacity="0.5"
                 >
                   <animate
                     attributeName="r"
-                    from="4"
-                    to="15"
+                    from="3"
+                    to="12"
                     dur="2s"
                     begin="0.5s"
                     repeatCount="indefinite"
@@ -262,14 +248,14 @@ export function WorldMap({
 
                 {showLabels && dot.end.label && (
                   <foreignObject
-                    x={endPoint.x - 50}
-                    y={endPoint.y + 12}
-                    width="100"
-                    height="28"
+                    x={endPoint.x - 40}
+                    y={endPoint.y + 8}
+                    width="80"
+                    height="24"
                     className="opacity-0 group-hover:opacity-100 transition-opacity duration-200"
                   >
                     <div className="flex items-center justify-center h-full">
-                      <span className="text-xs font-medium px-2 py-1 rounded bg-white/95 text-gray-700 shadow-sm border border-gray-100 whitespace-nowrap">
+                      <span className="text-[10px] font-medium px-1.5 py-0.5 rounded bg-white/90 text-gray-700 shadow-sm border border-gray-100">
                         {dot.end.label}
                       </span>
                     </div>
