@@ -58,10 +58,18 @@ export default function Footer() {
 
         {/* Bottom */}
         <div className="mt-6 flex flex-col sm:flex-row justify-between items-center text-[#6b7271] text-xs gap-4">
-          <p>&copy; {new Date().getFullYear()} Wano. Tous droits réservés.</p>
-          <p>
-            Conçu avec soin en Côte d&apos;Ivoire
-          </p>
+          <p>&copy; {new Date().getFullYear()} Vague Digitale SARL. Tous droits réservés.</p>
+          <div className="flex items-center gap-4">
+            <Link href="/terms" className="hover:text-white transition-colors">
+              CGU
+            </Link>
+            <span className="text-white/20">|</span>
+            <Link href="/privacy" className="hover:text-white transition-colors">
+              Confidentialité
+            </Link>
+            <span className="text-white/20">|</span>
+            <p>Conçu avec soin en Côte d&apos;Ivoire</p>
+          </div>
         </div>
       </div>
     </footer>
