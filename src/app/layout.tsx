@@ -4,9 +4,12 @@ import LenisProvider from "@/components/LenisProvider";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://wanoapp.com"),
-  title: "Wano - Gérez votre business en toute simplicité",
+  title: {
+    default: "Wano — Le système d'exploitation de votre business",
+    template: "%s | Wano",
+  },
   description:
-    "Wano est la plateforme tout-en-un pour gérer votre commerce. Stock, ventes en ligne et en boutique, facturation, analytics. Commencez gratuitement et évoluez à votre rythme.",
+    "POS, e-commerce, facturation, paiement mobile — tout ce dont vous avez besoin pour gérer et développer votre activité. Made in Côte d'Ivoire, 100% pensé pour l'Afrique.",
   keywords: [
     "gestion de stock",
     "logiciel de caisse",
@@ -14,36 +17,49 @@ export const metadata: Metadata = {
     "point de vente",
     "POS",
     "facturation",
+    "paiement mobile",
+    "Orange Money",
+    "Wave",
+    "MTN Money",
     "gestion commerciale",
     "Côte d'Ivoire",
     "Afrique",
     "FCFA",
+    "Abidjan",
   ],
-  authors: [{ name: "Wano" }],
+  authors: [{ name: "Wano", url: "https://wanoapp.com" }],
   creator: "Wano",
+  publisher: "Wano",
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
   openGraph: {
     type: "website",
     locale: "fr_FR",
     url: "https://wanoapp.com",
     siteName: "Wano",
-    title: "Wano - Gérez votre business en toute simplicité",
+    title: "Wano — Le système d'exploitation de votre business",
     description:
-      "La plateforme tout-en-un pour gérer votre commerce. Commencez gratuitement.",
+      "POS, e-commerce, facturation, paiement mobile — tout ce dont vous avez besoin pour gérer et développer votre activité. Made in Côte d'Ivoire.",
     images: [
       {
-        url: "/og-image.png",
+        url: "/wano.png",
         width: 1200,
         height: 630,
-        alt: "Wano - Plateforme de gestion commerciale",
+        alt: "Wano — Le système d'exploitation de votre business",
+        type: "image/png",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Wano - Gérez votre business en toute simplicité",
+    title: "Wano — Le système d'exploitation de votre business",
     description:
-      "La plateforme tout-en-un pour gérer votre commerce. Commencez gratuitement.",
-    images: ["/og-image.png"],
+      "POS, e-commerce, facturation, paiement mobile — tout ce dont vous avez besoin pour gérer et développer votre activité.",
+    images: ["/wano.png"],
+    creator: "@wanoapp",
   },
   robots: {
     index: true,
@@ -57,8 +73,16 @@ export const metadata: Metadata = {
     },
   },
   icons: {
-    icon: "/favicon.ico",
-    apple: "/wano.webp",
+    icon: [
+      { url: "/wano.png", type: "image/png" },
+    ],
+    apple: [
+      { url: "/wano.png", type: "image/png" },
+    ],
+  },
+  manifest: "/manifest.json",
+  alternates: {
+    canonical: "https://wanoapp.com",
   },
 };
 
@@ -70,9 +94,12 @@ export default function RootLayout({
   return (
     <html lang="fr" className="antialiased">
       <head>
-        <link rel="icon" href="/favicon.ico" sizes="any" />
-        <link rel="apple-touch-icon" href="/wano.webp" />
+        <link rel="icon" href="/wano.png" type="image/png" />
+        <link rel="apple-touch-icon" href="/wano.png" />
         <meta name="theme-color" content="#0E8A6B" />
+        <meta name="msapplication-TileColor" content="#0E8A6B" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
       </head>
       <body
         className="min-h-full flex flex-col bg-[#F4F1EB] text-[#1F1E18]"
