@@ -1,25 +1,31 @@
-import Navbar from "@/components/Navbar";
-import Hero from "@/components/Hero";
-import FeaturesSection from "@/components/FeaturesSection";
-import BusinessTypesSection from "@/components/BusinessTypesSection";
-import MultiDeviceSection from "@/components/MultiDeviceSection";
-import PricingSection from "@/components/PricingSection";
-import CTASection from "@/components/CTASection";
-import Footer from "@/components/Footer";
+import { SiteHeader } from "@/components/v2/SiteHeader";
+import { HeroSection } from "@/components/v2/HeroSection";
+import { ForWhoSection } from "@/components/v2/ForWhoSection";
+import { HowItWorksSection } from "@/components/v2/HowItWorksSection";
+import { AssoSection } from "@/components/v2/AssoSection";
+import { StatsSection } from "@/components/v2/StatsSection";
+import { TestimonialsSection } from "@/components/v2/TestimonialsSection";
+import { PricingSection } from "@/components/v2/PricingSection";
+import { RoadmapSection } from "@/components/v2/RoadmapSection";
+import { FinalCTASection } from "@/components/v2/FinalCTASection";
+import { SiteFooter } from "@/components/v2/SiteFooter";
 
 export default function Home() {
   return (
     <>
-      <Navbar />
+      <SiteHeader />
       <main>
-        <Hero />
-        <FeaturesSection />
-        <BusinessTypesSection />
-        <MultiDeviceSection />
+        <HeroSection />
+        <ForWhoSection />
+        <HowItWorksSection />
+        <AssoSection />
+        <StatsSection />
+        <TestimonialsSection />
         <PricingSection />
-        <CTASection />
+        <RoadmapSection />
+        <FinalCTASection />
       </main>
-      <Footer />
+      <SiteFooter />
     </>
   );
 }

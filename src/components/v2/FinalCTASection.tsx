@@ -1,0 +1,49 @@
+"use client";
+
+import { useRef } from "react";
+import { motion, useInView } from "framer-motion";
+import { Container } from "./Container";
+import { CTA } from "./CTA";
+
+export function FinalCTASection() {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-100px" });
+
+  return (
+    <section className="py-16 md:py-[120px] bg-[#0E8A6B]">
+      <Container>
+        <motion.div
+          ref={ref}
+          initial={{ opacity: 0, y: 24 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }}
+          transition={{ duration: 0.6 }}
+          className="text-center max-w-4xl mx-auto"
+        >
+          <h2
+            className="text-[32px] md:text-[56px] lg:text-[72px] font-bold leading-[1.05] tracking-[-0.02em] text-white mb-8"
+            style={{ fontFamily: "var(--wn-font-display)" }}
+          >
+            Pret a unifier<br className="hidden md:block" /> votre business ?
+          </h2>
+
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <CTA
+              href="https://console.wanoapp.com"
+              variant="primary"
+              className="bg-white text-[#0E8A6B] hover:bg-[#F4F1EB]"
+            >
+              Demarrer gratuitement
+            </CTA>
+            <CTA
+              href="https://wa.me/2250700000000"
+              variant="secondary"
+              className="border-white text-white hover:bg-white hover:text-[#0E8A6B]"
+            >
+              Parler a un humain
+            </CTA>
+          </div>
+        </motion.div>
+      </Container>
+    </section>
+  );
+}

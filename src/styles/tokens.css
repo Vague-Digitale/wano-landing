@@ -1,0 +1,154 @@
+/**
+ * Wano Design System v2 — Tokens
+ * Site marketing wanoapp.com
+ */
+
+/* ============================================================
+   FONTS
+   ============================================================ */
+
+@font-face {
+  font-family: 'GT Walsheim Pro';
+  src: url('/fonts/gtwalsheim-pro/GTWalsheimPro-Light.woff2') format('woff2'),
+       url('/fonts/gtwalsheim-pro/GTWalsheimPro-Light.woff') format('woff');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'GT Walsheim Pro';
+  src: url('/fonts/gtwalsheim-pro/GTWalsheimPro-Regular.woff2') format('woff2'),
+       url('/fonts/gtwalsheim-pro/GTWalsheimPro-Regular.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'GT Walsheim Pro';
+  src: url('/fonts/gtwalsheim-pro/GTWalsheimPro-Medium.woff2') format('woff2'),
+       url('/fonts/gtwalsheim-pro/GTWalsheimPro-Medium.woff') format('woff');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'GT Walsheim Pro';
+  src: url('/fonts/gtwalsheim-pro/GTWalsheimPro-Bold.woff2') format('woff2'),
+       url('/fonts/gtwalsheim-pro/GTWalsheimPro-Bold.woff') format('woff');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'GT Walsheim Pro';
+  src: url('/fonts/gtwalsheim-pro/GTWalsheimPro-Black.woff2') format('woff2'),
+       url('/fonts/gtwalsheim-pro/GTWalsheimPro-Black.woff') format('woff');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'GT Walsheim Pro Condensed';
+  src: url('/fonts/gtwalsheim-pro/GTWalsheimPro-CondensedLight.woff2') format('woff2'),
+       url('/fonts/gtwalsheim-pro/GTWalsheimPro-CondensedLight.woff') format('woff');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'GT Walsheim Pro Condensed';
+  src: url('/fonts/gtwalsheim-pro/GTWalsheimPro-CondensedRegular.woff2') format('woff2'),
+       url('/fonts/gtwalsheim-pro/GTWalsheimPro-CondensedRegular.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'GT Walsheim Pro Condensed';
+  src: url('/fonts/gtwalsheim-pro/GTWalsheimPro-CondensedMedium.woff2') format('woff2'),
+       url('/fonts/gtwalsheim-pro/GTWalsheimPro-CondensedMedium.woff') format('woff');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'GT Walsheim Pro Condensed';
+  src: url('/fonts/gtwalsheim-pro/GTWalsheimPro-CondensedBold.woff2') format('woff2'),
+       url('/fonts/gtwalsheim-pro/GTWalsheimPro-CondensedBold.woff') format('woff');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'GT Walsheim Pro Condensed';
+  src: url('/fonts/gtwalsheim-pro/GTWalsheimPro-CondensedBlack.woff2') format('woff2'),
+       url('/fonts/gtwalsheim-pro/GTWalsheimPro-CondensedBlack.woff') format('woff');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ============================================================
+   CSS CUSTOM PROPERTIES
+   ============================================================ */
+
+:root {
+  /* ============ COULEURS — NEUTRES CHAUDS (papier) ============ */
+  --wn-bg-warm: #F4F1EB;
+  --wn-surface: #FFFFFF;
+  --wn-n-50: #F7F5F0;
+  --wn-n-100: #EDEAE0;
+  --wn-n-200: #DDD8C8;
+  --wn-n-300: #C3BDAE;
+  --wn-n-400: #9A9384;
+  --wn-n-500: #5E5B48;
+  --wn-n-700: #3D3C2E;
+  --wn-n-800: #272620;
+  --wn-n-900: #161612;
+
+  /* ============ COULEURS — VERT WANO ============ */
+  --wn-green-50: #ECF8F3;
+  --wn-green-100: #D3EFE2;
+  --wn-green-500: #0E8A6B;
+  --wn-green-600: #0A6E54;
+  --wn-green-700: #085641;
+  --wn-green-acid: #7CFC9E;
+
+  /* ============ COULEURS — SÉMANTIQUES ============ */
+  --wn-text: #1F1E18;
+  --wn-text-muted: #5E5B48;
+  --wn-border: #DDD8C8;
+
+  /* ============ TYPOGRAPHIE ============ */
+  --wn-font-sans: 'GT Walsheim Pro', -apple-system, system-ui, sans-serif;
+  --wn-font-display: 'GT Walsheim Pro', -apple-system, system-ui, sans-serif;
+  --wn-font-cond: 'GT Walsheim Pro Condensed', 'GT Walsheim Pro', -apple-system, system-ui, sans-serif;
+
+  /* ============ RADIUS ============ */
+  --wn-radius: 0;
+
+  /* ============ SPACING ============ */
+  --wn-space-1: 4px;
+  --wn-space-2: 8px;
+  --wn-space-3: 12px;
+  --wn-space-4: 16px;
+  --wn-space-6: 24px;
+  --wn-space-8: 32px;
+  --wn-space-12: 48px;
+  --wn-space-16: 64px;
+  --wn-space-22: 88px;
+  --wn-space-30: 120px;
+
+  /* ============ TRANSITIONS ============ */
+  --wn-duration: 200ms;
+  --wn-ease: ease;
+}

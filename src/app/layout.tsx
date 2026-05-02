@@ -1,41 +1,6 @@
 import type { Metadata } from "next";
-import localFont from "next/font/local";
-import { Sora } from "next/font/google";
 import "./globals.css";
 import LenisProvider from "@/components/LenisProvider";
-
-const sora = Sora({
-  subsets: ["latin"],
-  variable: "--font-sora",
-  display: "swap",
-});
-
-const gtWalsheim = localFont({
-  src: [
-    {
-      path: "../../public/fonts/gtwalsheim-pro/GTWalsheimPro-Regular.woff2",
-      weight: "400",
-      style: "normal",
-    },
-    {
-      path: "../../public/fonts/gtwalsheim-pro/GTWalsheimPro-Medium.woff2",
-      weight: "500",
-      style: "normal",
-    },
-    {
-      path: "../../public/fonts/gtwalsheim-pro/GTWalsheimPro-Bold.woff2",
-      weight: "700",
-      style: "normal",
-    },
-    {
-      path: "../../public/fonts/gtwalsheim-pro/GTWalsheimPro-Black.woff2",
-      weight: "900",
-      style: "normal",
-    },
-  ],
-  variable: "--font-gtw",
-  display: "swap",
-});
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://wanoapp.com"),
@@ -103,13 +68,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="fr" className={`${sora.variable} ${gtWalsheim.variable} antialiased`}>
+    <html lang="fr" className="antialiased">
       <head>
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <link rel="apple-touch-icon" href="/wano.webp" />
-        <meta name="theme-color" content="#028175" />
+        <meta name="theme-color" content="#0E8A6B" />
       </head>
-      <body className="min-h-full flex flex-col font-sora">
+      <body
+        className="min-h-full flex flex-col bg-[#F4F1EB] text-[#1F1E18]"
+        style={{ fontFamily: "var(--wn-font-sans)" }}
+      >
         <LenisProvider>{children}</LenisProvider>
       </body>
     </html>
