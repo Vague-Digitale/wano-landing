@@ -12,8 +12,8 @@ export function CTA({ children, href, variant = "primary", className = "" }: CTA
   const baseStyles = "inline-flex items-center justify-center h-10 md:h-12 px-6 font-semibold text-base transition-all duration-200";
 
   const variants = {
-    primary: "bg-[#0E8A6B] text-white hover:bg-[#0A6E54]",
-    secondary: "bg-transparent border border-[#1F1E18] text-[#1F1E18] hover:bg-[#1F1E18] hover:text-white",
+    primary: "bg-[var(--wn-green-500)] text-white hover:bg-[var(--wn-green-700)]",
+    secondary: "bg-transparent border border-[var(--wn-text)] text-[var(--wn-text)] hover:bg-[var(--wn-text)] hover:text-white",
   };
 
   return (

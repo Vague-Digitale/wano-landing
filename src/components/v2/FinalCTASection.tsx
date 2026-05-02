@@ -10,7 +10,7 @@ export function FinalCTASection() {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section className="py-16 md:py-[120px] bg-[#0E8A6B]">
+    <section className="py-16 md:py-[120px] bg-[var(--wn-green-500)]">
       <Container>
         <motion.div
           ref={ref}
@@ -30,14 +30,14 @@ export function FinalCTASection() {
             <CTA
               href="https://console.wanoapp.com"
               variant="primary"
-              className="bg-white text-[#0E8A6B] hover:bg-[#F4F1EB]"
+              className="bg-white text-[var(--wn-green-500)] hover:bg-[var(--wn-bg-warm)]"
             >
               Démarrer gratuitement
             </CTA>
             <CTA
               href="https://wa.me/2250700000000"
               variant="secondary"
-              className="border-white text-white hover:bg-white hover:text-[#0E8A6B]"
+              className="border-white text-white hover:bg-white hover:text-[var(--wn-green-500)]"
             >
               Parler à un humain
             </CTA>

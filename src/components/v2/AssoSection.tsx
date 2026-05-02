@@ -16,7 +16,7 @@ export function AssoSection() {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section className="py-16 md:py-[88px] bg-[#161612]">
+    <section className="py-16 md:py-[88px] bg-[var(--wn-n-800)]">
       <Container>
         <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
           {/* Left Content */}
@@ -28,7 +28,7 @@ export function AssoSection() {
               transition={{ duration: 0.6 }}
             >
               <span
-                className="inline-block px-4 py-2 text-xs font-medium uppercase tracking-[0.04em] border border-[#7CFC9E] text-[#7CFC9E] mb-6"
+                className="inline-block px-4 py-2 text-xs font-medium uppercase tracking-[0.04em] border border-[var(--wn-green-acid)] text-[var(--wn-green-acid)] mb-6"
                 style={{ fontFamily: "var(--wn-font-display)" }}
               >
                 Asso &middot; l&apos;assistant intégré
@@ -43,14 +43,14 @@ export function AssoSection() {
               </h2>
 
               <p
-                className="text-base md:text-[17px] leading-[1.55] text-[#9A9384] mb-8 max-w-lg"
+                className="text-base md:text-[17px] leading-[1.55] text-[var(--wn-n-400)] mb-8 max-w-lg"
                 style={{ fontFamily: "var(--wn-font-display)" }}
               >
                 L&apos;assistant IA intégré qui comprend votre business. Posez vos questions, recevez des alertes, automatisez vos tâches.
               </p>
 
-              <CTA href="/asso" variant="secondary" className="border-white text-white hover:bg-white hover:text-[#161612]">
-                Voir Asso &rarr;
+              <CTA href="https://console.wanoapp.com" variant="secondary" className="border-white text-white hover:bg-white hover:text-[var(--wn-n-800)]">
+                Essayer Asso &rarr;
               </CTA>
             </motion.div>
           </div>
@@ -69,10 +69,10 @@ export function AssoSection() {
                   initial={{ opacity: 0, y: 16 }}
                   animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 16 }}
                   transition={{ duration: 0.4, delay: 0.3 + index * 0.1 }}
-                  className="bg-[#272620] border border-[#3D3C2E] p-5"
+                  className="bg-[#272620] border border-[var(--wn-n-700)] p-5"
                 >
                   <div className="flex items-start gap-3">
-                    <div className="w-8 h-8 bg-[#0E8A6B] flex items-center justify-center flex-shrink-0">
+                    <div className="w-8 h-8 bg-[var(--wn-green-500)] flex items-center justify-center flex-shrink-0">
                       <span className="text-white text-xs font-bold">U</span>
                     </div>
                     <p
@@ -90,21 +90,21 @@ export function AssoSection() {
                 initial={{ opacity: 0, y: 16 }}
                 animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 16 }}
                 transition={{ duration: 0.4, delay: 0.6 }}
-                className="bg-[#0E8A6B]/10 border border-[#0E8A6B]/30 p-5"
+                className="bg-[var(--wn-green-500)]/10 border border-[var(--wn-green-500)]/30 p-5"
               >
                 <div className="flex items-start gap-3">
-                  <div className="w-8 h-8 bg-[#7CFC9E] flex items-center justify-center flex-shrink-0">
-                    <span className="text-[#161612] text-xs font-bold">A</span>
+                  <div className="w-8 h-8 bg-[var(--wn-green-acid)] flex items-center justify-center flex-shrink-0">
+                    <span className="text-[var(--wn-n-800)] text-xs font-bold">A</span>
                   </div>
                   <div>
                     <p
-                      className="text-[#7CFC9E] text-base mb-1"
+                      className="text-[var(--wn-green-acid)] text-base mb-1"
                       style={{ fontFamily: "var(--wn-font-display)" }}
                     >
                       Cette semaine, vous avez vendu pour 847 500 F CFA.
                     </p>
                     <p
-                      className="text-[#9A9384] text-sm"
+                      className="text-[var(--wn-n-400)] text-sm"
                       style={{ fontFamily: "var(--wn-font-display)" }}
                     >
                       +12% par rapport à la semaine dernière

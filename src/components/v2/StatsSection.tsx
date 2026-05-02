@@ -31,18 +31,18 @@ export function StatsSection() {
               transition={{ duration: 0.5, delay: index * 0.1 }}
               className={`text-center ${
                 index < stats.length - 1
-                  ? "md:border-r md:border-[#DDD8C8]"
+                  ? "md:border-r md:border-[var(--wn-n-200)]"
                   : ""
               }`}
             >
               <span
-                className="block text-[56px] md:text-[88px] font-bold text-[#1F1E18] leading-none mb-2"
+                className="block text-[56px] md:text-[88px] font-bold text-[var(--wn-text)] leading-none mb-2"
                 style={{ fontFamily: "var(--wn-font-cond)" }}
               >
                 {stat.value}
               </span>
               <span
-                className="text-sm text-[#5E5B48]"
+                className="text-sm text-[var(--wn-text-muted)]"
                 style={{ fontFamily: "var(--wn-font-display)" }}
               >
                 {stat.label}

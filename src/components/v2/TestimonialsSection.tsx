@@ -32,7 +32,7 @@ export function TestimonialsSection() {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <Section className="bg-white">
+    <Section id="temoignages" className="bg-[var(--wn-surface)]">
       <Container>
         <div className="text-center mb-12 md:mb-16">
           <Eyebrow className="mb-4">Ils utilisent Wano</Eyebrow>
@@ -49,11 +49,11 @@ export function TestimonialsSection() {
               initial={{ opacity: 0, y: 24 }}
               animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="bg-[#F4F1EB] border border-[#DDD8C8] p-8"
+              className="bg-[var(--wn-bg-warm)] border border-[var(--wn-n-200)] p-8"
             >
               {/* Quote mark */}
               <span
-                className="block text-[64px] text-[#0E8A6B] leading-none mb-4"
+                className="block text-[64px] text-[var(--wn-green-500)] leading-none mb-4"
                 style={{ fontFamily: "var(--wn-font-cond)" }}
               >
                 &ldquo;
@@ -61,25 +61,25 @@ export function TestimonialsSection() {
 
               {/* Quote */}
               <p
-                className="text-[17px] font-medium text-[#1F1E18] mb-6 leading-relaxed"
+                className="text-[17px] font-medium text-[var(--wn-text)] mb-6 leading-relaxed"
                 style={{ fontFamily: "var(--wn-font-display)" }}
               >
                 {testimonial.quote}
               </p>
 
               {/* Divider */}
-              <div className="h-px bg-[#DDD8C8] mb-4" />
+              <div className="h-px bg-[var(--wn-n-200)] mb-4" />
 
               {/* Author */}
               <div>
                 <p
-                  className="font-semibold text-[#1F1E18]"
+                  className="font-semibold text-[var(--wn-text)]"
                   style={{ fontFamily: "var(--wn-font-display)" }}
                 >
                   {testimonial.name}
                 </p>
                 <p
-                  className="text-sm text-[#5E5B48]"
+                  className="text-sm text-[var(--wn-text-muted)]"
                   style={{ fontFamily: "var(--wn-font-display)" }}
                 >
                   {testimonial.role} &middot; {testimonial.location}

@@ -2,7 +2,6 @@
 
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import Link from "next/link";
 import { Container } from "./Container";
 import { Section } from "./Section";
 import { Eyebrow, H2 } from "./Typography";
@@ -30,7 +29,7 @@ const plans = [
     price: "Sur devis",
     features: ["Multi-organisations", "API complete", "Support prioritaire"],
     cta: "Nous contacter",
-    href: "/contact",
+    href: "https://wa.me/2250545476305",
     featured: false,
   },
 ];
@@ -40,7 +39,7 @@ export function PricingSection() {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <Section>
+    <Section id="tarifs">
       <Container>
         <div className="text-center mb-12 md:mb-16">
           <Eyebrow className="mb-4">Tarifs simples</Eyebrow>
@@ -57,16 +56,16 @@ export function PricingSection() {
               initial={{ opacity: 0, y: 24 }}
               animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              className={`relative bg-white p-8 ${
+              className={`relative bg-[var(--wn-surface)] p-8 ${
                 plan.featured
-                  ? "border-2 border-[#0E8A6B]"
-                  : "border border-[#DDD8C8]"
+                  ? "border-2 border-[var(--wn-green-500)]"
+                  : "border border-[var(--wn-n-200)]"
               }`}
             >
               {/* Popular Badge */}
               {plan.featured && (
                 <span
-                  className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1 bg-[#0E8A6B] text-white text-xs font-medium"
+                  className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1 bg-[var(--wn-green-500)] text-white text-xs font-medium"
                   style={{ fontFamily: "var(--wn-font-display)" }}
                 >
                   Populaire
@@ -75,7 +74,7 @@ export function PricingSection() {
 
               {/* Plan Name */}
               <h3
-                className="text-xl font-semibold text-[#1F1E18] mb-2"
+                className="text-xl font-semibold text-[var(--wn-text)] mb-2"
                 style={{ fontFamily: "var(--wn-font-display)" }}
               >
                 {plan.name}
@@ -83,7 +82,7 @@ export function PricingSection() {
 
               {/* Price */}
               <p
-                className="text-[32px] font-bold text-[#1F1E18] mb-6"
+                className="text-[32px] font-bold text-[var(--wn-text)] mb-6"
                 style={{ fontFamily: "var(--wn-font-cond)" }}
               >
                 {plan.price}
@@ -94,10 +93,10 @@ export function PricingSection() {
                 {plan.features.map((feature) => (
                   <li
                     key={feature}
-                    className="flex items-center gap-2 text-sm text-[#5E5B48]"
+                    className="flex items-center gap-2 text-sm text-[var(--wn-text-muted)]"
                     style={{ fontFamily: "var(--wn-font-display)" }}
                   >
-                    <span className="w-4 h-4 bg-[#0E8A6B] flex items-center justify-center">
+                    <span className="w-4 h-4 bg-[var(--wn-green-500)] flex items-center justify-center">
                       <svg width="10" height="8" viewBox="0 0 10 8" fill="none">
                         <path d="M1 4L3.5 6.5L9 1" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                       </svg>
@@ -119,15 +118,15 @@ export function PricingSection() {
           ))}
         </div>
 
-        {/* Link to full pricing */}
+        {/* Link to contact */}
         <div className="text-center mt-8">
-          <Link
-            href="/tarifs"
-            className="text-sm font-medium text-[#0E8A6B] hover:underline"
+          <a
+            href="https://wa.me/2250545476305"
+            className="text-sm font-medium text-[var(--wn-green-500)] hover:underline"
             style={{ fontFamily: "var(--wn-font-display)" }}
           >
-            Voir tous les détails &rarr;
-          </Link>
+            Des questions ? Contactez-nous &rarr;
+          </a>
         </div>
       </Container>
     </Section>

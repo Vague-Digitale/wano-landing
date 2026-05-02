@@ -81,7 +81,7 @@ export function HeroSection({ dark = false }: HeroSectionProps) {
 
   // Mode Sage (clair) - Layout original
   return (
-    <section className="min-h-screen bg-[#F4F1EB] pt-[60px] md:pt-[72px]">
+    <section className="min-h-screen bg-[var(--wn-bg-warm)] pt-[60px] md:pt-[72px]">
       <Container className="py-12 md:py-20">
         <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
           {/* Left Content */}
@@ -152,16 +152,16 @@ export function HeroSection({ dark = false }: HeroSectionProps) {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.6, delay: 0.6 }}
-          className="mt-16 md:mt-24 pt-8 border-t border-[#DDD8C8]"
+          className="mt-16 md:mt-24 pt-8 border-t border-[var(--wn-n-200)]"
         >
-          <p className="text-sm text-[#9A9384] text-center mb-6" style={{ fontFamily: "var(--wn-font-display)" }}>
+          <p className="text-sm text-[var(--wn-n-400)] text-center mb-6" style={{ fontFamily: "var(--wn-font-display)" }}>
             Ils nous font confiance
           </p>
           <div className="flex flex-wrap items-center justify-center gap-8 md:gap-12">
             {clientLogos.map((logo) => (
               <span
                 key={logo}
-                className="text-sm font-medium text-[#9A9384] opacity-60"
+                className="text-sm font-medium text-[var(--wn-n-400)] opacity-60"
                 style={{ fontFamily: "var(--wn-font-display)" }}
               >
                 {logo}

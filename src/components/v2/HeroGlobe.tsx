@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState, useCallback } from "react";
+import { useEffect, useRef, useState, useCallback, useMemo } from "react";
 
 // Dataset continents: [lng, lat, weight]
 // ~250 points avec densité plus forte sur l'Afrique
@@ -37,76 +37,48 @@ const CONTINENT_DOTS: [number, number, number][] = [
   [47, -19, 1], [48, -22, 1], [46, -16, 1], [49, -18, 1],
 
   // EUROPE (weight = 0.85)
-  // Péninsule Ibérique
   [-8, 42, 0.85], [-4, 40, 0.85], [-3, 37, 0.85], [0, 41, 0.85],
-  // France
   [2, 48, 0.85], [0, 45, 0.85], [5, 46, 0.85], [3, 44, 0.85], [-1, 47, 0.85],
-  // Royaume-Uni
   [-3, 52, 0.85], [0, 54, 0.85], [-4, 56, 0.85],
-  // Benelux/Allemagne
   [5, 52, 0.85], [8, 50, 0.85], [10, 52, 0.85], [12, 48, 0.85], [6, 48, 0.85],
-  // Italie
   [12, 42, 0.85], [10, 44, 0.85], [14, 41, 0.85], [16, 40, 0.85], [12, 38, 0.85],
-  // Europe Centrale
   [15, 50, 0.85], [18, 52, 0.85], [20, 48, 0.85], [15, 46, 0.85],
-  // Scandinavie
   [10, 60, 0.85], [15, 62, 0.85], [18, 58, 0.85], [25, 62, 0.85],
-  // Europe de l'Est
   [25, 50, 0.85], [30, 52, 0.85], [28, 48, 0.85], [35, 55, 0.85], [38, 56, 0.85],
-  // Balkans/Grèce
   [20, 42, 0.85], [22, 38, 0.85], [25, 40, 0.85], [28, 38, 0.85],
 
   // ASIE (weight = 0.7)
-  // Moyen-Orient
   [35, 32, 0.7], [38, 34, 0.7], [42, 36, 0.7], [45, 35, 0.7],
   [48, 30, 0.7], [50, 28, 0.7], [55, 25, 0.7], [45, 25, 0.7],
-  // Asie Centrale
   [60, 40, 0.7], [65, 42, 0.7], [70, 40, 0.7], [68, 38, 0.7],
-  // Inde/sous-continent
   [72, 22, 0.7], [78, 18, 0.7], [82, 22, 0.7], [88, 24, 0.7],
   [75, 28, 0.7], [80, 15, 0.7], [77, 12, 0.7], [85, 20, 0.7],
-  // Asie du Sud-Est
   [100, 15, 0.7], [102, 18, 0.7], [105, 12, 0.7], [108, 16, 0.7],
   [110, 5, 0.7], [115, 0, 0.7], [120, 5, 0.7], [98, 8, 0.7],
-  // Chine
   [105, 35, 0.7], [110, 32, 0.7], [115, 30, 0.7], [120, 32, 0.7],
   [118, 38, 0.7], [112, 40, 0.7], [125, 42, 0.7], [100, 30, 0.7],
   [95, 28, 0.7], [90, 30, 0.7],
-  // Japon
   [135, 35, 0.7], [138, 38, 0.7], [140, 42, 0.7], [130, 33, 0.7],
-  // Corée
   [127, 36, 0.7], [128, 38, 0.7],
-  // Russie/Sibérie
   [45, 60, 0.7], [55, 58, 0.7], [70, 55, 0.7], [85, 55, 0.7],
   [100, 52, 0.7], [115, 50, 0.7], [130, 48, 0.7], [140, 50, 0.7],
 
   // AMÉRIQUES (weight = 0.6)
-  // Canada
   [-75, 48, 0.6], [-80, 45, 0.6], [-95, 50, 0.6], [-110, 52, 0.6],
   [-120, 50, 0.6], [-125, 48, 0.6], [-65, 48, 0.6],
-  // USA Est
   [-72, 42, 0.6], [-78, 40, 0.6], [-82, 35, 0.6], [-85, 32, 0.6],
   [-80, 28, 0.6], [-88, 30, 0.6], [-92, 32, 0.6],
-  // USA Centre
   [-95, 38, 0.6], [-100, 42, 0.6], [-105, 40, 0.6], [-98, 32, 0.6],
-  // USA Ouest
   [-118, 35, 0.6], [-122, 38, 0.6], [-120, 42, 0.6], [-115, 38, 0.6],
-  // Mexique
   [-100, 22, 0.6], [-105, 20, 0.6], [-98, 18, 0.6], [-92, 18, 0.6],
-  // Amérique Centrale
   [-85, 12, 0.6], [-88, 15, 0.6], [-82, 10, 0.6], [-78, 8, 0.6],
-  // Caraïbes
   [-72, 18, 0.6], [-78, 22, 0.6], [-68, 18, 0.6],
-  // Amérique du Sud Nord
   [-72, 8, 0.6], [-68, 5, 0.6], [-60, 5, 0.6], [-55, 2, 0.6],
   [-75, 0, 0.6], [-78, -2, 0.6], [-48, -2, 0.6],
-  // Brésil
   [-45, -8, 0.6], [-42, -15, 0.6], [-48, -20, 0.6], [-52, -25, 0.6],
   [-55, -12, 0.6], [-38, -12, 0.6], [-50, -5, 0.6],
-  // Sud Amérique Ouest
   [-72, -12, 0.6], [-75, -8, 0.6], [-78, -5, 0.6], [-68, -18, 0.6],
   [-70, -22, 0.6], [-68, -25, 0.6],
-  // Argentine/Chili
   [-58, -35, 0.6], [-62, -38, 0.6], [-70, -35, 0.6], [-68, -42, 0.6],
   [-72, -48, 0.6],
 
@@ -139,18 +111,27 @@ type HeroGlobeProps = {
   paused?: boolean;
 };
 
+// Round to 2 decimal places to avoid hydration mismatches
+const round = (n: number) => Math.round(n * 100) / 100;
+
 export function HeroGlobe({ size = 420, dark = false, paused = false }: HeroGlobeProps) {
+  const [mounted, setMounted] = useState(false);
   const [lngOffset, setLngOffset] = useState(20); // Centré sur l'Afrique
   const [satelliteAngle, setSatelliteAngle] = useState(0);
   const rafRef = useRef<number | null>(null);
   const lastTimeRef = useRef<number>(0);
 
+  // Mount effect - ensures client-only rendering for dynamic content
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   // Check for reduced motion
-  const prefersReducedMotion = typeof window !== 'undefined'
+  const prefersReducedMotion = mounted && typeof window !== 'undefined'
     ? window.matchMedia('(prefers-reduced-motion: reduce)').matches
     : false;
 
-  const shouldAnimate = !paused && !prefersReducedMotion;
+  const shouldAnimate = mounted && !paused && !prefersReducedMotion;
 
   // Animation loop
   useEffect(() => {
@@ -178,8 +159,8 @@ export function HeroGlobe({ size = 420, dark = false, paused = false }: HeroGlob
   }, [shouldAnimate]);
 
   // Project point to screen coordinates
-  const projectPoint = useCallback((lng: number, lat: number, cx: number, cy: number, r: number) => {
-    const lngRad = ((lng + lngOffset) * Math.PI) / 180;
+  const projectPoint = useCallback((lng: number, lat: number, cx: number, cy: number, r: number, offset: number) => {
+    const lngRad = ((lng + offset) * Math.PI) / 180;
     const latRad = (lat * Math.PI) / 180;
 
     // Sphère unitaire → 3D
@@ -198,8 +179,8 @@ export function HeroGlobe({ size = 420, dark = false, paused = false }: HeroGlob
     const screenX = cx + x * r;
     const screenY = cy + y2 * r;
 
-    return { x: screenX, y: screenY, z: z2 };
-  }, [lngOffset]);
+    return { x: round(screenX), y: round(screenY), z: round(z2) };
+  }, []);
 
   const cx = size / 2;
   const cy = size / 2;
@@ -226,6 +207,31 @@ export function HeroGlobe({ size = 420, dark = false, paused = false }: HeroGlob
     specular: 'rgba(255,255,255,0.45)',
   };
 
+  // Compute projected points only on client
+  const projectedDots = useMemo(() => {
+    if (!mounted) return [];
+    return CONTINENT_DOTS.map(([lng, lat, weight], i) => {
+      const point = projectPoint(lng, lat, cx, cy, r, lngOffset);
+      if (!point) return null;
+      const baseSize = 1.8;
+      const opacity = round(0.55 + 0.45 * point.z);
+      const pointRadius = round(baseSize * (0.78 + 0.32 * point.z) * weight);
+      return { i, point, opacity, pointRadius };
+    }).filter(Boolean);
+  }, [mounted, lngOffset, cx, cy, r, projectPoint]);
+
+  const projectedCities = useMemo(() => {
+    if (!mounted) return [];
+    return CITIES.map((city) => {
+      const point = projectPoint(city.lng, city.lat, cx, cy, r, lngOffset);
+      if (!point) return null;
+      const pinHeight = city.isMain ? 18 : 10;
+      const pinRadius = city.isMain ? 5 : 3;
+      const opacity = round(0.6 + 0.4 * point.z);
+      return { ...city, point, pinHeight, pinRadius, opacity };
+    }).filter(Boolean);
+  }, [mounted, lngOffset, cx, cy, r, projectPoint]);
+
   return (
     <div
       className="relative"
@@ -250,33 +256,33 @@ export function HeroGlobe({ size = 420, dark = false, paused = false }: HeroGlob
       >
         <defs>
           {/* Gradient sphère décentré */}
-          <radialGradient id="sphereGradient" cx="35%" cy="32%" r="65%" fx="35%" fy="32%">
+          <radialGradient id={`sphereGradient-${size}`} cx="35%" cy="32%" r="65%" fx="35%" fy="32%">
             <stop offset="0%" stopColor={colors.sphereGradient[0]} />
             <stop offset="50%" stopColor={colors.sphereGradient[1]} />
             <stop offset="100%" stopColor={colors.sphereGradient[2]} />
           </radialGradient>
 
           {/* Gradient atmosphère */}
-          <radialGradient id="atmosGradient" cx="50%" cy="50%" r="50%">
+          <radialGradient id={`atmosGradient-${size}`} cx="50%" cy="50%" r="50%">
             <stop offset="92%" stopColor="transparent" />
-            <stop offset="98%" stopColor={colors.pinColor} stopOpacity="0.3" />
+            <stop offset="98%" stopColor={colors.pinColor} stopOpacity={0.3} />
             <stop offset="100%" stopColor="transparent" />
           </radialGradient>
 
           {/* Gradient highlight spéculaire */}
-          <radialGradient id="specularGradient" cx="32%" cy="28%" r="40%">
+          <radialGradient id={`specularGradient-${size}`} cx="32%" cy="28%" r="40%">
             <stop offset="0%" stopColor={colors.specular} />
             <stop offset="100%" stopColor="transparent" />
           </radialGradient>
 
           {/* Gradient ombre */}
-          <radialGradient id="shadowGradient" cx="50%" cy="50%" r="50%">
+          <radialGradient id={`shadowGradient-${size}`} cx="50%" cy="50%" r="50%">
             <stop offset="0%" stopColor="rgba(0,0,0,0.28)" />
             <stop offset="100%" stopColor="transparent" />
           </radialGradient>
 
           {/* Clip circle pour les grilles */}
-          <clipPath id="globeClip">
+          <clipPath id={`globeClip-${size}`}>
             <circle cx={cx} cy={cy} r={r} />
           </clipPath>
         </defs>
@@ -284,18 +290,18 @@ export function HeroGlobe({ size = 420, dark = false, paused = false }: HeroGlob
         {/* Ombre portée au sol */}
         <ellipse
           cx={cx}
-          cy={cy + r + 15}
-          rx={r * 0.78}
-          ry={r * 0.08}
-          fill="url(#shadowGradient)"
+          cy={round(cy + r + 15)}
+          rx={round(r * 0.78)}
+          ry={round(r * 0.08)}
+          fill={`url(#shadowGradient-${size})`}
         />
 
         {/* Anneau atmosphère */}
         <circle
           cx={cx}
           cy={cy}
-          r={r * 1.06}
-          fill="url(#atmosGradient)"
+          r={round(r * 1.06)}
+          fill={`url(#atmosGradient-${size})`}
         />
 
         {/* Sphère principale */}
@@ -303,22 +309,22 @@ export function HeroGlobe({ size = 420, dark = false, paused = false }: HeroGlob
           cx={cx}
           cy={cy}
           r={r}
-          fill="url(#sphereGradient)"
+          fill={`url(#sphereGradient-${size})`}
         />
 
-        {/* Grilles (méridiens + parallèles) */}
-        <g clipPath="url(#globeClip)" opacity="0.6">
+        {/* Grilles (méridiens + parallèles) - statiques */}
+        <g clipPath={`url(#globeClip-${size})`} opacity={0.6}>
           {/* Parallèles */}
           {[0.18, 0.42, 0.66, 0.86].map((ratio, i) => (
             <ellipse
               key={`parallel-${i}`}
               cx={cx}
-              cy={cy + r * (ratio - 0.5) * 1.4}
-              rx={r * Math.sqrt(1 - Math.pow(ratio - 0.5, 2) * 1.5)}
-              ry={r * ratio * 0.15}
+              cy={round(cy + r * (ratio - 0.5) * 1.4)}
+              rx={round(r * Math.sqrt(1 - Math.pow(ratio - 0.5, 2) * 1.5))}
+              ry={round(r * ratio * 0.15)}
               fill="none"
               stroke={colors.gridColor}
-              strokeWidth="0.5"
+              strokeWidth={0.5}
             />
           ))}
           {/* Équateur */}
@@ -326,56 +332,35 @@ export function HeroGlobe({ size = 420, dark = false, paused = false }: HeroGlob
             cx={cx}
             cy={cy}
             rx={r}
-            ry={r * 0.2}
+            ry={round(r * 0.2)}
             fill="none"
             stroke={colors.gridColor}
-            strokeWidth="1"
+            strokeWidth={1}
           />
-          {/* Méridiens */}
-          {[0.20, 0.45, 0.70, 0.90].map((ratio, i) => (
-            <ellipse
-              key={`meridian-${i}`}
-              cx={cx}
-              cy={cy}
-              rx={r * ratio}
-              ry={r}
-              fill="none"
-              stroke={colors.gridColor}
-              strokeWidth="0.5"
-              transform={`rotate(${lngOffset * 0.5 + i * 22.5}, ${cx}, ${cy})`}
-            />
-          ))}
         </g>
 
-        {/* Points des continents */}
-        <g>
-          {CONTINENT_DOTS.map(([lng, lat, weight], i) => {
-            const point = projectPoint(lng, lat, cx, cy, r);
-            if (!point) return null;
-
-            const baseSize = 1.8;
-            const opacity = 0.55 + 0.45 * point.z;
-            const pointRadius = baseSize * (0.78 + 0.32 * point.z) * weight;
-
-            return (
+        {/* Points des continents - client only */}
+        {mounted && (
+          <g>
+            {projectedDots.map((dot) => dot && (
               <circle
-                key={`dot-${i}`}
-                cx={point.x}
-                cy={point.y}
-                r={pointRadius}
+                key={`dot-${dot.i}`}
+                cx={dot.point.x}
+                cy={dot.point.y}
+                r={dot.pointRadius}
                 fill={colors.continentFill}
-                opacity={opacity}
+                opacity={dot.opacity}
               />
-            );
-          })}
-        </g>
+            ))}
+          </g>
+        )}
 
         {/* Highlight spéculaire */}
         <circle
           cx={cx}
           cy={cy}
           r={r}
-          fill="url(#specularGradient)"
+          fill={`url(#specularGradient-${size})`}
           style={{ mixBlendMode: 'overlay' }}
         />
 
@@ -386,69 +371,62 @@ export function HeroGlobe({ size = 420, dark = false, paused = false }: HeroGlob
           r={r}
           fill="none"
           stroke={colors.pinColor}
-          strokeWidth="1"
-          opacity="0.35"
+          strokeWidth={1}
+          opacity={0.35}
         />
 
-        {/* Pins des villes */}
-        <g>
-          {CITIES.map((city) => {
-            const point = projectPoint(city.lng, city.lat, cx, cy, r);
-            if (!point) return null;
-
-            const pinHeight = city.isMain ? 18 : 10;
-            const pinRadius = city.isMain ? 5 : 3;
-            const opacity = 0.6 + 0.4 * point.z;
-
-            return (
-              <g key={city.name} opacity={opacity}>
+        {/* Pins des villes - client only */}
+        {mounted && (
+          <g>
+            {projectedCities.map((city) => city && (
+              <g key={city.name} opacity={city.opacity}>
                 {/* Riser vertical */}
                 <line
-                  x1={point.x}
-                  y1={point.y}
-                  x2={point.x}
-                  y2={point.y - pinHeight}
+                  x1={city.point.x}
+                  y1={city.point.y}
+                  x2={city.point.x}
+                  y2={city.point.y - city.pinHeight}
                   stroke={colors.pinColor}
                   strokeWidth={city.isMain ? 2 : 1}
                 />
                 {/* Pin head */}
                 <circle
-                  cx={point.x}
-                  cy={point.y - pinHeight}
-                  r={pinRadius}
+                  cx={city.point.x}
+                  cy={city.point.y - city.pinHeight}
+                  r={city.pinRadius}
                   fill={colors.pinColor}
                 />
                 {/* Halo pulsant pour Abidjan */}
                 {city.isMain && (
                   <>
                     <circle
-                      cx={point.x}
-                      cy={point.y - pinHeight}
-                      r={pinRadius + 4}
+                      cx={city.point.x}
+                      cy={city.point.y - city.pinHeight}
+                      r={city.pinRadius + 4}
                       fill="none"
                       stroke={colors.pinColor}
-                      strokeWidth="1"
-                      opacity="0.5"
+                      strokeWidth={1}
+                      opacity={0.5}
                       className="animate-ping"
                       style={{ animationDuration: '2s' }}
                     />
                     {/* Label */}
-                    <g transform={`translate(${point.x + 12}, ${point.y - pinHeight - 8})`}>
+                    <g transform={`translate(${city.point.x + 12}, ${city.point.y - city.pinHeight - 8})`}>
                       <rect
-                        x="0"
-                        y="-10"
-                        width="60"
-                        height="18"
+                        x={0}
+                        y={-10}
+                        width={60}
+                        height={18}
                         fill={colors.labelBg}
-                        rx="0"
+                        rx={0}
                       />
                       <text
-                        x="30"
-                        y="2"
+                        x={30}
+                        y={2}
                         textAnchor="middle"
                         fill={colors.labelText}
-                        fontSize="10"
-                        fontWeight="700"
+                        fontSize={10}
+                        fontWeight={700}
                         fontFamily="var(--wn-font-display)"
                         letterSpacing="0.05em"
                       >
@@ -458,41 +436,43 @@ export function HeroGlobe({ size = 420, dark = false, paused = false }: HeroGlob
                   </>
                 )}
               </g>
-            );
-          })}
-        </g>
+            ))}
+          </g>
+        )}
 
-        {/* Orbite satellite */}
-        <g transform={`rotate(${satelliteAngle}, ${cx}, ${cy})`}>
-          <ellipse
-            cx={cx}
-            cy={cy}
-            rx={r * 1.25}
-            ry={r * 0.35}
-            fill="none"
-            stroke={colors.gridColor}
-            strokeWidth="1"
-            strokeDasharray="4 4"
-            transform={`rotate(-15, ${cx}, ${cy})`}
-          />
-          {/* Satellite point */}
-          <circle
-            cx={cx + r * 1.25}
-            cy={cy}
-            r="3"
-            fill={colors.pinColor}
-            transform={`rotate(-15, ${cx}, ${cy})`}
-          />
-          {/* Satellite halo */}
-          <circle
-            cx={cx + r * 1.25}
-            cy={cy}
-            r="6"
-            fill={colors.pinColor}
-            opacity="0.3"
-            transform={`rotate(-15, ${cx}, ${cy})`}
-          />
-        </g>
+        {/* Orbite satellite - client only */}
+        {mounted && (
+          <g transform={`rotate(${round(satelliteAngle)}, ${cx}, ${cy})`}>
+            <ellipse
+              cx={cx}
+              cy={cy}
+              rx={round(r * 1.25)}
+              ry={round(r * 0.35)}
+              fill="none"
+              stroke={colors.gridColor}
+              strokeWidth={1}
+              strokeDasharray="4 4"
+              transform={`rotate(-15, ${cx}, ${cy})`}
+            />
+            {/* Satellite point */}
+            <circle
+              cx={round(cx + r * 1.25)}
+              cy={cy}
+              r={3}
+              fill={colors.pinColor}
+              transform={`rotate(-15, ${cx}, ${cy})`}
+            />
+            {/* Satellite halo */}
+            <circle
+              cx={round(cx + r * 1.25)}
+              cy={cy}
+              r={6}
+              fill={colors.pinColor}
+              opacity={0.3}
+              transform={`rotate(-15, ${cx}, ${cy})`}
+            />
+          </g>
+        )}
       </svg>
     </div>
   );

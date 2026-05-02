@@ -29,7 +29,7 @@ export function HowItWorksSection() {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <Section className="bg-white">
+    <Section id="fonctionnalites" className="bg-[var(--wn-surface)]">
       <Container>
         <div className="text-center mb-12 md:mb-16">
           <Eyebrow className="mb-4">Démarrer en 5 minutes</Eyebrow>
@@ -46,13 +46,13 @@ export function HowItWorksSection() {
               className="text-center md:text-left"
             >
               <span
-                className="block text-[80px] md:text-[96px] font-bold text-[#0E8A6B] leading-none mb-4"
+                className="block text-[80px] md:text-[96px] font-bold text-[var(--wn-green-500)] leading-none mb-4"
                 style={{ fontFamily: "var(--wn-font-cond)" }}
               >
                 {step.number}
               </span>
               <h3
-                className="text-xl font-semibold text-[#1F1E18] mb-3"
+                className="text-xl font-semibold text-[var(--wn-text)] mb-3"
                 style={{ fontFamily: "var(--wn-font-display)" }}
               >
                 {step.title}

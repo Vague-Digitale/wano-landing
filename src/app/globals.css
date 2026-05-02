@@ -23,18 +23,18 @@
   --line-height-relaxed: 1.625; /* readable paragraphs */
 
   /* Primary Wano Colors */
-  --color-primary: #028175;
-  --color-primary-hover: #027469;
-  --color-primary-active: #02675e;
-  --color-primary-dark: #026158;
-  --color-primary-darker: #012d29;
+  --color-primary: #0E8A6B;
+  --color-primary-hover: #0A7A5E;
+  --color-primary-active: #085641;
+  --color-primary-dark: #085641;
+  --color-primary-darker: #053D2E;
 
   /* Green System */
-  --color-green-light: #F4FCF3;
-  --color-green-light-hover: #EFFAEE;
-  --color-green-light-active: #DEF4DB;
-  --color-green-other: #CDEDDD;
-  --color-green-accent: #94DD8B;
+  --color-green-light: #ECF8F3;
+  --color-green-light-hover: #E6F4EE;
+  --color-green-light-active: #D5EDE4;
+  --color-green-other: #7DE3C4;
+  --color-green-accent: #7CFC9E;
 
   /* Yellow System */
   --color-yellow-light: #fffcf7;
@@ -46,21 +46,17 @@
   --color-red-light: #FDCED1;
 
   /* Gray System */
-  --color-gray-30: #6b7271;
-  --color-gray-20: #bcbebd;
-  --color-gray-line: #e5e6e6;
-  --color-gray-10: #eff0f0;
-  --color-gray-white: #fbfbfc;
-  --color-gray-50: #f9fafb;
-  --color-gray-100: #f3f4f6;
-  --color-gray-200: #e5e7eb;
-  --color-gray-300: #d1d5db;
-  --color-gray-700: #374151;
-  --color-gray-900: #111827;
-
-  /* Fonts */
-  --font-sora: var(--font-sora);
-  --font-gtw: var(--font-gtw);
+  --color-gray-30: #5C6660;
+  --color-gray-20: #9A9384;
+  --color-gray-line: #DDD8C8;
+  --color-gray-10: #ECE6D8;
+  --color-gray-white: #F4F1EB;
+  --color-gray-50: #F7F5F0;
+  --color-gray-100: #ECE6D8;
+  --color-gray-200: #DDD8C8;
+  --color-gray-300: #C3BDAE;
+  --color-gray-700: #3D3C2E;
+  --color-gray-900: #0F1410;
 }
 
 html.lenis,
@@ -73,11 +69,11 @@ html.lenis body {
 }
 
 body {
-  font-family: var(--font-sora), var(--font-gtw), system-ui, sans-serif;
+  font-family: var(--wn-font-sans);
   font-size: var(--font-size-base);
   line-height: var(--line-height-normal);
-  background: var(--color-gray-white);
-  color: var(--color-gray-900);
+  background: var(--wn-bg-warm);
+  color: var(--wn-text);
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
 }
@@ -101,12 +97,16 @@ body {
 .leading-relaxed { line-height: var(--line-height-relaxed); }
 
 /* Font utilities */
-.font-sora {
-  font-family: var(--font-sora), system-ui, sans-serif;
+.font-sans {
+  font-family: var(--wn-font-sans);
 }
 
-.font-gtw {
-  font-family: var(--font-gtw), system-ui, sans-serif;
+.font-display {
+  font-family: var(--wn-font-display);
+}
+
+.font-condensed {
+  font-family: var(--wn-font-cond);
 }
 
 /* Highlight text utility */

@@ -18,7 +18,7 @@ export function Section({ children, className = "", dark = false, id }: SectionP
     <section
       ref={ref}
       id={id}
-      className={`py-16 md:py-[88px] ${dark ? "bg-[#161612]" : "bg-[#F4F1EB]"} ${className}`}
+      className={`py-16 md:py-[88px] ${dark ? "bg-[var(--wn-n-800)]" : "bg-[var(--wn-bg-warm)]"} ${className}`}
     >
       <motion.div
         initial={{ opacity: 0, y: 24 }}
