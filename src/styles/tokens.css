@@ -1,6 +1,7 @@
 /**
  * Wano Design System v2 — Tokens
  * Site marketing wanoapp.com
+ * Supporte Mode Clair (Sage) et Mode Sombre (Audacieux)
  */
 
 /* ============================================================
@@ -98,35 +99,43 @@
 }
 
 /* ============================================================
-   CSS CUSTOM PROPERTIES
+   CSS CUSTOM PROPERTIES — MODE CLAIR (SAGE)
    ============================================================ */
 
 :root {
-  /* ============ COULEURS — NEUTRES CHAUDS (papier) ============ */
+  /* ============ SURFACES ============ */
+  --wn-bg: #F5EFE3;
   --wn-bg-warm: #F4F1EB;
   --wn-surface: #FFFFFF;
+  --wn-elev: #FFFFFF;
+
+  /* ============ TEXTE ============ */
+  --wn-text: #0F1410;
+  --wn-text-muted: #5C6660;
+
+  /* ============ BORDURES ============ */
+  --wn-border: rgba(15, 20, 16, 0.10);
+  --wn-border-strong: rgba(15, 20, 16, 0.20);
+
+  /* ============ COULEURS — VERT WANO ============ */
+  --wn-green-50: #ECF8F3;
+  --wn-green-100: #E6F4EE;
+  --wn-green-300: #7DE3C4;
+  --wn-green-500: #0E8A6B;
+  --wn-green-600: #0E8A6B;
+  --wn-green-700: #085641;
+  --wn-green-acid: #7CFC9E;
+
+  /* ============ NEUTRES ============ */
   --wn-n-50: #F7F5F0;
-  --wn-n-100: #EDEAE0;
+  --wn-n-100: #ECE6D8;
   --wn-n-200: #DDD8C8;
   --wn-n-300: #C3BDAE;
   --wn-n-400: #9A9384;
   --wn-n-500: #5E5B48;
   --wn-n-700: #3D3C2E;
-  --wn-n-800: #272620;
-  --wn-n-900: #161612;
-
-  /* ============ COULEURS — VERT WANO ============ */
-  --wn-green-50: #ECF8F3;
-  --wn-green-100: #D3EFE2;
-  --wn-green-500: #0E8A6B;
-  --wn-green-600: #0A6E54;
-  --wn-green-700: #085641;
-  --wn-green-acid: #7CFC9E;
-
-  /* ============ COULEURS — SÉMANTIQUES ============ */
-  --wn-text: #1F1E18;
-  --wn-text-muted: #5E5B48;
-  --wn-border: #DDD8C8;
+  --wn-n-800: #1B201C;
+  --wn-n-900: #0F1410;
 
   /* ============ TYPOGRAPHIE ============ */
   --wn-font-sans: 'GT Walsheim Pro', -apple-system, system-ui, sans-serif;
@@ -151,4 +160,187 @@
   /* ============ TRANSITIONS ============ */
   --wn-duration: 200ms;
   --wn-ease: ease;
+
+  /* ============ HERO SIZING (SAGE) ============ */
+  --wn-hero-title-size: 88px;
+  --wn-hero-title-size-mobile: 56px;
+  --wn-hero-title-weight: 700;
+  --wn-hero-title-line-height: 1.05;
+}
+
+/* ============================================================
+   CSS CUSTOM PROPERTIES — MODE SOMBRE (AUDACIEUX)
+   ============================================================ */
+
+[data-theme="dark"] {
+  /* ============ SURFACES ============ */
+  --wn-bg: #0B0F0D;
+  --wn-bg-warm: #0B0F0D;
+  --wn-surface: #111613;
+  --wn-elev: #161C18;
+
+  /* ============ TEXTE ============ */
+  --wn-text: #FFFFFF;
+  --wn-text-muted: rgba(255, 255, 255, 0.62);
+
+  /* ============ BORDURES ============ */
+  --wn-border: rgba(255, 255, 255, 0.10);
+  --wn-border-strong: rgba(255, 255, 255, 0.20);
+
+  /* ============ COULEURS — VERT PLUS LUMINEUX ============ */
+  --wn-green-100: rgba(125, 227, 196, 0.10);
+  --wn-green-300: #7DE3C4;
+  --wn-green-500: #18B58A;
+  --wn-green-600: #18B58A;
+
+  /* ============ NEUTRES INVERSÉS ============ */
+  --wn-n-100: #ECE6D8;
+  --wn-n-800: #ECE6D8;
+  --wn-n-900: #FFFFFF;
+
+  /* ============ HERO SIZING (AUDACIEUX) - Plus expressif ============ */
+  --wn-hero-title-size: 132px;
+  --wn-hero-title-size-mobile: 56px;
+  --wn-hero-title-weight: 800;
+  --wn-hero-title-line-height: 0.95;
+}
+
+/* ============================================================
+   DARK MODE SPECIFIC STYLES
+   ============================================================ */
+
+[data-theme="dark"] {
+  /* Pas de box-shadow en mode sombre */
+  --wn-shadow: none;
+}
+
+/* Cards en mode sombre */
+[data-theme="dark"] .wn-card {
+  background: var(--wn-elev);
+  border: 1px solid var(--wn-border);
+  box-shadow: none;
+}
+
+/* Boutons primaires en mode sombre */
+[data-theme="dark"] .wn-btn-primary {
+  background: var(--wn-green-600);
+  color: #0B0F0D;
+}
+
+[data-theme="dark"] .wn-btn-primary:hover {
+  background: var(--wn-green-300);
+}
+
+/* Boutons secondaires en mode sombre */
+[data-theme="dark"] .wn-btn-secondary {
+  background: transparent;
+  border: 1px solid #FFFFFF;
+  color: #FFFFFF;
+}
+
+[data-theme="dark"] .wn-btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+/* Footer en mode sombre - noir pur */
+[data-theme="dark"] footer {
+  background: #000000;
+  color: rgba(255, 255, 255, 0.62);
+}
+
+/* Header transparent au scroll initial */
+[data-theme="dark"] header {
+  background: transparent;
+  border-color: transparent;
+  transition: background 0.3s ease, border-color 0.3s ease;
+}
+
+[data-theme="dark"] header.scrolled {
+  background: var(--wn-elev);
+  border-color: var(--wn-border);
+}
+
+/* ============================================================
+   TYPOGRAPHY UTILITIES
+   ============================================================ */
+
+.font-tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Vert acide accent text */
+.text-accent {
+  color: var(--wn-green-300);
+}
+
+/* Animation scan pour mot-clé */
+@keyframes text-scan {
+  0% {
+    background-position: -100% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.text-scan {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--wn-green-300) 50%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  animation: text-scan 2.4s infinite;
+  opacity: 0.6;
+}
+
+/* ============================================================
+   HERO ANIMATIONS (AUDACIEUX)
+   ============================================================ */
+
+@keyframes fade-rise {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-rise {
+  animation: fade-rise 0.6s ease-out forwards;
+}
+
+.animate-fade-rise-delay-1 {
+  animation: fade-rise 0.6s ease-out 0.08s forwards;
+  opacity: 0;
+}
+
+.animate-fade-rise-delay-2 {
+  animation: fade-rise 0.6s ease-out 0.16s forwards;
+  opacity: 0;
+}
+
+.animate-fade-rise-delay-3 {
+  animation: fade-rise 0.6s ease-out 0.24s forwards;
+  opacity: 0;
+}
+
+/* Globe fade-in */
+@keyframes globe-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.animate-globe-fade {
+  animation: globe-fade 1.2s ease-out forwards;
 }
