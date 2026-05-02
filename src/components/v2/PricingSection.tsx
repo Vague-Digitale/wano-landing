@@ -13,14 +13,14 @@ const plans = [
     name: "Starter",
     price: "Gratuit",
     features: ["1 caisse", "100 produits", "1 utilisateur"],
-    cta: "Demarrer",
+    cta: "Démarrer",
     href: "https://console.wanoapp.com",
     featured: false,
   },
   {
     name: "Standard",
     price: "15 000 F/mois",
-    features: ["Multi-caisses", "Produits illimites", "Asso IA", "Site web inclus"],
+    features: ["Multi-caisses", "Produits illimités", "Asso IA", "Site web inclus"],
     cta: "Choisir Standard",
     href: "https://console.wanoapp.com",
     featured: true,
@@ -126,7 +126,7 @@ export function PricingSection() {
             className="text-sm font-medium text-[#0E8A6B] hover:underline"
             style={{ fontFamily: "var(--wn-font-display)" }}
           >
-            Voir tous les details &rarr;
+            Voir tous les détails &rarr;
           </Link>
         </div>
       </Container>

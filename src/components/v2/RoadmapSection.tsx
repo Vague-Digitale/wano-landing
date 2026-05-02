@@ -8,19 +8,19 @@ import { Eyebrow, H2 } from "./Typography";
 
 const roadmapItems = [
   {
-    title: "Compta integree",
+    title: "Compta intégrée",
     date: "Q3 2026",
     description: "Synchronisation comptable automatique avec vos outils.",
   },
   {
     title: "Paie & RH",
     date: "Q4 2026",
-    description: "Gerez vos employes, salaires et conges.",
+    description: "Gérez vos employés, salaires et congés.",
   },
   {
     title: "Banque & financement",
     date: "2027",
-    description: "Acces au credit et services bancaires integres.",
+    description: "Accès au crédit et services bancaires intégrés.",
   },
 ];
 

@@ -7,8 +7,8 @@ import { CTA } from "./CTA";
 
 const chatExamples = [
   "Combien j'ai vendu cette semaine ?",
-  "Previens-moi quand le Doliprane passe sous 20",
-  "Cree un produit Pack Famille a 12 000 F",
+  "Préviens-moi quand le Doliprane passe sous 20",
+  "Crée un produit Pack Famille à 12 000 F",
 ];
 
 export function AssoSection() {
@@ -31,7 +31,7 @@ export function AssoSection() {
                 className="inline-block px-4 py-2 text-xs font-medium uppercase tracking-[0.04em] border border-[#7CFC9E] text-[#7CFC9E] mb-6"
                 style={{ fontFamily: "var(--wn-font-display)" }}
               >
-                Asso &middot; l&apos;assistant integre
+                Asso &middot; l&apos;assistant intégré
               </span>
 
               <h2
@@ -39,14 +39,14 @@ export function AssoSection() {
                 style={{ fontFamily: "var(--wn-font-display)" }}
               >
                 Vous avez une question.<br />
-                Asso a la reponse.
+                Asso a la réponse.
               </h2>
 
               <p
                 className="text-base md:text-[17px] leading-[1.55] text-[#9A9384] mb-8 max-w-lg"
                 style={{ fontFamily: "var(--wn-font-display)" }}
               >
-                L&apos;assistant IA integre qui comprend votre business. Posez vos questions, recevez des alertes, automatisez vos taches.
+                L&apos;assistant IA intégré qui comprend votre business. Posez vos questions, recevez des alertes, automatisez vos tâches.
               </p>
 
               <CTA href="/asso" variant="secondary" className="border-white text-white hover:bg-white hover:text-[#161612]">
@@ -107,7 +107,7 @@ export function AssoSection() {
                       className="text-[#9A9384] text-sm"
                       style={{ fontFamily: "var(--wn-font-display)" }}
                     >
-                      +12% par rapport a la semaine derniere
+                      +12% par rapport à la semaine dernière
                     </p>
                   </div>
                 </div>

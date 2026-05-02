@@ -47,7 +47,7 @@ export function SiteHeader() {
           {/* Desktop CTAs */}
           <div className="hidden lg:flex items-center gap-3">
             <CTA href="https://console.wanoapp.com" variant="primary">
-              Demarrer
+              Démarrer
             </CTA>
             <CTA href="https://console.wanoapp.com/login" variant="secondary">
               Connexion
@@ -108,7 +108,7 @@ export function SiteHeader() {
             {/* CTAs */}
             <div className="flex flex-col gap-3 mt-auto">
               <CTA href="https://console.wanoapp.com" variant="primary" className="w-full justify-center">
-                Demarrer
+                Démarrer
               </CTA>
               <CTA href="https://console.wanoapp.com/login" variant="secondary" className="w-full justify-center border-white text-white hover:bg-white hover:text-[#161612]">
                 Connexion

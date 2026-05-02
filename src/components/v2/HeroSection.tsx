@@ -46,7 +46,7 @@ export function HeroSection() {
               transition={{ duration: 0.6, delay: 0.2 }}
             >
               <Body className="text-[22px] mb-8 max-w-xl mx-auto lg:mx-0">
-                POS, e-commerce, facturation, paiement mobile — tout ce dont vous avez besoin pour gerer et developper votre activite.
+                POS, e-commerce, facturation, paiement mobile — tout ce dont vous avez besoin pour gérer et développer votre activité.
               </Body>
             </motion.div>
 
@@ -57,10 +57,10 @@ export function HeroSection() {
               className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
             >
               <CTA href="https://console.wanoapp.com" variant="primary">
-                Demarrer gratuitement
+                Démarrer gratuitement
               </CTA>
               <CTA href="https://wa.me/2250545476305" variant="secondary">
-                Parler a un humain
+                Parler à un humain
               </CTA>
             </motion.div>
           </div>

@@ -10,7 +10,7 @@ const steps = [
   {
     number: "01",
     title: "Dites-nous ce que vous vendez.",
-    description: "Choix du type d'activite. Wano configure tout automatiquement pour vous.",
+    description: "Choix du type d'activité. Wano configure tout automatiquement pour vous.",
   },
   {
     number: "02",
@@ -32,8 +32,8 @@ export function HowItWorksSection() {
     <Section className="bg-white">
       <Container>
         <div className="text-center mb-12 md:mb-16">
-          <Eyebrow className="mb-4">Demarrer en 5 minutes</Eyebrow>
-          <H2>Trois etapes. C&apos;est tout.</H2>
+          <Eyebrow className="mb-4">Démarrer en 5 minutes</Eyebrow>
+          <H2>Trois étapes. C&apos;est tout.</H2>
         </div>
 
         <div ref={ref} className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">

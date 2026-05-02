@@ -14,7 +14,7 @@ const testimonials = [
     location: "Cocody",
   },
   {
-    quote: "L'assistant me previent des ruptures avant que je m'en rende compte.",
+    quote: "L'assistant me prévient des ruptures avant que je m'en rende compte.",
     name: "Mamadou D.",
     role: "Boutique",
     location: "Bamako",

@@ -23,7 +23,7 @@ export function FinalCTASection() {
             className="text-[32px] md:text-[56px] lg:text-[72px] font-bold leading-[1.05] tracking-[-0.02em] text-white mb-8"
             style={{ fontFamily: "var(--wn-font-display)" }}
           >
-            Pret a unifier<br className="hidden md:block" /> votre business ?
+            Prêt à unifier<br className="hidden md:block" /> votre business ?
           </h2>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
@@ -32,14 +32,14 @@ export function FinalCTASection() {
               variant="primary"
               className="bg-white text-[#0E8A6B] hover:bg-[#F4F1EB]"
             >
-              Demarrer gratuitement
+              Démarrer gratuitement
             </CTA>
             <CTA
               href="https://wa.me/2250700000000"
               variant="secondary"
               className="border-white text-white hover:bg-white hover:text-[#0E8A6B]"
             >
-              Parler a un humain
+              Parler à un humain
             </CTA>
           </div>
         </motion.div>

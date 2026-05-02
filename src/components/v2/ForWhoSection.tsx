@@ -71,19 +71,19 @@ const modules = [
   },
   {
     title: "Reservation",
-    description: "Creneaux ou ressources. Auto-confirmation.",
+    description: "Créneaux ou ressources. Auto-confirmation.",
     Icon: CalendarIcon,
     href: "/produit/reservation",
   },
   {
     title: "Restauration",
-    description: "Commande a table par QR. Cuisine en direct.",
+    description: "Commande à table par QR. Cuisine en direct.",
     Icon: RestaurantIcon,
     href: "/produit/restauration",
   },
   {
     title: "Digital",
-    description: "Telechargement, licences, abonnements.",
+    description: "Téléchargement, licences, abonnements.",
     Icon: LicenseIcon,
     href: "/produit/digital",
   },
@@ -98,7 +98,7 @@ export function ForWhoSection() {
       <Container>
         <div className="text-center mb-12 md:mb-16">
           <Eyebrow className="mb-4">Pour quel business ?</Eyebrow>
-          <H2 className="mb-4">Wano s&apos;adapte a votre activite,<br className="hidden md:block" /> pas l&apos;inverse.</H2>
+          <H2 className="mb-4">Wano s&apos;adapte à votre activité,<br className="hidden md:block" /> pas l&apos;inverse.</H2>
         </div>
 
         <div ref={ref} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
