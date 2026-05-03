@@ -6,13 +6,6 @@ import { Eyebrow, DisplayHeading, Body } from "./Typography";
 import { CTA } from "./CTA";
 import { HeroGlobe } from "./HeroGlobe";
 
-const clientLogos = [
-  "Pharmacie du Commerce",
-  "Boutique Élégance",
-  "Restaurant Le Maquis",
-  "Pressing Express",
-];
-
 type HeroSectionProps = {
   dark?: boolean;
 };
@@ -75,28 +68,6 @@ export function HeroSection({ dark = false }: HeroSectionProps) {
             </div>
           </div>
 
-          {/* Client Logos */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.6 }}
-            className="mt-16 md:mt-24 pt-8 border-t border-[var(--wn-n-700)]"
-          >
-            <p className="text-sm text-[var(--wn-text-muted)] text-center mb-6" style={{ fontFamily: "var(--wn-font-display)" }}>
-              Ils nous font confiance
-            </p>
-            <div className="flex flex-wrap items-center justify-center gap-8 md:gap-12">
-              {clientLogos.map((logo) => (
-                <span
-                  key={logo}
-                  className="text-sm font-medium text-[var(--wn-text-muted)] opacity-60"
-                  style={{ fontFamily: "var(--wn-font-display)" }}
-                >
-                  {logo}
-                </span>
-              ))}
-            </div>
-          </motion.div>
         </Container>
       </section>
     );
@@ -104,8 +75,8 @@ export function HeroSection({ dark = false }: HeroSectionProps) {
 
   // Mode Sage (clair) - Layout original
   return (
-    <section className="min-h-screen bg-[var(--wn-bg-warm)] pt-[60px] md:pt-[72px]">
-      <Container className="py-12 md:py-20">
+    <section className="bg-[var(--wn-bg-warm)] pt-[60px] md:pt-[72px]">
+      <Container className="py-12 md:py-16 lg:py-20">
         <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
           {/* Left Content */}
           <div className="flex-1 text-center lg:text-left">
