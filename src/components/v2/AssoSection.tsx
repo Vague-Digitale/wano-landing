@@ -2,13 +2,12 @@
 
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import { Container } from "./Container";
-import { CTA } from "./CTA";
 
-const chatExamples = [
-  "Combien j'ai vendu cette semaine ?",
-  "Préviens-moi quand le Doliprane passe sous 20",
-  "Crée un produit Pack Famille à 12 000 F",
+// Organized in rows for the marquee effect
+const clientRows = [
+  ["Paginfiks", "Boutique Élégance", "Tech Communication", "Bar le Boss"],
+  ["Vague Digitale", "Bar le Boss", "Paginfiks", "Tech Communication"],
+  ["Boutique Élégance", "Vague Digitale", "Bar le Boss", "Paginfiks"],
 ];
 
 export function AssoSection() {
@@ -16,106 +15,76 @@ export function AssoSection() {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section className="py-16 md:py-[88px] bg-[var(--wn-n-800)]">
-      <Container>
-        <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
-          {/* Left Content */}
-          <div className="flex-1">
+    <section ref={ref} className="relative py-24 md:py-32 lg:py-40 bg-[var(--wn-n-900)] overflow-hidden">
+      {/* Left fade gradient - text emerges from here */}
+      <div
+        className="absolute left-0 top-0 bottom-0 w-24 md:w-48 lg:w-64 z-10 pointer-events-none"
+        style={{
+          background: "linear-gradient(90deg, var(--wn-n-900) 0%, transparent 100%)",
+        }}
+      />
+
+      {/* Right fade gradient - text disappears here */}
+      <div
+        className="absolute right-0 top-0 bottom-0 w-24 md:w-48 lg:w-64 z-10 pointer-events-none"
+        style={{
+          background: "linear-gradient(270deg, var(--wn-n-900) 0%, transparent 100%)",
+        }}
+      />
+
+      {/* Title */}
+      <motion.p
+        initial={{ opacity: 0 }}
+        animate={isInView ? { opacity: 1 } : { opacity: 0 }}
+        transition={{ duration: 0.6 }}
+        className="relative z-20 text-center text-xs text-[var(--wn-n-600)] uppercase tracking-[0.2em] mb-12 md:mb-16"
+        style={{ fontFamily: "var(--wn-font-display)" }}
+      >
+        Ils nous font confiance
+      </motion.p>
+
+      {/* Scrolling rows - centered */}
+      <div className="flex flex-col items-center justify-center space-y-6 md:space-y-8">
+        {clientRows.map((row, rowIndex) => (
+          <div
+            key={rowIndex}
+            className="relative overflow-hidden"
+          >
             <motion.div
-              ref={ref}
-              initial={{ opacity: 0, y: 24 }}
-              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }}
-              transition={{ duration: 0.6 }}
+              className="flex whitespace-nowrap"
+              animate={{
+                x: rowIndex % 2 === 0 ? ["0%", "-50%"] : ["-50%", "0%"],
+              }}
+              transition={{
+                x: {
+                  repeat: Infinity,
+                  repeatType: "loop",
+                  duration: 25 + rowIndex * 5,
+                  ease: "linear",
+                },
+              }}
             >
-              <span
-                className="inline-block px-4 py-2 text-xs font-medium uppercase tracking-[0.04em] border border-[var(--wn-green-acid)] text-[var(--wn-green-acid)] mb-6"
-                style={{ fontFamily: "var(--wn-font-display)" }}
-              >
-                Asso &middot; l&apos;assistant intégré
-              </span>
-
-              <h2
-                className="text-[32px] md:text-[56px] font-bold leading-[1.1] tracking-[-0.02em] text-white mb-6"
-                style={{ fontFamily: "var(--wn-font-display)" }}
-              >
-                Vous avez une question.<br />
-                Asso a la réponse.
-              </h2>
-
-              <p
-                className="text-base md:text-[17px] leading-[1.55] text-[var(--wn-n-400)] mb-8 max-w-lg"
-                style={{ fontFamily: "var(--wn-font-display)" }}
-              >
-                L&apos;assistant IA intégré qui comprend votre business. Posez vos questions, recevez des alertes, automatisez vos tâches.
-              </p>
-
-              <CTA href="https://console.wanoapp.com" variant="secondary" className="border-white text-white hover:bg-white hover:text-[var(--wn-n-800)]">
-                Essayer Asso &rarr;
-              </CTA>
+              {/* Double the items for seamless loop */}
+              {[...row, ...row].map((client, index) => (
+                <span
+                  key={`${client}-${index}`}
+                  className="inline-block mx-8 md:mx-16 text-[32px] md:text-[52px] lg:text-[68px] font-bold tracking-tight"
+                  style={{
+                    fontFamily: "var(--wn-font-display)",
+                    background: "linear-gradient(180deg, rgba(244, 241, 235, 0.85) 0%, rgba(244, 241, 235, 0.5) 100%)",
+                    WebkitBackgroundClip: "text",
+                    backgroundClip: "text",
+                    color: "transparent",
+                    WebkitTextStroke: "1px rgba(244, 241, 235, 0.2)",
+                  }}
+                >
+                  {client}
+                </span>
+              ))}
             </motion.div>
           </div>
-
-          {/* Right - Chat Examples */}
-          <motion.div
-            initial={{ opacity: 0, x: 24 }}
-            animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 24 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="flex-1 w-full"
-          >
-            <div className="space-y-4">
-              {chatExamples.map((message, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 16 }}
-                  animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 16 }}
-                  transition={{ duration: 0.4, delay: 0.3 + index * 0.1 }}
-                  className="bg-[#272620] border border-[var(--wn-n-700)] p-5"
-                >
-                  <div className="flex items-start gap-3">
-                    <div className="w-8 h-8 bg-[var(--wn-green-500)] flex items-center justify-center flex-shrink-0">
-                      <span className="text-white text-xs font-bold">U</span>
-                    </div>
-                    <p
-                      className="text-white text-base"
-                      style={{ fontFamily: "var(--wn-font-display)" }}
-                    >
-                      {message}
-                    </p>
-                  </div>
-                </motion.div>
-              ))}
-
-              {/* Asso Response */}
-              <motion.div
-                initial={{ opacity: 0, y: 16 }}
-                animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 16 }}
-                transition={{ duration: 0.4, delay: 0.6 }}
-                className="bg-[var(--wn-green-500)]/10 border border-[var(--wn-green-500)]/30 p-5"
-              >
-                <div className="flex items-start gap-3">
-                  <div className="w-8 h-8 bg-[var(--wn-green-acid)] flex items-center justify-center flex-shrink-0">
-                    <span className="text-[var(--wn-n-800)] text-xs font-bold">A</span>
-                  </div>
-                  <div>
-                    <p
-                      className="text-[var(--wn-green-acid)] text-base mb-1"
-                      style={{ fontFamily: "var(--wn-font-display)" }}
-                    >
-                      Cette semaine, vous avez vendu pour 847 500 F CFA.
-                    </p>
-                    <p
-                      className="text-[var(--wn-n-400)] text-sm"
-                      style={{ fontFamily: "var(--wn-font-display)" }}
-                    >
-                      +12% par rapport à la semaine dernière
-                    </p>
-                  </div>
-                </div>
-              </motion.div>
-            </div>
-          </motion.div>
-        </div>
-      </Container>
+        ))}
+      </div>
     </section>
   );
 }
