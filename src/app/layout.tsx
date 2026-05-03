@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import LenisProvider from "@/components/LenisProvider";
+import { GoogleTagManager, GoogleTagManagerNoScript } from "@/components/analytics/GoogleTagManager";
+import { FacebookPixel } from "@/components/analytics/FacebookPixel";
+import { VisitorTracker } from "@/components/analytics/VisitorTracker";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://wanoapp.com"),
@@ -94,6 +97,7 @@ export default function RootLayout({
   return (
     <html lang="fr" className="antialiased">
       <head>
+        <GoogleTagManager />
         <link rel="icon" href="/wano.png" type="image/png" />
         <link rel="apple-touch-icon" href="/wano.png" />
         <meta name="theme-color" content="#0E8A6B" />
@@ -105,6 +109,9 @@ export default function RootLayout({
         className="min-h-full flex flex-col bg-[#F4F1EB] text-[#1F1E18]"
         style={{ fontFamily: "var(--wn-font-sans)" }}
       >
+        <GoogleTagManagerNoScript />
+        <FacebookPixel />
+        <VisitorTracker />
         <LenisProvider>{children}</LenisProvider>
       </body>
     </html>
