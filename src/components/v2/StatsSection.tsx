@@ -6,10 +6,9 @@ import { Container } from "./Container";
 import { Section } from "./Section";
 
 const stats = [
-  { value: "2400+", label: "marchands actifs" },
-  { value: "18", label: "pays couverts" },
-  { value: "47M F", label: "GMV mensuelle traitee" },
-  { value: "99.9%", label: "uptime" },
+  { value: "8", label: "pays UEMOA couverts" },
+  { value: "100%", label: "paiement mobile money" },
+  { value: "24/7", label: "support WhatsApp" },
 ];
 
 export function StatsSection() {
@@ -21,7 +20,7 @@ export function StatsSection() {
       <Container>
         <div
           ref={ref}
-          className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-0"
+          className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-0"
         >
           {stats.map((stat, index) => (
             <motion.div

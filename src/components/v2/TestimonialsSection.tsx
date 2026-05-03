@@ -8,21 +8,21 @@ import { Eyebrow, H2 } from "./Typography";
 
 const testimonials = [
   {
-    quote: "Les alertes de stock m'ont fait gagner 4 heures par semaine.",
-    name: "Aicha K.",
-    role: "Pharmacie",
-    location: "Cocody",
+    quote: "J'ai lancé ma boutique en ligne en 2 jours. Les clients commandent via WhatsApp maintenant.",
+    name: "Aminata D.",
+    role: "Boutique mode",
+    location: "Abidjan",
   },
   {
-    quote: "Je reçois une notification dès qu'un produit passe sous le seuil. Plus de ruptures.",
-    name: "Mamadou D.",
-    role: "Boutique",
-    location: "Bamako",
+    quote: "Avant je notais tout sur papier. Maintenant je vois mes ventes en temps réel sur mon téléphone.",
+    name: "Kouassi M.",
+    role: "Pressing",
+    location: "Bouaké",
   },
   {
-    quote: "Mon site est en ligne en 2 jours. Les commandes arrivent depuis WhatsApp.",
+    quote: "Le paiement mobile a tout changé. Mes clients paient par Wave ou Orange Money sans souci.",
     name: "Fatou S.",
-    role: "Atelier",
+    role: "Restaurant",
     location: "Dakar",
   },
 ];

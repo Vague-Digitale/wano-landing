@@ -39,14 +39,8 @@ const modules = [
   },
   {
     number: 6,
-    title: "Comptabilité",
-    description: "Bilans, déclarations, journaux.",
-    available: false,
-  },
-  {
-    number: 7,
-    title: "Fiches de paie",
-    description: "Salaires, cotisations, bulletins.",
+    title: "Facturation",
+    description: "Factures, devis, avoirs — numérotation auto, TVA, export.",
     available: false,
   },
 ];
@@ -70,8 +64,8 @@ export function ForWhoSection() {
           </Body>
         </div>
 
-        {/* 4-column grid */}
-        <div ref={ref} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+        {/* 3-column grid */}
+        <div ref={ref} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
           {modules.map((module, index) => (
             <motion.div
               key={module.title}
