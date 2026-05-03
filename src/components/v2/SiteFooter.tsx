@@ -11,6 +11,7 @@ const footerLinks = {
   entreprise: [
     { label: "Console", href: "https://console.wanoapp.com" },
     { label: "WhatsApp", href: "https://wa.me/2250545476305" },
+    { label: "Vague Digitale", href: "https://vaguedigitale.com" },
   ],
   ressources: [
     { label: "Démarrer", href: "https://console.wanoapp.com" },
@@ -120,7 +121,7 @@ export function SiteFooter() {
               <span className="text-sm font-bold text-white" style={{ fontFamily: "var(--wn-font-display)" }}>wano</span>
             </div>
             <span className="text-sm text-[var(--wn-n-500)]">|</span>
-            <span className="text-sm text-[var(--wn-n-400)]">&copy; 2026 Wano</span>
+            <span className="text-sm text-[var(--wn-n-400)]">&copy; 2026 Wano &middot; Un produit <a href="https://vaguedigitale.com" target="_blank" rel="noopener noreferrer" className="hover:text-[var(--wn-green-acid)] transition-colors">Vague Digitale</a></span>
           </div>
 
           <div className="flex items-center gap-6">

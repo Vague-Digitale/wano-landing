@@ -61,7 +61,7 @@ const plans = [
       "50 produits",
       "2 points de vente",
       "Site en ligne basique",
-      "Asso IA inclus",
+      "Crédit IA inclus",
       "Support email",
     ],
     featured: true,

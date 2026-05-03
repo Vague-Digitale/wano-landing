@@ -2,7 +2,6 @@ import { SiteHeader } from "@/components/v2/SiteHeader";
 import { HeroSection } from "@/components/v2/HeroSection";
 import { ForWhoSection } from "@/components/v2/ForWhoSection";
 import { HowItWorksSection } from "@/components/v2/HowItWorksSection";
-import { AssoSection } from "@/components/v2/AssoSection";
 import { StatsSection } from "@/components/v2/StatsSection";
 import { TestimonialsSection } from "@/components/v2/TestimonialsSection";
 import { PricingSection } from "@/components/v2/PricingSection";
@@ -18,7 +17,6 @@ export default function Home() {
         <HeroSection />
         <ForWhoSection />
         <HowItWorksSection />
-        <AssoSection />
         <StatsSection />
         <TestimonialsSection />
         <PricingSection />

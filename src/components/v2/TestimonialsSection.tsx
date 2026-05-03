@@ -8,13 +8,13 @@ import { Eyebrow, H2 } from "./Typography";
 
 const testimonials = [
   {
-    quote: "Asso m'a fait gagner 4 heures par semaine.",
+    quote: "Les alertes de stock m'ont fait gagner 4 heures par semaine.",
     name: "Aicha K.",
     role: "Pharmacie",
     location: "Cocody",
   },
   {
-    quote: "L'assistant me prévient des ruptures avant que je m'en rende compte.",
+    quote: "Je reçois une notification dès qu'un produit passe sous le seuil. Plus de ruptures.",
     name: "Mamadou D.",
     role: "Boutique",
     location: "Bamako",
@@ -35,8 +35,8 @@ export function TestimonialsSection() {
     <Section id="temoignages" className="bg-[var(--wn-surface)]">
       <Container>
         <div className="text-center mb-12 md:mb-16">
-          <Eyebrow className="mb-4">Ils utilisent Wano</Eyebrow>
-          <H2>Le terrain parle.</H2>
+          <Eyebrow className="mb-4">Témoignages</Eyebrow>
+          <H2>Ce qu&apos;ils en disent.</H2>
         </div>
 
         <div
