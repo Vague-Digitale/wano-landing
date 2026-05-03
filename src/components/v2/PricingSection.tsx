@@ -57,10 +57,11 @@ const plans = [
     target: "Commerces en croissance",
     price: 5000,
     features: [
-      "1 utilisateur",
+      "2 utilisateurs",
       "50 produits",
       "2 points de vente",
       "Site en ligne basique",
+      "Asso IA inclus",
       "Support email",
     ],
     featured: true,
