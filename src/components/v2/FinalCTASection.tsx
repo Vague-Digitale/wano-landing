@@ -30,14 +30,14 @@ export function FinalCTASection() {
             <CTA
               href="https://console.wanoapp.com"
               variant="primary"
-              className="bg-white text-[var(--wn-green-500)] hover:bg-[var(--wn-bg-warm)]"
+              className="!bg-white !text-[var(--wn-green-500)] hover:!bg-[var(--wn-bg-warm)]"
             >
               Démarrer gratuitement
             </CTA>
             <CTA
-              href="https://wa.me/2250700000000"
+              href="https://wa.me/2250545476305"
               variant="secondary"
-              className="border-white text-white hover:bg-white hover:text-[var(--wn-green-500)]"
+              className="!border-white !text-white hover:!bg-white hover:!text-[var(--wn-green-500)]"
             >
               Parler à un humain
             </CTA>
