@@ -159,7 +159,7 @@ export default function PricingSection() {
               ))}
             </ul>
             <a
-              href="https://console.wanoapp.com"
+              href="https://console.wanoapp.com/auth/register"
               className="inline-block w-full md:w-auto px-6 py-3 bg-[#028175] hover:bg-[#027469] text-white rounded-full font-semibold text-base text-center transition-all"
             >
               Commencer gratuitement

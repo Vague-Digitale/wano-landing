@@ -46,7 +46,7 @@ export default function Footer() {
               ))}
               <li>
                 <a
-                  href="https://console.wanoapp.com"
+                  href="https://console.wanoapp.com/auth/register"
                   className="text-[#94DD8B] text-sm font-medium hover:text-white transition-colors"
                 >
                   Mon espace

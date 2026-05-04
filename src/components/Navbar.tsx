@@ -107,7 +107,7 @@ export default function Navbar() {
             ))}
             <li>
               <a
-                href="https://console.wanoapp.com"
+                href="https://console.wanoapp.com/auth/register"
                 className="bg-[#028175] hover:bg-[#027469] text-white font-bold text-sm px-5 lg:px-6 py-2.5 rounded-full hover:-translate-y-0.5 hover:shadow-lg hover:shadow-[#028175]/30 transition-all"
               >
                 Mon espace
@@ -153,7 +153,7 @@ export default function Navbar() {
         </ul>
         <div className="mt-4 pt-4 border-t border-[#e5e6e6]">
           <a
-            href="https://console.wanoapp.com"
+            href="https://console.wanoapp.com/auth/register"
             className="block w-full text-center bg-[#028175] hover:bg-[#027469] text-white font-bold text-base px-6 py-3 rounded-full transition-colors"
           >
             Mon espace

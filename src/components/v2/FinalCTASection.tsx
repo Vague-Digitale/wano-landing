@@ -28,7 +28,7 @@ export function FinalCTASection() {
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <CTA
-              href="https://console.wanoapp.com"
+              href="https://console.wanoapp.com/auth/register"
               variant="primary"
               className="!bg-white !text-[var(--wn-green-500)] hover:!bg-[var(--wn-bg-warm)]"
             >

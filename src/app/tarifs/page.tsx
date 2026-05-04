@@ -230,7 +230,7 @@ export default function TarifsPage() {
             {/* CTA */}
             <div className="text-center mt-8">
               <Link
-                href={`https://console.wanoapp.com/signup?plan=${selectedPlan}`}
+                href={`https://console.wanoapp.com/auth/register?plan=${selectedPlan}`}
                 className="inline-flex items-center justify-center h-12 px-8 bg-[var(--wn-green-600)] text-white font-semibold text-base hover:bg-[var(--wn-green-700)] transition-colors"
                 style={{ fontFamily: "var(--wn-font-display)" }}
               >

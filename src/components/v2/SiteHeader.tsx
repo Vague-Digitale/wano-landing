@@ -54,10 +54,10 @@ export function SiteHeader() {
 
           {/* Desktop CTAs */}
           <div className="hidden lg:flex items-center gap-3">
-            <CTA href="https://console.wanoapp.com" variant="primary">
+            <CTA href="https://console.wanoapp.com/auth/register" variant="primary">
               Démarrer
             </CTA>
-            <CTA href="https://console.wanoapp.com/login" variant="secondary">
+            <CTA href="https://console.wanoapp.com/auth/login" variant="secondary">
               Connexion
             </CTA>
           </div>
@@ -124,10 +124,10 @@ export function SiteHeader() {
 
             {/* CTAs */}
             <div className="flex flex-col gap-3 mt-auto">
-              <CTA href="https://console.wanoapp.com" variant="primary" className="w-full justify-center">
+              <CTA href="https://console.wanoapp.com/auth/register" variant="primary" className="w-full justify-center">
                 Démarrer
               </CTA>
-              <CTA href="https://console.wanoapp.com/login" variant="secondary" className="w-full justify-center border-white text-white hover:bg-white hover:text-[var(--wn-n-800)]">
+              <CTA href="https://console.wanoapp.com/auth/login" variant="secondary" className="w-full justify-center border-white text-white hover:bg-white hover:text-[var(--wn-n-800)]">
                 Connexion
               </CTA>
             </div>

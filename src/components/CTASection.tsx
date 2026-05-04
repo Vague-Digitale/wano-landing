@@ -45,7 +45,7 @@ export default function CTASection() {
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <a
-            href="https://console.wanoapp.com"
+            href="https://console.wanoapp.com/auth/register"
             className="inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-white text-[#028175] rounded-full font-semibold text-base hover:-translate-y-0.5 hover:shadow-lg transition-all"
           >
             Commencer gratuitement

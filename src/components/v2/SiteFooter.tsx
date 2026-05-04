@@ -9,13 +9,13 @@ const footerLinks = {
     { label: "Restauration", href: "#produit" },
   ],
   entreprise: [
-    { label: "Console", href: "https://console.wanoapp.com" },
+    { label: "Console", href: "https://console.wanoapp.com/auth/login" },
     { label: "WhatsApp", href: "https://wa.me/2250545476305" },
     { label: "Vague Digitale", href: "https://vaguedigitale.com" },
   ],
   ressources: [
-    { label: "Démarrer", href: "https://console.wanoapp.com" },
-    { label: "Connexion", href: "https://console.wanoapp.com/login" },
+    { label: "Démarrer", href: "https://console.wanoapp.com/auth/register" },
+    { label: "Connexion", href: "https://console.wanoapp.com/auth/login" },
   ],
   legal: [
     { label: "Confidentialité", href: "/privacy" },

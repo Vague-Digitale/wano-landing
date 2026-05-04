@@ -178,7 +178,7 @@ export function PricingSection() {
 
                 {/* CTA Button */}
                 <Link
-                  href={`https://console.wanoapp.com/signup?plan=${plan.id}`}
+                  href={`https://console.wanoapp.com/auth/register?plan=${plan.id}`}
                   className={`flex items-center justify-center w-full h-11 font-semibold text-sm transition-colors mb-6 ${
                     plan.featured
                       ? "bg-[var(--wn-green-600)] text-white hover:bg-[var(--wn-green-700)]"

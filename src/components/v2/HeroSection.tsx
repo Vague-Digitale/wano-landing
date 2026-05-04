@@ -36,7 +36,7 @@ export function HeroSection({ dark = false }: HeroSectionProps) {
                 transition={{ duration: 0.6, delay: 0.4 }}
               >
                 <CTA
-                  href="https://console.wanoapp.com"
+                  href="https://console.wanoapp.com/auth/register"
                   variant="primary"
                   className="text-[20px] px-8 py-5 wn-btn-primary"
                 >
@@ -116,7 +116,7 @@ export function HeroSection({ dark = false }: HeroSectionProps) {
               transition={{ duration: 0.6, delay: 0.3 }}
               className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
             >
-              <CTA href="https://console.wanoapp.com" variant="primary">
+              <CTA href="https://console.wanoapp.com/auth/register" variant="primary">
                 Démarrer gratuitement
               </CTA>
               <CTA href="https://wa.me/2250545476305" variant="secondary">

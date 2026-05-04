@@ -139,7 +139,7 @@ export default function Hero() {
 
         <div className="hero-cta flex flex-col sm:flex-row gap-4 justify-center mb-6">
           <a
-            href="https://console.wanoapp.com"
+            href="https://console.wanoapp.com/auth/register"
             className="px-6 py-3.5 bg-[#028175] hover:bg-[#027469] text-white rounded-full font-semibold text-base hover:-translate-y-0.5 hover:shadow-lg hover:shadow-[#028175]/25 transition-all"
           >
             Commencer gratuitement

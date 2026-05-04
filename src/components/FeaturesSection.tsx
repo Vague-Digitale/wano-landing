@@ -192,7 +192,7 @@ export default function FeaturesSection() {
                 })}
               </ul>
               <a
-                href="https://console.wanoapp.com"
+                href="https://console.wanoapp.com/auth/register"
                 className="inline-flex items-center gap-2 px-6 py-3 bg-[#028175] hover:bg-[#027469] text-white rounded-full font-semibold text-base transition-all"
               >
                 En savoir plus
