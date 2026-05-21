@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState, useCallback, useMemo } from "react";
+import { useEffect, useRef, useState, useCallback, useMemo, useSyncExternalStore } from "react";
 
 // Dataset continents: [lng, lat, weight]
 // ~250 points avec densité plus forte sur l'Afrique
@@ -113,18 +113,20 @@ type HeroGlobeProps = {
 
 // Round to 2 decimal places to avoid hydration mismatches
 const round = (n: number) => Math.round(n * 100) / 100;
+const subscribeToClient = () => () => {};
+const getClientSnapshot = () => true;
+const getServerSnapshot = () => false;
 
 export function HeroGlobe({ size = 420, dark = false, paused = false }: HeroGlobeProps) {
-  const [mounted, setMounted] = useState(false);
+  const mounted = useSyncExternalStore(
+    subscribeToClient,
+    getClientSnapshot,
+    getServerSnapshot
+  );
   const [lngOffset, setLngOffset] = useState(20); // Centré sur l'Afrique
   const [satelliteAngle, setSatelliteAngle] = useState(0);
   const rafRef = useRef<number | null>(null);
   const lastTimeRef = useRef<number>(0);
-
-  // Mount effect - ensures client-only rendering for dynamic content
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   // Check for reduced motion
   const prefersReducedMotion = mounted && typeof window !== 'undefined'
@@ -165,8 +167,8 @@ export function HeroGlobe({ size = 420, dark = false, paused = false }: HeroGlob
 
     // Sphère unitaire → 3D
     const x = Math.cos(latRad) * Math.sin(lngRad);
-    let y = -Math.sin(latRad);
-    let z = Math.cos(latRad) * Math.cos(lngRad);
+    const y = -Math.sin(latRad);
+    const z = Math.cos(latRad) * Math.cos(lngRad);
 
     // Inclinaison axiale autour de X
     const y2 = y * cosT - z * sinT;

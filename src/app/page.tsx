@@ -9,6 +9,7 @@ import { PricingSection } from "@/components/v2/PricingSection";
 import { RoadmapSection } from "@/components/v2/RoadmapSection";
 import { FinalCTASection } from "@/components/v2/FinalCTASection";
 import { SiteFooter } from "@/components/v2/SiteFooter";
+import { WhatsAppFloatingButton } from "@/components/v2/WhatsAppFloatingButton";
 
 export default function Home() {
   return (
@@ -26,6 +27,7 @@ export default function Home() {
         <FinalCTASection />
       </main>
       <SiteFooter />
+      <WhatsAppFloatingButton />
     </>
   );
 }

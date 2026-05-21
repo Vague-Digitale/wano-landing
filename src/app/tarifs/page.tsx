@@ -8,89 +8,54 @@ import { SiteFooter } from "@/components/v2/SiteFooter";
 import { Container } from "@/components/v2/Container";
 import { H2 } from "@/components/v2/Typography";
 
-// ============================================================================
-// PRICING DATA - Simple et clair
-// ============================================================================
-
-const PLANS = [
-  {
-    id: "starter",
-    name: "Starter",
-    target: "Pour démarrer",
-    price: 2000,
-    features: [
-      "1 utilisateur",
-      "3 produits",
-      "1 point de vente",
-      "10 factures / mois",
-      "Support email",
-    ],
-    featured: false,
-  },
-  {
-    id: "basic",
-    name: "Basic",
-    target: "Commerces en croissance",
-    price: 5000,
-    features: [
-      "2 utilisateurs",
-      "50 produits",
-      "2 points de vente",
-      "Site en ligne",
-      "Crédit IA inclus",
-      "Support email",
-    ],
-    featured: true,
-  },
-  {
-    id: "pro",
-    name: "Pro",
-    target: "Entreprises",
-    price: 9000,
-    features: [
-      "3 utilisateurs",
-      "Produits illimités",
-      "Points POS illimités",
-      "Site personnalisable",
-      "Rapports avancés",
-      "Support prioritaire",
-    ],
-    featured: false,
-  },
+const INCLUDED_FEATURES = [
+  "Gestion de stock incluse",
+  "Tableau de bord complet",
+  "1 utilisateur",
+  "10 produits",
+  "Support email",
 ];
 
-const ADDONS = [
+const MODULES = [
   {
-    id: "extra-users",
-    name: "Utilisateurs supplémentaires",
-    description: "Ajoutez des membres à votre équipe",
+    id: "products",
+    name: "Produits",
+    description: "+50 produits dans votre catalogue",
+    price: 1500,
+    unit: "/ mois",
+  },
+  {
+    id: "users",
+    name: "Utilisateurs",
+    description: "Un membre d'équipe supplémentaire",
     price: 1000,
     unit: "/ utilisateur / mois",
   },
   {
-    id: "extra-products",
-    name: "Produits supplémentaires",
-    description: "Augmentez votre catalogue au-delà du plan",
-    options: [
-      { label: "+50 produits", price: 1500 },
-      { label: "+200 produits", price: 5000 },
-      { label: "Illimité", price: 15000 },
-    ],
+    id: "invoices",
+    name: "Factures",
+    description: "+50 factures, devis ou avoirs",
+    price: 1500,
+    unit: "/ mois",
   },
   {
-    id: "ecommerce",
-    name: "E-commerce",
+    id: "pos",
+    name: "Point de vente",
+    description: "Caisse supplémentaire illimitée",
+    price: 2000,
+    unit: "/ mois",
+  },
+  {
+    id: "online-store",
+    name: "Boutique en ligne",
     description: "Commandes en ligne et paiement mobile",
-    options: [
-      { label: "100 commandes / mois", price: 5000 },
-      { label: "500 commandes / mois", price: 20000 },
-      { label: "Illimité", price: 35000 },
-    ],
+    price: 5000,
+    unit: "/ mois",
   },
   {
     id: "domain",
     name: "Domaine personnalisé",
-    description: "Votre propre nom de domaine (ex: maboutique.com)",
+    description: "Votre propre domaine, ex: maboutique.com",
     price: 3000,
     unit: "/ mois",
   },
@@ -118,7 +83,28 @@ const ClockIcon = () => (
 // ============================================================================
 
 export default function TarifsPage() {
-  const [selectedPlan, setSelectedPlan] = useState<string>("basic");
+  const [selectedModules, setSelectedModules] = useState<Record<string, boolean>>({
+    products: true,
+    users: false,
+    invoices: false,
+    pos: false,
+    "online-store": false,
+    domain: false,
+  });
+
+  const activeModules = MODULES.filter((module) => selectedModules[module.id]);
+  const monthlyTotal = activeModules.reduce((total, module) => total + module.price, 0);
+
+  const toggleModule = (moduleId: string) => {
+    setSelectedModules((current) => ({
+      ...current,
+      [moduleId]: !current[moduleId],
+    }));
+  };
+
+  const registrationHref = `https://console.wanoapp.com/auth/register?modules=${activeModules
+    .map((module) => module.id)
+    .join(",")}`;
 
   return (
     <>
@@ -127,12 +113,12 @@ export default function TarifsPage() {
         <Container>
           {/* Header */}
           <div className="text-center mb-12">
-            <H2 className="mb-4">Tarifs simples et transparents</H2>
+            <H2 className="mb-4">Tarifs simples et modulaires</H2>
             <p
               className="text-base md:text-lg text-[var(--wn-n-500)] mb-6"
               style={{ fontFamily: "var(--wn-font-display)" }}
             >
-              Choisissez votre plan, ajoutez des options si besoin.
+              Commencez gratuitement, puis activez uniquement les modules dont vous avez besoin.
             </p>
 
             {/* 14-day trial badge */}
@@ -147,158 +133,194 @@ export default function TarifsPage() {
             </div>
           </div>
 
-          {/* Plans Grid */}
-          <div className="max-w-4xl mx-auto mb-16">
-            <div className="grid md:grid-cols-3 gap-6">
-              {PLANS.map((plan, index) => (
-                <motion.div
-                  key={plan.id}
-                  initial={{ opacity: 0, y: 24 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                  onClick={() => setSelectedPlan(plan.id)}
-                  className={`relative p-6 cursor-pointer transition-all ${
-                    selectedPlan === plan.id
-                      ? "border-2 border-[var(--wn-green-600)] bg-[var(--wn-green-50)]"
-                      : plan.featured
-                      ? "border-2 border-[var(--wn-green-600)] border-t-4 bg-[var(--wn-surface)]"
-                      : "border border-[var(--wn-n-200)] bg-[var(--wn-surface)] hover:border-[var(--wn-green-400)]"
-                  }`}
-                >
-                  {plan.featured && selectedPlan !== plan.id && (
-                    <span
-                      className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1 bg-[var(--wn-green-600)] text-white text-xs font-semibold"
-                      style={{ fontFamily: "var(--wn-font-display)" }}
-                    >
-                      Recommandé
-                    </span>
-                  )}
-
-                  {selectedPlan === plan.id && (
-                    <div className="absolute top-4 right-4 w-6 h-6 bg-[var(--wn-green-600)] text-white flex items-center justify-center">
-                      <CheckIcon />
-                    </div>
-                  )}
-
-                  <h3
-                    className="text-xl font-semibold text-[var(--wn-text)] mb-1"
-                    style={{ fontFamily: "var(--wn-font-display)" }}
-                  >
-                    {plan.name}
-                  </h3>
-
-                  <p
-                    className="text-sm text-[var(--wn-n-500)] mb-4"
-                    style={{ fontFamily: "var(--wn-font-display)" }}
-                  >
-                    {plan.target}
-                  </p>
-
-                  <div className="mb-6">
-                    <span
-                      className="text-4xl font-bold text-[var(--wn-text)] tabular-nums"
-                      style={{ fontFamily: "var(--wn-font-display)" }}
-                    >
-                      {plan.price.toLocaleString("fr-FR")}
-                    </span>
-                    <span
-                      className="text-sm text-[var(--wn-n-500)] ml-1"
-                      style={{ fontFamily: "var(--wn-font-display)" }}
-                    >
-                      F / mois
-                    </span>
-                  </div>
-
-                  <ul className="space-y-2">
-                    {plan.features.map((feature) => (
-                      <li
-                        key={feature}
-                        className="flex items-center gap-2 text-sm text-[var(--wn-n-500)]"
-                        style={{ fontFamily: "var(--wn-font-display)" }}
-                      >
-                        <span className="text-[var(--wn-green-600)]">
-                          <CheckIcon />
-                        </span>
-                        {feature}
-                      </li>
-                    ))}
-                  </ul>
-                </motion.div>
-              ))}
-            </div>
-
-            {/* CTA */}
-            <div className="text-center mt-8">
-              <Link
-                href={`https://console.wanoapp.com/auth/register?plan=${selectedPlan}`}
-                className="inline-flex items-center justify-center h-12 px-8 bg-[var(--wn-green-600)] text-white font-semibold text-base hover:bg-[var(--wn-green-700)] transition-colors"
-                style={{ fontFamily: "var(--wn-font-display)" }}
-              >
-                Démarrer avec {PLANS.find(p => p.id === selectedPlan)?.name} →
-              </Link>
-            </div>
-          </div>
-
-          {/* Add-ons Section */}
-          <div className="max-w-4xl mx-auto">
-            <h3
-              className="text-2xl font-bold text-[var(--wn-text)] mb-2 text-center"
-              style={{ fontFamily: "var(--wn-font-display)" }}
+          <div className="max-w-5xl mx-auto grid lg:grid-cols-[1fr_340px] gap-6 mb-16">
+            <motion.section
+              initial={{ opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              className="bg-[var(--wn-surface)] border border-[var(--wn-n-200)]"
             >
-              Besoin de plus ?
-            </h3>
-            <p
-              className="text-base text-[var(--wn-n-500)] mb-8 text-center"
-              style={{ fontFamily: "var(--wn-font-display)" }}
-            >
-              Ajoutez des options à votre plan selon vos besoins.
-            </p>
-
-            <div className="grid md:grid-cols-2 gap-4">
-              {ADDONS.map((addon) => (
-                <div
-                  key={addon.id}
-                  className="p-5 bg-[var(--wn-surface)] border border-[var(--wn-n-200)]"
+              <div className="p-6 md:p-8 border-b border-[var(--wn-n-200)]">
+                <h3
+                  className="text-2xl font-bold text-[var(--wn-text)] mb-2"
+                  style={{ fontFamily: "var(--wn-font-display)" }}
                 >
-                  <h4
-                    className="text-base font-semibold text-[var(--wn-text)] mb-1"
+                  Base gratuite
+                </h3>
+                <div className="flex flex-wrap items-end gap-2 mb-6">
+                  <span
+                    className="text-5xl font-bold text-[var(--wn-text)] tabular-nums"
                     style={{ fontFamily: "var(--wn-font-display)" }}
                   >
-                    {addon.name}
-                  </h4>
-                  <p
-                    className="text-sm text-[var(--wn-n-500)] mb-3"
+                    0
+                  </span>
+                  <span
+                    className="pb-2 text-sm text-[var(--wn-n-500)]"
                     style={{ fontFamily: "var(--wn-font-display)" }}
                   >
-                    {addon.description}
-                  </p>
-
-                  {addon.price !== undefined ? (
-                    <p
-                      className="text-lg font-bold text-[var(--wn-green-600)] tabular-nums"
+                    F CFA / mois
+                  </span>
+                </div>
+                <ul className="grid sm:grid-cols-2 gap-3">
+                  {INCLUDED_FEATURES.map((feature) => (
+                    <li
+                      key={feature}
+                      className="flex items-center gap-2 text-sm text-[var(--wn-n-500)]"
                       style={{ fontFamily: "var(--wn-font-display)" }}
                     >
-                      {addon.price.toLocaleString("fr-FR")} F
-                      <span className="text-sm font-normal text-[var(--wn-n-500)]">
-                        {" "}{addon.unit}
+                      <span className="text-[var(--wn-green-600)]">
+                        <CheckIcon />
                       </span>
-                    </p>
-                  ) : (
-                    <div className="flex flex-wrap gap-2">
-                      {addon.options?.map((option) => (
-                        <span
-                          key={option.label}
-                          className="inline-block px-3 py-1 bg-[var(--wn-n-100)] text-sm"
+                      {feature}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <div className="p-6 md:p-8">
+                <div className="mb-6">
+                  <h3
+                    className="text-2xl font-bold text-[var(--wn-text)] mb-2"
+                    style={{ fontFamily: "var(--wn-font-display)" }}
+                  >
+                    Modules payants
+                  </h3>
+                  <p
+                    className="text-sm text-[var(--wn-n-500)]"
+                    style={{ fontFamily: "var(--wn-font-display)" }}
+                  >
+                    Cochez les modules à activer pour calculer votre facture mensuelle.
+                  </p>
+                </div>
+
+                <div className="grid md:grid-cols-2 gap-4">
+                  {MODULES.map((module, index) => {
+                    const isSelected = selectedModules[module.id];
+
+                    return (
+                      <motion.button
+                        key={module.id}
+                        type="button"
+                        initial={{ opacity: 0, y: 16 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.4, delay: index * 0.05 }}
+                        onClick={() => toggleModule(module.id)}
+                        className={`text-left p-5 border transition-all ${
+                          isSelected
+                            ? "bg-[var(--wn-green-50)] border-[var(--wn-green-600)]"
+                            : "bg-[var(--wn-bg-warm)] border-[var(--wn-n-200)] hover:border-[var(--wn-green-400)]"
+                        }`}
+                      >
+                        <div className="flex items-start justify-between gap-4 mb-4">
+                          <div>
+                            <h4
+                              className="text-base font-semibold text-[var(--wn-text)] mb-1"
+                              style={{ fontFamily: "var(--wn-font-display)" }}
+                            >
+                              {module.name}
+                            </h4>
+                            <p
+                              className="text-sm text-[var(--wn-n-500)]"
+                              style={{ fontFamily: "var(--wn-font-display)" }}
+                            >
+                              {module.description}
+                            </p>
+                          </div>
+                          <span
+                            className={`mt-1 flex h-6 w-6 shrink-0 items-center justify-center border ${
+                              isSelected
+                                ? "border-[var(--wn-green-600)] bg-[var(--wn-green-600)] text-white"
+                                : "border-[var(--wn-n-300)] text-transparent"
+                            }`}
+                          >
+                            <CheckIcon />
+                          </span>
+                        </div>
+                        <p
+                          className="text-xl font-bold text-[var(--wn-green-600)] tabular-nums"
                           style={{ fontFamily: "var(--wn-font-display)" }}
                         >
-                          {option.label}: <strong>{option.price.toLocaleString("fr-FR")} F</strong>
-                        </span>
-                      ))}
-                    </div>
-                  )}
+                          {module.price.toLocaleString("fr-FR")} F CFA
+                          <span className="block text-sm font-normal text-[var(--wn-n-500)]">
+                            {module.unit}
+                          </span>
+                        </p>
+                      </motion.button>
+                    );
+                  })}
                 </div>
-              ))}
-            </div>
+              </div>
+            </motion.section>
+
+            <motion.aside
+              initial={{ opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.12 }}
+              className="h-fit bg-[var(--wn-n-800)] p-6 text-white lg:sticky lg:top-24"
+            >
+              <p
+                className="text-sm text-[var(--wn-n-300)] mb-2"
+                style={{ fontFamily: "var(--wn-font-display)" }}
+              >
+                Calculateur
+              </p>
+              <h3
+                className="text-2xl font-bold mb-6"
+                style={{ fontFamily: "var(--wn-font-display)" }}
+              >
+                Votre estimation
+              </h3>
+
+              <div className="space-y-3 mb-6">
+                <div className="flex items-center justify-between text-sm">
+                  <span className="text-[var(--wn-n-300)]">Base Wano</span>
+                  <span className="font-semibold">0 F</span>
+                </div>
+                {activeModules.length === 0 ? (
+                  <p
+                    className="text-sm text-[var(--wn-n-300)]"
+                    style={{ fontFamily: "var(--wn-font-display)" }}
+                  >
+                    Aucun module payant sélectionné.
+                  </p>
+                ) : (
+                  activeModules.map((module) => (
+                    <div key={module.id} className="flex items-center justify-between gap-4 text-sm">
+                      <span className="text-[var(--wn-n-300)]">{module.name}</span>
+                      <span className="font-semibold tabular-nums">
+                        {module.price.toLocaleString("fr-FR")} F
+                      </span>
+                    </div>
+                  ))
+                )}
+              </div>
+
+              <div className="border-t border-white/15 pt-5 mb-6">
+                <span
+                  className="block text-sm text-[var(--wn-n-300)] mb-1"
+                  style={{ fontFamily: "var(--wn-font-display)" }}
+                >
+                  Total estimé
+                </span>
+                <div
+                  className="text-4xl font-bold tabular-nums"
+                  style={{ fontFamily: "var(--wn-font-display)" }}
+                >
+                  {monthlyTotal.toLocaleString("fr-FR")}
+                  <span className="text-base font-normal text-[var(--wn-n-300)]">
+                    {" "}F CFA / mois
+                  </span>
+                </div>
+              </div>
+
+              <Link
+                href={registrationHref}
+                className="inline-flex h-12 w-full items-center justify-center bg-[var(--wn-green-500)] px-6 text-base font-semibold text-white transition-colors hover:bg-[var(--wn-green-700)]"
+                style={{ fontFamily: "var(--wn-font-display)" }}
+              >
+                Démarrer avec ces modules →
+              </Link>
+            </motion.aside>
           </div>
 
           {/* Enterprise CTA */}
@@ -308,7 +330,7 @@ export default function TarifsPage() {
                 className="text-2xl font-bold text-white mb-2"
                 style={{ fontFamily: "var(--wn-font-display)" }}
               >
-                Besoin d'un plan sur mesure ?
+                Besoin d&apos;un plan sur mesure ?
               </h3>
               <p
                 className="text-base text-[var(--wn-n-400)] mb-6"
@@ -338,16 +360,16 @@ export default function TarifsPage() {
             <div className="space-y-4">
               {[
                 {
-                  q: "Puis-je changer de plan à tout moment ?",
-                  a: "Oui, vous pouvez passer à un plan supérieur ou inférieur à tout moment. La différence sera calculée au prorata.",
+                  q: "Puis-je activer ou retirer un module à tout moment ?",
+                  a: "Oui, les modules peuvent être activés selon vos besoins. Votre facturation s'ajuste en fonction des modules actifs.",
                 },
                 {
                   q: "Comment fonctionne la période d'essai ?",
                   a: "Vous avez 14 jours gratuits avec accès complet. Aucune carte bancaire requise pour commencer.",
                 },
                 {
-                  q: "Que se passe-t-il si je dépasse mes limites ?",
-                  a: "Vous recevrez une notification. Vous pourrez soit passer à un plan supérieur, soit ajouter une option.",
+                  q: "Que se passe-t-il si je dépasse mes limites incluses ?",
+                  a: "Vous recevez une notification et pouvez ajouter le module correspondant, par exemple produits, factures ou point de vente.",
                 },
                 {
                   q: "Comment payer ?",
